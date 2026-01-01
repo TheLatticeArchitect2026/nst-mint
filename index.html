@@ -23,7 +23,8 @@ button:hover { background: #f00; }
 <p id="referral" style="display: none;">Your referral link:<br><a id="link" target="_blank"></a></p>
 
 <script>
-const NST_ADDRESS = "0x6B2951bB85A1b83E90f25E648e8DCD6cA3518D17";
+const NST_ADDRESS_LOWER = "0x6b2951bb85a1b83e90f25e648e8dcd6ca3518d17";
+const NST_ADDRESS = "0x6B2951bb85A1b83E90f25E648e8DcD6cA3518D17"; // Correct EIP-55 checksum from Basescan
 const MINT_PRICE = "0.02";
 const BASE_CHAIN_ID = 8453;
 const BASE_CHAIN_ID_HEX = '0x2105';
@@ -41,12 +42,16 @@ let web3, contract, accounts;
 
 document.getElementById("connectButton").onclick = async () => {
 if (window.ethereum) {
-web3 = new Web3(window.ethereum);
 try {
+web3 = new Web3(window.ethereum);
+
+// Request accounts first
 accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+
+// Create contract with correct checksum
 contract = new web3.eth.Contract(NST_ABI, NST_ADDRESS);
 
-// Check and switch to Base network
+// Now handle chain switch
 let chainId = await web3.eth.getChainId();
 if (chainId !== BASE_CHAIN_ID) {
 try {
@@ -55,78 +60,76 @@ method: 'wallet_switchEthereumChain',
 params: [{ chainId: BASE_CHAIN_ID_HEX }],
 });
 } catch (switchError) {
-if (switchError.code === 4902) { // Chain not added
+if (switchError.code === 4902 || switchError.code === -32603) {
 try {
 await window.ethereum.request({
 method: 'wallet_addEthereumChain',
-params: [
-{
+params: [{
 chainId: BASE_CHAIN_ID_HEX,
 chainName: 'Base Mainnet',
-nativeCurrency: {
-name: 'Ether',
-symbol: 'ETH',
-decimals: 18,
-},
+nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
 rpcUrls: ['https://mainnet.base.org'],
-blockExplorerUrls: ['https://basescan.org'],
-},
-],
+blockExplorerUrls: ['https://basescan.org']
+}]
 });
-// After adding, switch again
 await window.ethereum.request({
 method: 'wallet_switchEthereumChain',
-params: [{ chainId: BASE_CHAIN_ID_HEX }],
+params: [{ chainId: BASE_CHAIN_ID_HEX }]
 });
 } catch (addError) {
-document.getElementById("status").innerText = "Failed to add Base network: " + addError.message;
+document.getElementById("status").innerText = "Failed to add Base: " + addError.message;
 return;
 }
 } else {
-document.getElementById("status").innerText = "Failed to switch to Base network: " + switchError.message;
+document.getElementById("status").innerText = "Switch failed: " + switchError.message;
 return;
 }
 }
 }
 
-// Confirm switched
+// Final check
 chainId = await web3.eth.getChainId();
 if (chainId !== BASE_CHAIN_ID) {
-document.getElementById("status").innerText = "Please switch to Base Mainnet in your wallet.";
+document.getElementById("status").innerText = "Still not on Base Mainnet. Switch manually.";
 return;
 }
 
 document.getElementById("connectButton").style.display = "none";
 document.getElementById("mintButton").style.display = "block";
-document.getElementById("status").innerText = "Wallet connected on Base Mainnet!";
+document.getElementById("status").innerText = "Wallet connected on Base Mainnet! Ready to mint.";
+
 } catch (error) {
-document.getElementById("status").innerText = "Connection error: " + error.message;
+document.getElementById("status").innerText = "Error: " + error.message;
+console.error(error);
 }
 } else {
-document.getElementById("status").innerText = "Install MetaMask";
+document.getElementById("status").innerText = "MetaMask not detected. Install it.";
 }
 };
 
 document.getElementById("mintButton").onclick = async () => {
-document.getElementById("status").innerText = "Minting soul...";
+if (!contract || !accounts) {
+document.getElementById("status").innerText = "Connect wallet first.";
+return;
+}
+document.getElementById("status").innerText = "Minting your soul... (confirm in wallet)";
 try {
-// Optionally fetch current price
-// const priceWei = await contract.methods.mintPrice().call();
-// const value = priceWei;
 const value = web3.utils.toWei(MINT_PRICE, "ether");
 
-await contract.methods.mint().send({
+const tx = await contract.methods.mint().send({
 from: accounts[0],
 value: value,
 gas: 500000
 });
-document.getElementById("status").innerText = "Minted! Your soul is bound to the Lattice.";
+
+document.getElementById("status").innerText = "Soul minted forever! Tx: " + tx.transactionHash;
 document.getElementById("referral").style.display = "block";
 const refLink = window.location.href.split('?')[0] + "?ref=" + accounts[0].toLowerCase();
 document.getElementById("link").innerText = refLink;
 document.getElementById("link").href = refLink;
 } catch (error) {
-document.getElementById("status").innerText = "Error: " + error.message;
+document.getElementById("status").innerText = "Mint failed: " + error.message;
+console.error(error);
 }
 };
 </script>
