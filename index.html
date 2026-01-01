@@ -15,7 +15,7 @@ button:hover { background: #f00; }
 <body>
 <h1>NST Lattice</h1>
 <h2>Mint Your Soul – Canada Forever</h2>
-<p id="priceText">Pay 0.02 ETH to mint your permanent, soul-bound NST token.</p>
+<p id="priceText">Loading mint price...</p>
 <p>Invite 2 souls with your referral link – receive 500 CFT flux reward.</p>
 <button id="connectButton">Connect Wallet</button>
 <button id="mintButton" style="display: none;">Mint Soul</button>
@@ -24,15 +24,13 @@ button:hover { background: #f00; }
 
 <script>
 const NST_ADDRESS = "0x6B2951bb85A1b83E90f25E648e8DcD6cA3518D17";
+const FALLBACK_PRICE = "0.02"; // Hardcoded fallback in case fetch fails
 const BASE_CHAIN_ID = 8453;
 const BASE_CHAIN_ID_HEX = '0x2105';
 
 const NST_ABI = [
-{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
 {"inputs":[],"name":"mint","outputs":[],"stateMutability":"payable","type":"function"},
 {"inputs":[],"name":"mintPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-{"inputs":[],"name":"nextTokenId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},
 {"stateMutability":"payable","type":"receive"}
 ];
 
@@ -42,24 +40,16 @@ document.getElementById("connectButton").onclick = async () => {
 if (window.ethereum) {
 try {
 web3 = new Web3(window.ethereum);
-
-// Request accounts first
 accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-
-// Create contract with correct checksum
 contract = new web3.eth.Contract(NST_ABI, NST_ADDRESS);
 
-// Now handle chain switch
+// Chain switch logic
 let chainId = await web3.eth.getChainId();
 if (chainId !== BASE_CHAIN_ID) {
 try {
-await window.ethereum.request({
-method: 'wallet_switchEthereumChain',
-params: [{ chainId: BASE_CHAIN_ID_HEX }],
-});
+await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID_HEX }] });
 } catch (switchError) {
 if (switchError.code === 4902 || switchError.code === -32603) {
-try {
 await window.ethereum.request({
 method: 'wallet_addEthereumChain',
 params: [{
@@ -70,66 +60,65 @@ rpcUrls: ['https://mainnet.base.org'],
 blockExplorerUrls: ['https://basescan.org']
 }]
 });
-await window.ethereum.request({
-method: 'wallet_switchEthereumChain',
-params: [{ chainId: BASE_CHAIN_ID_HEX }]
-});
-} catch (addError) {
-document.getElementById("status").innerText = "Failed to add Base: " + addError.message;
-return;
-}
+await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID_HEX }] });
 } else {
-document.getElementById("status").innerText = "Switch failed: " + switchError.message;
-return;
+throw switchError;
 }
 }
 }
 
-// Final check
 chainId = await web3.eth.getChainId();
 if (chainId !== BASE_CHAIN_ID) {
-document.getElementById("status").innerText = "Still not on Base Mainnet. Switch manually.";
+document.getElementById("status").innerText = "Must be on Base Mainnet.";
 return;
 }
 
-// Fetch and display current mint price
+// Fetch mint price and update display
+let currentPriceEth = FALLBACK_PRICE;
 try {
 const priceWei = await contract.methods.mintPrice().call();
-const priceEth = web3.utils.fromWei(priceWei, "ether");
-document.getElementById("priceText").innerText = `Pay ${priceEth} ETH to mint your permanent, soul-bound NST token.`;
-} catch (priceError) {
-document.getElementById("status").innerText = "Failed to fetch mint price: " + priceError.message;
+currentPriceEth = web3.utils.fromWei(priceWei, "ether");
+} catch (e) {
+document.getElementById("status").innerText = "Price fetch failed, using fallback 0.02 ETH. Error: " + e.message;
 }
+document.getElementById("priceText").innerText = `Pay ${currentPriceEth} ETH to mint your permanent, soul-bound NST token.`;
 
 document.getElementById("connectButton").style.display = "none";
 document.getElementById("mintButton").style.display = "block";
-document.getElementById("status").innerText = "Wallet connected on Base Mainnet! Ready to mint.";
+document.getElementById("status").innerText = "Connected on Base! Click Mint Soul.";
 
 } catch (error) {
 document.getElementById("status").innerText = "Error: " + error.message;
-console.error(error);
 }
 } else {
-document.getElementById("status").innerText = "MetaMask not detected. Install it.";
+document.getElementById("status").innerText = "Install MetaMask.";
 }
 };
 
 document.getElementById("mintButton").onclick = async () => {
-if (!contract || !accounts) {
-document.getElementById("status").innerText = "Connect wallet first.";
-return;
-}
-document.getElementById("status").innerText = "Minting your soul... (confirm in wallet)";
+if (!contract || !accounts) return;
+
+document.getElementById("status").innerText = "Preparing mint...";
+
+let valueToSend;
 try {
 const priceWei = await contract.methods.mintPrice().call();
+valueToSend = priceWei;
+document.getElementById("status").innerText = "Minting with exact contract price... Confirm in wallet.";
+} catch (e) {
+// If call fails (revert or RPC issue), fall back to 0.02
+valueToSend = web3.utils.toWei(FALLBACK_PRICE, "ether");
+document.getElementById("status").innerText = "Price call failed – using 0.02 ETH fallback. Confirm in wallet.";
+}
 
+try {
 const tx = await contract.methods.mint().send({
 from: accounts[0],
-value: priceWei,
-gas: 500000
+value: valueToSend,
+gas: 300000 // Lowered a bit – successful mints use ~150-200k
 });
 
-document.getElementById("status").innerText = "Soul minted forever! Tx: " + tx.transactionHash;
+document.getElementById("status").innerText = "Soul minted! Tx: " + tx.transactionHash;
 document.getElementById("referral").style.display = "block";
 const refLink = window.location.href.split('?')[0] + "?ref=" + accounts[0].toLowerCase();
 document.getElementById("link").innerText = refLink;
