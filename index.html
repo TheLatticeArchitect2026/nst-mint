@@ -15,7 +15,7 @@ button:hover { background: #f00; }
 <body>
 <h1>NST Lattice</h1>
 <h2>Mint Your Soul – Canada Forever</h2>
-<p>Pay 0.02 ETH to mint your permanent, soul-bound NST token.</p>
+<p id="priceText">Pay 0.02 ETH to mint your permanent, soul-bound NST token.</p>
 <p>Invite 2 souls with your referral link – receive 500 CFT flux reward.</p>
 <button id="connectButton">Connect Wallet</button>
 <button id="mintButton" style="display: none;">Mint Soul</button>
@@ -23,9 +23,7 @@ button:hover { background: #f00; }
 <p id="referral" style="display: none;">Your referral link:<br><a id="link" target="_blank"></a></p>
 
 <script>
-const NST_ADDRESS_LOWER = "0x6b2951bb85a1b83e90f25e648e8dcd6ca3518d17";
-const NST_ADDRESS = "0x6B2951bb85A1b83E90f25E648e8DcD6cA3518D17"; // Correct EIP-55 checksum from Basescan
-const MINT_PRICE = "0.02";
+const NST_ADDRESS = "0x6B2951bb85A1b83E90f25E648e8DcD6cA3518D17";
 const BASE_CHAIN_ID = 8453;
 const BASE_CHAIN_ID_HEX = '0x2105';
 
@@ -94,6 +92,15 @@ document.getElementById("status").innerText = "Still not on Base Mainnet. Switch
 return;
 }
 
+// Fetch and display current mint price
+try {
+const priceWei = await contract.methods.mintPrice().call();
+const priceEth = web3.utils.fromWei(priceWei, "ether");
+document.getElementById("priceText").innerText = `Pay ${priceEth} ETH to mint your permanent, soul-bound NST token.`;
+} catch (priceError) {
+document.getElementById("status").innerText = "Failed to fetch mint price: " + priceError.message;
+}
+
 document.getElementById("connectButton").style.display = "none";
 document.getElementById("mintButton").style.display = "block";
 document.getElementById("status").innerText = "Wallet connected on Base Mainnet! Ready to mint.";
@@ -114,11 +121,11 @@ return;
 }
 document.getElementById("status").innerText = "Minting your soul... (confirm in wallet)";
 try {
-const value = web3.utils.toWei(MINT_PRICE, "ether");
+const priceWei = await contract.methods.mintPrice().call();
 
 const tx = await contract.methods.mint().send({
 from: accounts[0],
-value: value,
+value: priceWei,
 gas: 500000
 });
 
