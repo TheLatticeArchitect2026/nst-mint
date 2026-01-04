@@ -1,100 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NST Lattice – Mint Your Soul</title>
-<script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
-<style>
-body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
-h1 { font-size: 3em; }
-button { padding: 20px 40px; font-size: 1.5em; background: #c00; color: #fff; border: none; cursor: pointer; margin: 10px; }
-button:hover { background: #f00; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NST Lattice – Mint Your Soul</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
+        h1 { font-size: 3em; }
+        button { padding: 20px 40px; font-size: 1.5em; background: #c00; color: #fff; border: none; cursor: pointer; margin: 10px; }
+        button:hover { background: #f00; }
+    </style>
 </head>
 <body>
-<h1>NST Lattice</h1>
-<h2>Mint Your Soul – Canada Forever</h2>
-<p>Pay 0.02 ETH to mint your permanent, soul-bound NST token.</p>
-<p>Invite 2 souls with your referral link – receive 500 CFT flux reward.</p>
-<button id="connectButton">Connect Wallet</button>
-<button id="mintButton" style="display: none;">Mint Soul</button>
-<p id="status"></p>
-<p id="referral" style="display: none;">Your referral link:<br><a id="link" target="_blank"></a></p>
+    <h1>NST Lattice</h1>
+    <h2>Mint Your Soul – Canada Forever</h2>
+    <p>Pay 0.02 ETH to mint your permanent, soul-bound NST token.</p>
+    <p>Invite 2 souls with your referral link – receive 500 CFT flux reward.</p>
 
-<script>
-const NST_ADDRESS = "0x6B2951bb85A1b83E90f25E648e8DcD6cA3518D17";
-const MINT_PRICE_WEI = "20000000000000000"; // Exact 0.02 ETH
-const BASE_CHAIN_ID = 8453;
-const BASE_CHAIN_ID_HEX = '0x2105';
+    <button id="connectButton">Connect Wallet</button>
+    <button id="mintButton" style="display: none;">Mint Soul</button>
 
-const NST_ABI = [
-{"inputs":[],"name":"mint","outputs":[],"stateMutability":"payable","type":"function"}
-];
+    <p id="status"></p>
+    <p id="referral" style="display: none;">
+        Your referral link:<br>
+        <a id="link" target="_blank"></a>
+    </p>
 
-let web3, contract, accounts;
+    <script>
+        const NST_ADDRESS = "0xREPLACE_WITH_DEPLOYED_NST_ADDRESS"; // ← PUT YOUR CONTRACT ADDRESS HERE
 
-document.getElementById("connectButton").onclick = async () => {
-if (!window.ethereum) {
-document.getElementById("status").innerText = "Install MetaMask.";
-return;
-}
+        const MINT_PRICE_WEI = "20000000000000000"; // 0.02 ETH
+        const BASE_CHAIN_ID = 8453;
+        const BASE_CHAIN_ID_HEX = "0x2105";
 
-try {
-web3 = new Web3(window.ethereum);
-accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-contract = new web3.eth.Contract(NST_ABI, NST_ADDRESS);
+        const NST_ABI = [
+            {
+                "inputs": [{"internalType": "address", "name": "referrer", "type": "address"}],
+                "name": "mint",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "owner", "type": "address"}],
+                "name": "balanceOf",
+                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ];
 
-let chainId = await web3.eth.getChainId();
-if (chainId !== BASE_CHAIN_ID) {
-try {
-await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID_HEX }] });
-} catch (err) {
-if (err.code === 4902) {
-await ethereum.request({
-method: 'wallet_addEthereumChain',
-params: [{
-chainId: BASE_CHAIN_ID_HEX,
-chainName: 'Base Mainnet',
-nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-rpcUrls: ['https://mainnet.base.org'],
-blockExplorerUrls: ['https://basescan.org']
-}]
-});
-await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID_HEX }] });
-} else {
-throw err;
-}
-}
-}
+        let web3, contract, accounts;
+        const urlParams = new URLSearchParams(window.location.search);
+        let referrer = urlParams.get('ref') || "0x0000000000000000000000000000000000000000";
 
-document.getElementById("connectButton").style.display = "none";
-document.getElementById("mintButton").style.display = "block";
-document.getElementById("status").innerText = "Connected on Base! Click Mint Soul → Set gas to Aggressive → Confirm.";
-} catch (error) {
-document.getElementById("status").innerText = "Connection error: " + error.message;
-}
-};
+        document.getElementById("connectButton").onclick = async () => {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                try {
+                    accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                    contract = new web3.eth.Contract(NST_ABI, NST_ADDRESS);
 
-document.getElementById("mintButton").onclick = async () => {
-document.getElementById("status").innerText = "Confirm in MetaMask – use Aggressive gas for instant confirmation.";
+                    const chainId = await web3.eth.getChainId();
+                    if (chainId !== BASE_CHAIN_ID) {
+                        await ethereum.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: BASE_CHAIN_ID_HEX }]
+                        });
+                    }
 
-try {
-await contract.methods.mint().send({
-from: accounts[0],
-value: MINT_PRICE_WEI,
-gas: 300000
-});
+                    document.getElementById("connectButton").style.display = "none";
+                    document.getElementById("mintButton").style.display = "block";
+                    document.getElementById("status").innerText = "Connected on Base!";
+                } catch (error) {
+                    document.getElementById("status").innerText = "Error: " + error.message;
+                }
+            } else {
+                document.getElementById("status").innerText = "Please install MetaMask";
+            }
+        };
 
-document.getElementById("status").innerText = "Soul minted eternally! Check Basescan.";
-document.getElementById("referral").style.display = "block";
-const refLink = window.location.href.split('?')[0] + "?ref=" + accounts[0].toLowerCase();
-document.getElementById("link").innerText = refLink;
-document.getElementById("link").href = refLink;
-} catch (error) {
-document.getElementById("status").innerText = "Error: " + error.message;
-}
-};
-</script>
+        document.getElementById("mintButton").onclick = async () => {
+            document.getElementById("status").innerText = "Minting... Confirm transaction.";
+            try {
+                const balance = await contract.methods.balanceOf(accounts[0]).call();
+                if (parseInt(balance) > 0) {
+                    document.getElementById("status").innerText = "Soul already bound!";
+                    return;
+                }
+
+                await contract.methods.mint(referrer).send({
+                    from: accounts[0],
+                    value: MINT_PRICE_WEI,
+                    gas: 400000
+                });
+
+                document.getElementById("status").innerText = "Soul bound eternally!";
+                document.getElementById("referral").style.display = "block";
+
+                const baseUrl = window.location.href.split('?')[0];
+                const refLink = baseUrl + "?ref=" + accounts[0].toLowerCase();
+                document.getElementById("link").innerText = refLink;
+                document.getElementById("link").href = refLink;
+            } catch (error) {
+                document.getElementById("status").innerText = "Error: " + error.message;
+            }
+        };
+    </script>
 </body>
 </html>
