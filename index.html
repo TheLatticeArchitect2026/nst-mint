@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NST Lattice – Mint Your Soul</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
         h1 { font-size: 3.2em; margin-bottom: 0.2em; }
@@ -34,15 +34,13 @@
 
     <div class="section">
         <h3>Corporate / Group Mint + Flux Peg Calculator</h3>
-        <p>Plan bulk soul mints for your team/company + see real-time ETH → CFT peg (CAD-stable via oracle).</p>
+        <p>Plan bulk soul mints + see real-time ETH → CFT peg (CAD-stable via oracle).</p>
 
-        <!-- Corporate souls count -->
         <input id="employeeCount" type="number" placeholder="Number of souls/employees" min="1">
         <button onclick="calculateCorporate()">Calculate Group</button>
         <p id="corporateResult" style="font-size:1.3em; margin:15px 0;"></p>
 
-        <!-- Peg calculator integrated below -->
-        <input id="ethInput" type="number" placeholder="ETH amount for peg preview (e.g. 1.0)" step="0.0001" min="0.001">
+        <input id="ethInput" type="number" placeholder="ETH amount for peg preview" step="0.0001" min="0.001">
         <button onclick="calculatePeg()">Calculate Peg</button>
         <p id="pegResult" style="font-size:1.3em; margin-top:10px; color:#ffcc00;"></p>
     </div>
@@ -57,7 +55,7 @@
         const NST_ADDRESS = "0x354129E341739B317c82790630772385B6f52341";
         const CFT_ADDRESS = "0x84BDCb2b7a61832653FfcDe1fF0Bba5352D71a64";
 
-        const MINT_PRICE_WEI = "20000000000000000"; // 0.02 ETH
+        const MINT_PRICE_WEI = "20000000000000000";
         const BASE_CHAIN_ID = 8453;
         const BASE_CHAIN_ID_HEX = "0x2105";
 
@@ -87,10 +85,7 @@
 
                 const chainId = await web3.eth.getChainId();
                 if (chainId !== BASE_CHAIN_ID) {
-                    await ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{chainId: BASE_CHAIN_ID_HEX}]
-                    });
+                    await ethereum.request({method: 'wallet_switchEthereumChain', params: [{chainId: BASE_CHAIN_ID_HEX}]});
                 }
 
                 document.getElementById("connectButton").style.display = "none";
@@ -103,7 +98,7 @@
         };
 
         document.getElementById("mintButton").onclick = async () => {
-            document.getElementById("status").innerText = "Minting... Please confirm";
+            document.getElementById("status").innerText = "Minting... Confirm in MetaMask";
             try {
                 const balance = await nst.methods.balanceOf(accounts[0]).call();
                 if (parseInt(balance) > 0) {
@@ -111,23 +106,30 @@
                     return;
                 }
 
+                // Fixed tx for Base (EIP-1559 type 2 + dynamic fees)
+                const gasPrice = await web3.eth.getGasPrice();
+                const maxPriorityFee = web3.utils.toWei('2', 'gwei');
+
                 await nst.methods.mint(referrer).send({
                     from: accounts[0],
                     value: MINT_PRICE_WEI,
-                    gas: 400000
+                    gas: 500000, // Slightly higher for safety
+                    maxPriorityFeePerGas: maxPriorityFee,
+                    maxFeePerGas: gasPrice * 2n,
+                    type: '0x2'
                 });
 
-                document.getElementById("status").innerText = "Soul successfully bound — Welcome to the Lattice!";
+                document.getElementById("status").innerText = "Soul bound eternally! Welcome to the Lattice!";
                 document.getElementById("referral").style.display = "block";
 
-                const base = window.location.href.split('?')[0];
-                const refLink = base + "?ref=" + accounts[0].toLowerCase();
+                const baseUrl = window.location.href.split('?')[0];
+                const refLink = baseUrl + "?ref=" + accounts[0].toLowerCase();
                 document.getElementById("link").innerText = refLink;
                 document.getElementById("link").href = refLink;
 
                 refreshDashboard();
             } catch (e) {
-                document.getElementById("status").innerText = "Transaction failed: " + e.message;
+                document.getElementById("status").innerText = "Tx failed: " + (e.message || e);
             }
         };
 
@@ -137,22 +139,22 @@
             const totalEth = (count * 0.02).toFixed(3);
             const rewards = Math.floor(count / 2) * 500;
             document.getElementById("corporateResult").innerHTML =
-                `For <strong>\( {count}</strong> souls: ≈ <strong> \){totalEth}</strong> ETH total • ≈ <strong>${rewards.toLocaleString()}</strong> CFT potential rewards`;
+                `For <strong>\( {count}</strong> souls: ≈ <strong> \){totalEth}</strong> ETH • ≈ <strong>${rewards.toLocaleString()}</strong> CFT rewards`;
         }
 
         async function calculatePeg() {
             const eth = parseFloat(document.getElementById("ethInput").value);
             if (isNaN(eth) || eth <= 0) {
-                document.getElementById("pegResult").innerText = "Enter a valid ETH amount > 0.";
+                document.getElementById("pegResult").innerText = "Enter valid ETH amount > 0";
                 return;
             }
             try {
                 const price = await cft.methods.getEthCadPrice().call();
                 const cadValue = (eth * Number(price)) / 1e8;
                 document.getElementById("pegResult").innerHTML = 
-                    `Sending <strong>\( {eth.toFixed(4)}</strong> ETH → ≈ <strong> \){cadValue.toFixed(0).toLocaleString()}</strong> CFT (CAD-pegged via oracle).<br>Real mint on send.`;
-            } catch (error) {
-                document.getElementById("pegResult").innerText = "Error: " + (error.message.includes("Invalid oracle") ? "Oracle stale — try again soon" : error.message);
+                    `Sending <strong>\( {eth.toFixed(4)}</strong> ETH → ≈ <strong> \){cadValue.toFixed(0).toLocaleString()}</strong> CFT (CAD-pegged oracle)`;
+            } catch (e) {
+                document.getElementById("pegResult").innerText = "Peg error: " + (e.message || e);
             }
         }
 
@@ -162,7 +164,7 @@
                 document.getElementById("totalNST").innerText = total;
 
                 const supply = await cft.methods.totalSupply().call();
-                document.getElementById("totalCFT").innerText =
+                document.getElementById("totalCFT").innerText = 
                     (Number(supply) / 1e18).toLocaleString(undefined, {maximumFractionDigits: 0});
             } catch {}
         }
