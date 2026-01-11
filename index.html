@@ -11,8 +11,9 @@
         h2, h3 { color: #ff4444; }
         button { padding: 18px 40px; font-size: 1.4em; background: #c00; color: white; border: none; border-radius: 8px; cursor: pointer; margin: 12px; }
         button:hover { background: #f00; }
-        input { padding: 12px; font-size: 1.2em; width: 180px; margin: 10px; }
+        input { padding: 12px; font-size: 1.2em; width: 220px; margin: 10px; }
         #status { min-height: 1.6em; color: #ffcc00; font-weight: bold; }
+        .section { margin: 50px 0; }
     </style>
 </head>
 <body>
@@ -31,18 +32,30 @@
         <a id="link" target="_blank" style="color:#ffcc00; word-break:break-all;"></a>
     </div>
 
-    <h3 style="margin-top:60px;">Corporate / Group Mint Calculator</h3>
-    <input id="employeeCount" type="number" placeholder="Number of souls" min="1">
-    <button onclick="calculateCorporate()">Calculate</button>
-    <p id="corporateResult" style="font-size:1.3em; margin-top:10px;"></p>
+    <div class="section">
+        <h3>Corporate / Group Mint + Flux Peg Calculator</h3>
+        <p>Plan bulk soul mints for your team/company + see real-time ETH → CFT peg (CAD-stable via oracle).</p>
 
-    <h3>Lattice Status</h3>
-    <p>Total Souls Minted: <strong id="totalNST">—</strong></p>
-    <p>Total CFT in Circulation: <strong id="totalCFT">—</strong></p>
+        <!-- Corporate souls count -->
+        <input id="employeeCount" type="number" placeholder="Number of souls/employees" min="1">
+        <button onclick="calculateCorporate()">Calculate Group</button>
+        <p id="corporateResult" style="font-size:1.3em; margin:15px 0;"></p>
+
+        <!-- Peg calculator integrated below -->
+        <input id="ethInput" type="number" placeholder="ETH amount for peg preview (e.g. 1.0)" step="0.0001" min="0.001">
+        <button onclick="calculatePeg()">Calculate Peg</button>
+        <p id="pegResult" style="font-size:1.3em; margin-top:10px; color:#ffcc00;"></p>
+    </div>
+
+    <div class="section">
+        <h3>Lattice Status</h3>
+        <p>Total Souls Minted: <strong id="totalNST">—</strong></p>
+        <p>Total CFT in Circulation: <strong id="totalCFT">—</strong></p>
+    </div>
 
     <script>
-        const NST_ADDRESS = 0x354129E341739B317c82790630772385B6f52341;
-        const CFT_ADDRESS = 0x84BDCb2b7a61832653FfcDe1fF0Bba5352D71a64;
+        const NST_ADDRESS = "0x354129E341739B317c82790630772385B6f52341";
+        const CFT_ADDRESS = "0x84BDCb2b7a61832653FfcDe1fF0Bba5352D71a64";
 
         const MINT_PRICE_WEI = "20000000000000000"; // 0.02 ETH
         const BASE_CHAIN_ID = 8453;
@@ -55,7 +68,8 @@
         ];
 
         const CFT_ABI = [
-            {"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"}
+            {"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"getEthCadPrice","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"}
         ];
 
         let web3, nst, cft, accounts;
@@ -124,6 +138,22 @@
             const rewards = Math.floor(count / 2) * 500;
             document.getElementById("corporateResult").innerHTML =
                 `For <strong>\( {count}</strong> souls: ≈ <strong> \){totalEth}</strong> ETH total • ≈ <strong>${rewards.toLocaleString()}</strong> CFT potential rewards`;
+        }
+
+        async function calculatePeg() {
+            const eth = parseFloat(document.getElementById("ethInput").value);
+            if (isNaN(eth) || eth <= 0) {
+                document.getElementById("pegResult").innerText = "Enter a valid ETH amount > 0.";
+                return;
+            }
+            try {
+                const price = await cft.methods.getEthCadPrice().call();
+                const cadValue = (eth * Number(price)) / 1e8;
+                document.getElementById("pegResult").innerHTML = 
+                    `Sending <strong>\( {eth.toFixed(4)}</strong> ETH → ≈ <strong> \){cadValue.toFixed(0).toLocaleString()}</strong> CFT (CAD-pegged via oracle).<br>Real mint on send.`;
+            } catch (error) {
+                document.getElementById("pegResult").innerText = "Error: " + (error.message.includes("Invalid oracle") ? "Oracle stale — try again soon" : error.message);
+            }
         }
 
         async function refreshDashboard() {
