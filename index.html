@@ -7,106 +7,135 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
-        h1 { font-size: 3em; }
-        button { padding: 20px 40px; font-size: 1.5em; background: #c00; color: #fff; border: none; cursor: pointer; margin: 10px; }
+        h1 { font-size: 3.2em; margin-bottom: 0.2em; }
+        h2, h3 { color: #ff4444; }
+        button { padding: 18px 40px; font-size: 1.4em; background: #c00; color: white; border: none; border-radius: 8px; cursor: pointer; margin: 12px; }
         button:hover { background: #f00; }
+        input { padding: 12px; font-size: 1.2em; width: 180px; margin: 10px; }
+        #status { min-height: 1.6em; color: #ffcc00; font-weight: bold; }
     </style>
 </head>
 <body>
     <h1>NST Lattice</h1>
     <h2>Mint Your Soul – Canada Forever</h2>
-    <p>Pay 0.02 ETH to mint your permanent, soul-bound NST token.</p>
-    <p>Invite 2 souls with your referral link – receive 500 CFT flux reward.</p>
+    <p>Pay 0.02 ETH to permanently bind your soul to the Lattice.</p>
+    <p>Refer 2 souls → receive <strong>500 CFT</strong> flux reward (manual claim for now).</p>
 
     <button id="connectButton">Connect Wallet</button>
-    <button id="mintButton" style="display: none;">Mint Soul</button>
+    <button id="mintButton" style="display:none;">Mint Soul (0.02 ETH)</button>
 
     <p id="status"></p>
-    <p id="referral" style="display: none;">
-        Your referral link:<br>
-        <a id="link" target="_blank"></a>
-    </p>
+
+    <div id="referral" style="display:none; margin-top:30px;">
+        <strong>Your Referral Link:</strong><br>
+        <a id="link" target="_blank" style="color:#ffcc00; word-break:break-all;"></a>
+    </div>
+
+    <h3 style="margin-top:60px;">Corporate / Group Mint Calculator</h3>
+    <input id="employeeCount" type="number" placeholder="Number of souls" min="1">
+    <button onclick="calculateCorporate()">Calculate</button>
+    <p id="corporateResult" style="font-size:1.3em; margin-top:10px;"></p>
+
+    <h3>Lattice Status</h3>
+    <p>Total Souls Minted: <strong id="totalNST">—</strong></p>
+    <p>Total CFT in Circulation: <strong id="totalCFT">—</strong></p>
 
     <script>
-        const NST_ADDRESS = "0x49a7eb5A01F28291177b117EB062B85f86c6d223"; 
+        const NST_ADDRESS = "0xYOUR_NST_CONTRACT_ADDRESS_HERE";
+        const CFT_ADDRESS = "0xYOUR_CFT_CONTRACT_ADDRESS_HERE";
 
         const MINT_PRICE_WEI = "20000000000000000"; // 0.02 ETH
         const BASE_CHAIN_ID = 8453;
         const BASE_CHAIN_ID_HEX = "0x2105";
 
         const NST_ABI = [
-            {
-                "inputs": [{"internalType": "address", "name": "referrer", "type": "address"}],
-                "name": "mint",
-                "outputs": [],
-                "stateMutability": "payable",
-                "type": "function"
-            },
-            {
-                "inputs": [{"internalType": "address", "name": "owner", "type": "address"}],
-                "name": "balanceOf",
-                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-                "stateMutability": "view",
-                "type": "function"
-            }
+            {"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"mint","outputs":[],"stateMutability":"payable","type":"function"},
+            {"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"},
+            {"inputs":[],"name":"nextTokenId","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"}
         ];
 
-        let web3, contract, accounts;
+        const CFT_ABI = [
+            {"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"}
+        ];
+
+        let web3, nst, cft, accounts;
         const urlParams = new URLSearchParams(window.location.search);
         let referrer = urlParams.get('ref') || "0x0000000000000000000000000000000000000000";
 
         document.getElementById("connectButton").onclick = async () => {
-            if (window.ethereum) {
-                web3 = new Web3(window.ethereum);
-                try {
-                    accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                    contract = new web3.eth.Contract(NST_ABI, NST_ADDRESS);
+            if (!window.ethereum) return document.getElementById("status").innerText = "MetaMask not detected";
 
-                    const chainId = await web3.eth.getChainId();
-                    if (chainId !== BASE_CHAIN_ID) {
-                        await ethereum.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: BASE_CHAIN_ID_HEX }]
-                        });
-                    }
+            web3 = new Web3(window.ethereum);
+            try {
+                accounts = await ethereum.request({method: 'eth_requestAccounts'});
+                nst = new web3.eth.Contract(NST_ABI, NST_ADDRESS);
+                cft = new web3.eth.Contract(CFT_ABI, CFT_ADDRESS);
 
-                    document.getElementById("connectButton").style.display = "none";
-                    document.getElementById("mintButton").style.display = "block";
-                    document.getElementById("status").innerText = "Connected on Base!";
-                } catch (error) {
-                    document.getElementById("status").innerText = "Error: " + error.message;
+                const chainId = await web3.eth.getChainId();
+                if (chainId !== BASE_CHAIN_ID) {
+                    await ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{chainId: BASE_CHAIN_ID_HEX}]
+                    });
                 }
-            } else {
-                document.getElementById("status").innerText = "Please install MetaMask";
+
+                document.getElementById("connectButton").style.display = "none";
+                document.getElementById("mintButton").style.display = "inline-block";
+                document.getElementById("status").innerText = "Connected to Base ✓";
+                refreshDashboard();
+            } catch (e) {
+                document.getElementById("status").innerText = "Error: " + e.message;
             }
         };
 
         document.getElementById("mintButton").onclick = async () => {
-            document.getElementById("status").innerText = "Minting... Confirm transaction.";
+            document.getElementById("status").innerText = "Minting... Please confirm";
             try {
-                const balance = await contract.methods.balanceOf(accounts[0]).call();
+                const balance = await nst.methods.balanceOf(accounts[0]).call();
                 if (parseInt(balance) > 0) {
-                    document.getElementById("status").innerText = "Soul already bound!";
+                    document.getElementById("status").innerText = "You already have a soul bound";
                     return;
                 }
 
-                await contract.methods.mint(referrer).send({
+                await nst.methods.mint(referrer).send({
                     from: accounts[0],
                     value: MINT_PRICE_WEI,
                     gas: 400000
                 });
 
-                document.getElementById("status").innerText = "Soul bound eternally!";
+                document.getElementById("status").innerText = "Soul successfully bound — Welcome to the Lattice!";
                 document.getElementById("referral").style.display = "block";
 
-                const baseUrl = window.location.href.split('?')[0];
-                const refLink = baseUrl + "?ref=" + accounts[0].toLowerCase();
+                const base = window.location.href.split('?')[0];
+                const refLink = base + "?ref=" + accounts[0].toLowerCase();
                 document.getElementById("link").innerText = refLink;
                 document.getElementById("link").href = refLink;
-            } catch (error) {
-                document.getElementById("status").innerText = "Error: " + error.message;
+
+                refreshDashboard();
+            } catch (e) {
+                document.getElementById("status").innerText = "Transaction failed: " + e.message;
             }
         };
+
+        function calculateCorporate() {
+            const count = parseInt(document.getElementById("employeeCount").value) || 0;
+            if (count < 1) return;
+            const totalEth = (count * 0.02).toFixed(3);
+            const rewards = Math.floor(count / 2) * 500;
+            document.getElementById("corporateResult").innerHTML =
+                `For <strong>\( {count}</strong> souls: ≈ <strong> \){totalEth}</strong> ETH total • ≈ <strong>${rewards.toLocaleString()}</strong> CFT potential rewards`;
+        }
+
+        async function refreshDashboard() {
+            try {
+                const total = await nst.methods.nextTokenId().call();
+                document.getElementById("totalNST").innerText = total;
+
+                const supply = await cft.methods.totalSupply().call();
+                document.getElementById("totalCFT").innerText =
+                    (Number(supply) / 1e18).toLocaleString(undefined, {maximumFractionDigits: 0});
+            } catch {}
+        }
     </script>
 </body>
 </html>
