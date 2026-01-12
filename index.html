@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NST Lattice – Mint Your Soul</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
         h1 { font-size: 3.2em; margin-bottom: 0.2em; }
@@ -106,16 +106,17 @@
                     return;
                 }
 
-                // Fixed tx for Base (EIP-1559 type 2 + dynamic fees)
+                // Fixed tx for Base: Explicit type 2 (EIP-1559) + dynamic fees
                 const gasPrice = await web3.eth.getGasPrice();
-                const maxPriorityFee = web3.utils.toWei('2', 'gwei');
+                const maxPriorityFeePerGas = web3.utils.toWei('0.1', 'gwei'); // Low tip for Base
+                const maxFeePerGas = (BigInt(gasPrice) + BigInt(maxPriorityFeePerGas)).toString();
 
                 await nst.methods.mint(referrer).send({
                     from: accounts[0],
                     value: MINT_PRICE_WEI,
-                    gas: 500000, // Slightly higher for safety
-                    maxPriorityFeePerGas: maxPriorityFee,
-                    maxFeePerGas: gasPrice * 2n,
+                    gas: '500000', // Safe limit
+                    maxPriorityFeePerGas: maxPriorityFeePerGas,
+                    maxFeePerGas: maxFeePerGas,
                     type: '0x2'
                 });
 
