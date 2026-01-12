@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NST Lattice – Mint Your Soul</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@4.0.3/dist/web3.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
         h1 { font-size: 3.2em; margin-bottom: 0.2em; }
@@ -55,7 +55,7 @@
         const NST_ADDRESS = "0x354129E341739B317c82790630772385B6f52341";
         const CFT_ADDRESS = "0x84BDCb2b7a61832653FfcDe1fF0Bba5352D71a64";
 
-        const MINT_PRICE_WEI = "20000000000000000";
+        const MINT_PRICE_WEI = "20000000000000000n"; // BigInt for v4
         const BASE_CHAIN_ID = 8453;
         const BASE_CHAIN_ID_HEX = "0x2105";
 
@@ -93,7 +93,7 @@
                 document.getElementById("status").innerText = "Connected to Base ✓";
                 refreshDashboard();
             } catch (e) {
-                document.getElementById("status").innerText = "Error: " + e.message;
+                document.getElementById("status").innerText = "Connect error: " + e.message;
             }
         };
 
@@ -101,23 +101,20 @@
             document.getElementById("status").innerText = "Minting... Confirm in MetaMask";
             try {
                 const balance = await nst.methods.balanceOf(accounts[0]).call();
-                if (parseInt(balance) > 0) {
+                if (BigInt(balance) > 0n) {
                     document.getElementById("status").innerText = "You already have a soul bound";
                     return;
                 }
 
-                // Fixed tx for Base: Explicit type 2 (EIP-1559) + dynamic fees
-                const gasPrice = await web3.eth.getGasPrice();
-                const maxPriorityFeePerGas = web3.utils.toWei('0.1', 'gwei'); // Low tip for Base
-                const maxFeePerGas = (BigInt(gasPrice) + BigInt(maxPriorityFeePerGas)).toString();
-
+                // Web3 v4 + Base fix: Use full EIP-1559 params
+                const feeData = await web3.eth.getFeeData();
                 await nst.methods.mint(referrer).send({
                     from: accounts[0],
                     value: MINT_PRICE_WEI,
-                    gas: '500000', // Safe limit
-                    maxPriorityFeePerGas: maxPriorityFeePerGas,
-                    maxFeePerGas: maxFeePerGas,
-                    type: '0x2'
+                    gasLimit: '500000',
+                    maxPriorityFeePerGas: feeData.maxPriorityFeePerGas.toString(),
+                    maxFeePerGas: feeData.maxFeePerGas.toString(),
+                    type: '0x02' // Explicit EIP-1559
                 });
 
                 document.getElementById("status").innerText = "Soul bound eternally! Welcome to the Lattice!";
@@ -130,7 +127,7 @@
 
                 refreshDashboard();
             } catch (e) {
-                document.getElementById("status").innerText = "Tx failed: " + (e.message || e);
+                document.getElementById("status").innerText = "Tx failed: " + (e.message || e.reason || e);
             }
         };
 
