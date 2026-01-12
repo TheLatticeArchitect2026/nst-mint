@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NST Lattice – Mint Your Soul</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@4.0.3/dist/web3.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-6.13.1.umd.min.js" type="text/javascript"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
         h1 { font-size: 3.2em; margin-bottom: 0.2em; }
@@ -55,38 +55,42 @@
         const NST_ADDRESS = "0x354129E341739B317c82790630772385B6f52341";
         const CFT_ADDRESS = "0x84BDCb2b7a61832653FfcDe1fF0Bba5352D71a64";
 
-        const MINT_PRICE_WEI = "20000000000000000n"; // BigInt for v4
-        const BASE_CHAIN_ID = 8453;
-        const BASE_CHAIN_ID_HEX = "0x2105";
+        const MINT_PRICE = ethers.parseEther("0.02");
 
         const NST_ABI = [
-            {"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"mint","outputs":[],"stateMutability":"payable","type":"function"},
-            {"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"},
-            {"inputs":[],"name":"nextTokenId","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"}
+            "function mint(address referrer) external payable",
+            "function balanceOf(address owner) external view returns (uint256)",
+            "function nextTokenId() external view returns (uint256)"
         ];
 
         const CFT_ABI = [
-            {"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"},
-            {"inputs":[],"name":"getEthCadPrice","outputs":[{"internalType":"uint256"}],"stateMutability":"view","type":"function"}
+            "function totalSupply() external view returns (uint256)",
+            "function getEthCadPrice() external view returns (uint256)"
         ];
 
-        let web3, nst, cft, accounts;
+        let provider, signer, nst, cft, accounts;
         const urlParams = new URLSearchParams(window.location.search);
         let referrer = urlParams.get('ref') || "0x0000000000000000000000000000000000000000";
 
         document.getElementById("connectButton").onclick = async () => {
             if (!window.ethereum) return document.getElementById("status").innerText = "MetaMask not detected";
 
-            web3 = new Web3(window.ethereum);
             try {
-                accounts = await ethereum.request({method: 'eth_requestAccounts'});
-                nst = new web3.eth.Contract(NST_ABI, NST_ADDRESS);
-                cft = new web3.eth.Contract(CFT_ABI, CFT_ADDRESS);
+                provider = new ethers.BrowserProvider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                signer = await provider.getSigner();
+                accounts = [await signer.getAddress()];
 
-                const chainId = await web3.eth.getChainId();
-                if (chainId !== BASE_CHAIN_ID) {
-                    await ethereum.request({method: 'wallet_switchEthereumChain', params: [{chainId: BASE_CHAIN_ID_HEX}]});
+                const network = await provider.getNetwork();
+                if (Number(network.chainId) !== 8453) {
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x2105' }]
+                    });
                 }
+
+                nst = new ethers.Contract(NST_ADDRESS, NST_ABI, signer);
+                cft = new ethers.Contract(CFT_ADDRESS, CFT_ABI, provider);
 
                 document.getElementById("connectButton").style.display = "none";
                 document.getElementById("mintButton").style.display = "inline-block";
@@ -100,22 +104,22 @@
         document.getElementById("mintButton").onclick = async () => {
             document.getElementById("status").innerText = "Minting... Confirm in MetaMask";
             try {
-                const balance = await nst.methods.balanceOf(accounts[0]).call();
-                if (BigInt(balance) > 0n) {
+                const balance = await nst.balanceOf(accounts[0]);
+                if (balance > 0n) {
                     document.getElementById("status").innerText = "You already have a soul bound";
                     return;
                 }
 
-                // Web3 v4 + Base fix: Use full EIP-1559 params
-                const feeData = await web3.eth.getFeeData();
-                await nst.methods.mint(referrer).send({
-                    from: accounts[0],
-                    value: MINT_PRICE_WEI,
-                    gasLimit: '500000',
-                    maxPriorityFeePerGas: feeData.maxPriorityFeePerGas.toString(),
-                    maxFeePerGas: feeData.maxFeePerGas.toString(),
-                    type: '0x02' // Explicit EIP-1559
+                const feeData = await provider.getFeeData();
+
+                const tx = await nst.mint(referrer, {
+                    value: MINT_PRICE,
+                    gasLimit: 500000,
+                    maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
+                    maxFeePerGas: feeData.maxFeePerGas
                 });
+
+                await tx.wait();
 
                 document.getElementById("status").innerText = "Soul bound eternally! Welcome to the Lattice!";
                 document.getElementById("referral").style.display = "block";
@@ -147,7 +151,7 @@
                 return;
             }
             try {
-                const price = await cft.methods.getEthCadPrice().call();
+                const price = await cft.getEthCadPrice();
                 const cadValue = (eth * Number(price)) / 1e8;
                 document.getElementById("pegResult").innerHTML = 
                     `Sending <strong>\( {eth.toFixed(4)}</strong> ETH → ≈ <strong> \){cadValue.toFixed(0).toLocaleString()}</strong> CFT (CAD-pegged oracle)`;
@@ -158,10 +162,10 @@
 
         async function refreshDashboard() {
             try {
-                const total = await nst.methods.nextTokenId().call();
-                document.getElementById("totalNST").innerText = total;
+                const total = await nst.nextTokenId();
+                document.getElementById("totalNST").innerText = total.toString();
 
-                const supply = await cft.methods.totalSupply().call();
+                const supply = await cft.totalSupply();
                 document.getElementById("totalCFT").innerText = 
                     (Number(supply) / 1e18).toLocaleString(undefined, {maximumFractionDigits: 0});
             } catch {}
