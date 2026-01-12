@@ -69,20 +69,29 @@
         ];
 
         let provider, signer, nst, cft, accounts;
+
         const urlParams = new URLSearchParams(window.location.search);
         let referrer = urlParams.get('ref') || "0x0000000000000000000000000000000000000000";
 
         document.getElementById("connectButton").onclick = async () => {
-            if (!window.ethereum) return document.getElementById("status").innerText = "MetaMask not detected";
+            if (!window.ethereum) {
+                document.getElementById("status").innerText = "MetaMask not detected. Install it!";
+                return;
+            }
 
             try {
+                document.getElementById("status").innerText = "Connecting... Approve in MetaMask";
                 provider = new ethers.BrowserProvider(window.ethereum);
+
+                // Request accounts (this triggers popup)
                 await provider.send("eth_requestAccounts", []);
+
                 signer = await provider.getSigner();
                 accounts = [await signer.getAddress()];
 
                 const network = await provider.getNetwork();
                 if (Number(network.chainId) !== 8453) {
+                    document.getElementById("status").innerText = "Switching to Base...";
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
                         params: [{ chainId: '0x2105' }]
@@ -97,11 +106,16 @@
                 document.getElementById("status").innerText = "Connected to Base ✓";
                 refreshDashboard();
             } catch (e) {
-                document.getElementById("status").innerText = "Connect error: " + e.message;
+                document.getElementById("status").innerText = "Connect failed: " + (e.message || e);
+                console.error("Connect error:", e);
             }
         };
 
         document.getElementById("mintButton").onclick = async () => {
+            if (!nst) {
+                document.getElementById("status").innerText = "Contract not initialized - reconnect wallet";
+                return;
+            }
             document.getElementById("status").innerText = "Minting... Confirm in MetaMask";
             try {
                 const balance = await nst.balanceOf(accounts[0]);
@@ -114,7 +128,7 @@
 
                 const tx = await nst.mint(referrer, {
                     value: MINT_PRICE,
-                    gasLimit: 500000,
+                    gasLimit: 500000n,
                     maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
                     maxFeePerGas: feeData.maxFeePerGas
                 });
@@ -132,6 +146,7 @@
                 refreshDashboard();
             } catch (e) {
                 document.getElementById("status").innerText = "Tx failed: " + (e.message || e.reason || e);
+                console.error("Mint error:", e);
             }
         };
 
@@ -145,6 +160,10 @@
         }
 
         async function calculatePeg() {
+            if (!cft) {
+                document.getElementById("pegResult").innerText = "Wallet not connected yet - click Connect Wallet first";
+                return;
+            }
             const eth = parseFloat(document.getElementById("ethInput").value);
             if (isNaN(eth) || eth <= 0) {
                 document.getElementById("pegResult").innerText = "Enter valid ETH amount > 0";
@@ -157,10 +176,12 @@
                     `Sending <strong>\( {eth.toFixed(4)}</strong> ETH → ≈ <strong> \){cadValue.toFixed(0).toLocaleString()}</strong> CFT (CAD-pegged oracle)`;
             } catch (e) {
                 document.getElementById("pegResult").innerText = "Peg error: " + (e.message || e);
+                console.error("Peg calc error:", e);
             }
         }
 
         async function refreshDashboard() {
+            if (!nst || !cft) return;
             try {
                 const total = await nst.nextTokenId();
                 document.getElementById("totalNST").innerText = total.toString();
@@ -168,7 +189,9 @@
                 const supply = await cft.totalSupply();
                 document.getElementById("totalCFT").innerText = 
                     (Number(supply) / 1e18).toLocaleString(undefined, {maximumFractionDigits: 0});
-            } catch {}
+            } catch (e) {
+                console.error("Dashboard error:", e);
+            }
         }
     </script>
 </body>
