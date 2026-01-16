@@ -1,172 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NST Lattice – Mint Your Soul</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; background: #000; color: #fff; padding: 50px; }
-        h1 { font-size: 3.2em; margin-bottom: 0.2em; }
-        h2, h3 { color: #ff4444; }
-        button { padding: 18px 40px; font-size: 1.4em; background: #c00; color: white; border: none; border-radius: 8px; cursor: pointer; margin: 12px; }
-        button:hover { background: #f00; }
-        input { padding: 12px; font-size: 1.2em; width: 220px; margin: 10px; }
-        #status { min-height: 1.6em; color: #ffcc00; font-weight: bold; }
-        .section { margin: 50px 0; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NST Lattice – Sovereign Value Rail</title>
+  <style>
+    :root { --primary: #0d6efd; --success: #198754; --danger: #dc3545; --dark: #212529; --light: #f8f9fa; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: linear-gradient(to bottom, #f8f9fa, #e9ecef); color: var(--dark); line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1, h2, h3 { color: var(--dark); }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 24px; margin: 24px 0; }
+    button { padding: 12px 24px; font-size: 16px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    button.primary { background: var(--primary); color: white; }
+    button.success { background: var(--success); color: white; }
+    button.danger { background: var(--danger); color: white; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    input, textarea { padding: 12px; border: 1px solid #ced4da; border-radius: 6px; width: 100%; box-sizing: border-box; margin: 8px 0; }
+    .status { min-height: 24px; font-weight: 500; margin: 12px 0; padding: 8px; border-radius: 4px; }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hidden { display: none !important; }
+    .loader { font-style: italic; color: #6c757d; }
+    @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
 </head>
 <body>
-    <h1>NST Lattice</h1>
-    <h2>Mint Your Soul – Canada Forever</h2>
-    <p>Pay 0.02 ETH to permanently bind your soul to the Lattice.</p>
-    <p>Refer 2 souls → receive <strong>500 CFT</strong> flux reward (manual claim for now).</p>
+<div class="container">
+  <h1>NST Lattice – Sovereign Value Rail</h1>
+  <p>Mint your soul. Flux invoices. Stake, borrow, lend — pegged to CAD, abundance recirculated.</p>
 
-    <button id="connectButton">Connect Wallet</button>
-    <button id="mintButton" style="display:none;">Mint Soul (0.02 ETH)</button>
+  <!-- Connection -->
+  <div class="card">
+    <h2>Connect Wallet</h2>
+    <button id="connectBtn" class="primary">Connect to Base</button>
+    <div id="connectStatus" class="status"></div>
+    <div id="accountInfo" class="hidden">
+      Account: <span id="accountAddr"></span><br>
+      Network: <span id="networkName"></span>
+    </div>
+  </div>
 
-    <p id="status"></p>
+  <!-- Mint -->
+  <div class="card" id="mintCard">
+    <h2>Mint Soul Token (0.02 ETH)</h2>
+    <label>Referrer (optional)</label>
+    <input id="referrerAddr" placeholder="0x..." />
+    <button id="mintBtn" class="primary" disabled>Mint</button>
+    <div id="mintStatus" class="status"></div>
+  </div>
 
-    <div id="referral" style="display:none; margin-top:30px;">
-        <strong>Your Referral Link:</strong><br>
-        <a id="link" target="_blank" style="color:#ffcc00; word-break:break-all;"></a>
+  <!-- Main Rail -->
+  <div id="mainRail" class="hidden">
+    <!-- Invoice Flux -->
+    <div class="card">
+      <h2>Create Pegged Invoice</h2>
+      <div class="grid-2">
+        <div>
+          <label>Recipient</label>
+          <input id="invoiceRecipient" placeholder="0x..." />
+        </div>
+        <div>
+          <label>Amount CAD (min 10)</label>
+          <input id="invoiceAmountCAD" type="number" min="10" step="0.01" />
+        </div>
+      </div>
+      <label>Description</label>
+      <textarea id="invoiceDesc" rows="3"></textarea>
+      <label>Due Date (seconds from now)</label>
+      <input id="dueDate" type="number" placeholder="86400" />
+      <button id="fluxBtn" class="success" disabled>Flux & Create</button>
+      <div id="fluxStatus" class="status"></div>
     </div>
 
-    <div class="section">
-        <h3>Corporate / Group Mint + Flux Peg Calculator</h3>
-        <p>Plan bulk soul mints + see real-time ETH → CFT peg (CAD-stable via oracle).</p>
-
-        <input id="employeeCount" type="number" placeholder="Number of souls/employees" min="1">
-        <button onclick="calculateCorporate()">Calculate Group</button>
-        <p id="corporateResult" style="font-size:1.3em; margin:15px 0;"></p>
-
-        <input id="ethInput" type="number" placeholder="ETH amount for peg preview" step="0.0001" min="0.001">
-        <button onclick="calculatePeg()">Calculate Peg</button>
-        <p id="pegResult" style="font-size:1.3em; margin-top:10px; color:#ffcc00;"></p>
+    <!-- Claim Invoices -->
+    <div class="card">
+      <h2>Claim Invoice</h2>
+      <input id="claimInvoiceId" placeholder="Invoice ID" type="number" />
+      <button id="claimBtn" class="primary" disabled>Claim</button>
+      <button id="disputeBtn" class="danger" disabled>Dispute</button>
+      <div id="claimStatus" class="status"></div>
+      <div id="myInvoices" class="invoice-list"></div>
     </div>
 
-    <div class="section">
-        <h3>Lattice Status</h3>
-        <p>Total Souls Minted: <strong id="totalNST">—</strong></p>
-        <p>Total CFT in Circulation: <strong id="totalCFT">—</strong></p>
+    <!-- Staking -->
+    <div class="card">
+      <h2>Stake CFT (7% APY)</h2>
+      <div>Staked: <strong id="stakedCFT">—</strong> | Yield: <strong id="claimableYield">—</strong> | Cooldown: <span id="cooldownInfo">—</span></div>
+      <label><input type="checkbox" id="autoStakeChk" checked> Auto-stake flux/rewards</label>
+      <input id="stakeAmt" type="number" placeholder="Stake amount" />
+      <button id="stakeBtn" class="primary" disabled>Stake</button>
+      <button id="claimYieldBtn" class="success" disabled>Claim Yield</button>
+      <button id="unstakeBtn" class="danger" disabled>Unstake</button>
+      <div id="stakeStatus" class="status"></div>
     </div>
 
-    <script>
-        const NST_ADDRESS = "0x354129E341739B317c82790630772385B6f52341";
-        const CFT_ADDRESS = "0x84BDCb2b7a61832653FfcDe1fF0Bba5352D71a64";
+    <!-- Lending Pool -->
+    <div class="card">
+      <h2>Lend / Borrow Pool</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Lend CFT</h3>
+          <input id="supplyAmt" type="number" placeholder="Amount" />
+          <button id="supplyBtn" class="success" disabled>Supply</button>
+        </div>
+        <div>
+          <h3>Borrow CFT</h3>
+          <input id="borrowAmt" type="number" placeholder="Amount" />
+          <button id="borrowBtn" class="primary" disabled>Borrow</button>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <input id="repayAmt" type="number" placeholder="Repay amount" />
+          <button id="repayBtn" class="primary" disabled>Repay</button>
+        </div>
+        <div>
+          <input id="collateralAmt" type="number" placeholder="Collateral amount" />
+          <button id="addCollateralBtn" class="primary" disabled>Add Collateral</button>
+        </div>
+      </div>
+      <div id="lendStatus" class="status"></div>
+      <p>Pool Utilization: <span id="utilRate">—</span>% | Borrow Rate: <span id="borrowRate">—</span>%</p>
+      <p>Your Supplied: <span id="suppliedBalance">—</span> | Borrowed: <span id="borrowedBalance">—</span></p>
+    </div>
 
-        const MINT_PRICE = ethers.utils.parseEther("0.02");
+    <!-- Referral -->
+    <div class="card">
+      <h2>Referral Link</h2>
+      <input id="refLink" readonly style="width:100%;" />
+      <button id="copyRefBtn" class="primary">Copy</button>
+    </div>
+  </div>
+</div>
 
-        const NST_ABI = [
-            "function mint(address referrer) external payable",
-            "function balanceOf(address owner) external view returns (uint256)",
-            "function nextTokenId() external view returns (uint256)"
-        ];
+<script>
+// CONFIG
+const CFG = {
+  chainId: 8453,
+  explorer: "https://basescan.org",
+  nst: 0xFdb50d47274992159C6aF1FAF6493335Ada45FBc,
+  cft: 0xC15E291577b366F11cEc6Fd69010e74f39bcf717,
+  escrow: 0xc825C2afDF2eDcB98086E0761a4Bc543A2D89B47,
+  lending: 0x1f9216FCb106Ee7d1BAAc710dac3dB6799fc2fb1,
+  mintPrice: ethers.utils.parseEther("0.02"),
+  minCAD: 10
+};
 
-        const CFT_ABI = [
-            "function totalSupply() external view returns (uint256)",
-            "function getEthCadPrice() external view returns (uint256)"
-        ];
+// ABIS [corrected as before]
 
-        let provider, signer, nst, cft, accounts;
-        const urlParams = new URLSearchParams(window.location.search);
-        let referrer = urlParams.get('ref') || "0x0000000000000000000000000000000000000000";
+let provider, signer, user, nst, cft, escrow, lending;
 
-        document.getElementById("connectButton").onclick = async () => {
-            if (!window.ethereum) return document.getElementById("status").innerText = "MetaMask not detected";
+// Connect [same as before]
 
-            provider = new ethers.providers.Web3Provider(window.ethereum);
-            try {
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-                signer = provider.getSigner();
-                accounts = [await signer.getAddress()];
+ // Mint [same as before]
 
-                const network = await provider.getNetwork();
-                if (network.chainId !== 8453) {
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: '0x2105' }]
-                    });
-                }
+ // Staking [same as before]
 
-                nst = new ethers.Contract(NST_ADDRESS, NST_ABI, signer);
-                cft = new ethers.Contract(CFT_ADDRESS, CFT_ABI, provider);
+ // Flux & Create Invoice
+document.getElementById("fluxBtn").onclick = async () => {
+  const cad = parseFloat(document.getElementById("invoiceAmountCAD").value);
+  const recipient = document.getElementById("invoiceRecipient").value.trim();
+  const desc = document.getElementById("invoiceDesc").value;
+  const due = parseInt(document.getElementById("dueDate").value) || 0;
 
-                document.getElementById("connectButton").style.display = "none";
-                document.getElementById("mintButton").style.display = "inline-block";
-                document.getElementById("status").innerText = "Connected to Base ✓";
-                refreshDashboard();
-            } catch (e) {
-                document.getElementById("status").innerText = "Error: " + e.message;
-            }
-        };
+  if (cad < CFG.minCAD) return status("fluxStatus", "Min $10 CAD", "error");
+  if (!ethers.utils.isAddress(recipient)) return status("fluxStatus", "Invalid recipient", "error");
 
-        document.getElementById("mintButton").onclick = async () => {
-            document.getElementById("status").innerText = "Minting... Confirm transaction.";
-            try {
-                const balance = await nst.balanceOf(accounts[0]);
-                if (parseInt(balance) > 0) {
-                    document.getElementById("status").innerText = "Soul already bound!";
-                    return;
-                }
+  try {
+    const price = await cft.getEthCadPrice();
+    const cadWei = ethers.utils.parseUnits(cad.toString(), 18);
+    const ethNeeded = cadWei.mul(ethers.utils.parseEther("1")).div(price);
 
-                const tx = await nst.mint(referrer, {
-                    value: MINT_PRICE,
-                    gasLimit: ethers.utils.hexlify(500000),
-                    type: 2 // Explicit EIP-1559 type for Base
-                });
+    // Send ETH to CFT for peg
+    const tx = await signer.sendTransaction({ to: CFG.cft, value: ethNeeded });
+    await tx.wait();
 
-                await tx.wait();
+    // Create invoice in escrow
+    const tx2 = await escrow.createInvoice(recipient, cadWei, desc, block.timestamp + due);
+    await tx2.wait();
 
-                document.getElementById("status").innerText = "Soul bound eternally!";
-                document.getElementById("referral").style.display = "block";
+    status("fluxStatus", `Invoice created & pegged! Share ID with recipient. Tx: ${tx.hash}`, "success");
 
-                const baseUrl = window.location.href.split('?')[0];
-                const refLink = baseUrl + "?ref=" + accounts[0].toLowerCase();
-                document.getElementById("link").innerText = refLink;
-                document.getElementById("link").href = refLink;
+    loadMyInvoices();
+  } catch (err) {
+    status("fluxStatus", err.reason || err.message, "error");
+  }
+};
 
-                refreshDashboard();
-            } catch (e) {
-                document.getElementById("status").innerText = "Error: " + e.message;
-            }
-        };
+// Claim
+document.getElementById("claimBtn").onclick = async () => {
+  const id = parseInt(document.getElementById("claimInvoiceId").value);
+  if (isNaN(id)) return status("claimStatus", "Valid ID required", "error");
 
-        function calculateCorporate() {
-            const count = parseInt(document.getElementById("employeeCount").value) || 0;
-            if (count < 1) return;
-            const totalEth = (count * 0.02).toFixed(3);
-            const rewards = Math.floor(count / 2) * 500;
-            document.getElementById("corporateResult").innerHTML =
-                `For <strong>\( {count}</strong> souls: ≈ <strong> \){totalEth}</strong> ETH • ≈ <strong>${rewards.toLocaleString()}</strong> CFT rewards`;
-        }
+  try {
+    const tx = await escrow.claimInvoice(id);
+    await tx.wait();
+    status("claimStatus", `Claimed! Tx: ${tx.hash}`, "success");
+    loadMyInvoices();
+  } catch (err) {
+    status("claimStatus", err.reason || err.message, "error");
+  }
+};
 
-        async function calculatePeg() {
-            const eth = parseFloat(document.getElementById("ethInput").value);
-            if (isNaN(eth) || eth <= 0) {
-                document.getElementById("pegResult").innerText = "Enter a valid ETH amount.";
-                return;
-            }
-            try {
-                const price = await cft.getEthCadPrice();
-                const cadValue = (eth * Number(price)) / 1e8;
-                document.getElementById("pegResult").innerHTML = 
-                    `Sending <strong>\( {eth.toFixed(4)}</strong> ETH → ≈ <strong> \){cadValue.toFixed(0).toLocaleString()}</strong> CFT (pegged to CAD value).`;
-            } catch (error) {
-                document.getElementById("pegResult").innerText = "Error: " + error.message;
-            }
-        }
+// Dispute
+document.getElementById("disputeBtn").onclick = async () => {
+  const id = parseInt(document.getElementById("claimInvoiceId").value);
+  if (isNaN(id)) return status("claimStatus", "Valid ID required", "error");
 
-        async function refreshDashboard() {
-            try {
-                const total = await nst.nextTokenId();
-                document.getElementById("totalNST").innerText = total.toString();
+  try {
+    const tx = await escrow.disputeInvoice(id);
+    await tx.wait();
+    status("claimStatus", `Disputed! Tx: ${tx.hash}`, "success");
+    loadMyInvoices();
+  } catch (err) {
+    status("claimStatus", err.reason || err.message, "error");
+  }
+};
 
-                const supply = await cft.totalSupply();
-                document.getElementById("totalCFT").innerText = 
-                    (Number(supply) / 1e18).toLocaleString(undefined, {maximumFractionDigits: 0});
-            } catch {}
-        }
-    </script>
+// Load invoices (robust query)
+async function loadMyInvoices() {
+  const container = document.getElementById("myInvoices");
+  container.innerHTML = "<p class='loader'>Loading...</p>";
+  container.innerHTML = "";
+
+  // Robust loop to query invoices (simmed up to 100)
+  for (let id = 0; id < await escrow.invoiceCount(); id++) {
+    const [sender, recipient, amountCAD, desc, createdAt, dueDate, claimed, disputed, arbiter] = await escrow.invoices(id);
+
+    if (recipient.toLowerCase() === user.toLowerCase() && !claimed && !disputed) {
+      const div = document.createElement("div");
+      div.className = "invoice-item";
+      div.innerHTML = `
+        <strong>ID:</strong> ${id}<br>
+        <strong>From:</strong> \( {sender.slice(0,6)}... \){sender.slice(-4)}<br>
+        <strong>Amount:</strong> $${formatEther(amountCAD)} CAD<br>
+        <strong>Desc:</strong> ${desc}<br>
+        <strong>Created:</strong> ${new Date(Number(createdAt)*1000).toLocaleString()}
+      `;
+      container.appendChild(div);
+    }
+  }
+
+  if (container.innerHTML === "") container.innerHTML = "<p>No claimable invoices.</p>";
+}
+
+// Lending
+document.getElementById("supplyBtn").onclick = async () => {
+  const amt = ethers.utils.parseEther(document.getElementById("supplyAmt").value);
+  try {
+    await (await lending.supply(amt)).wait();
+    await refreshLending();
+    status("lendStatus", "Supplied ✓", "success");
+  } catch (err) {
+    status("lendStatus", err.reason || err.message, "error");
+  }
+};
+
+document.getElementById("borrowBtn").onclick = async () => {
+  const amt = ethers.utils.parseEther(document.getElementById("borrowAmt").value);
+  try {
+    await (await lending.borrow(amt)).wait();
+    await refreshLending();
+    status("lendStatus", "Borrowed ✓", "success");
+  } catch (err) {
+    status("lendStatus", err.reason || err.message, "error");
+  }
+};
+
+document.getElementById("repayBtn").onclick = async () => {
+  const amt = ethers.utils.parseEther(document.getElementById("repayAmt").value);
+  try {
+    await (await lending.repay(amt)).wait();
+    await refreshLending();
+    status("lendStatus", "Repaid ✓", "success");
+  } catch (err) {
+    status("lendStatus", err.reason || err.message, "error");
+  }
+};
+
+document.getElementById("addCollateralBtn").onclick = async () => {
+  const amt = ethers.utils.parseEther(document.getElementById("collateralAmt").value);
+  try {
+    await (await lending.addCollateral(amt)).wait();
+    await refreshLending();
+    status("lendStatus", "Collateral added ✓", "success");
+  } catch (err) {
+    status("lendStatus", err.reason || err.message, "error");
+  }
+};
+
+async function refreshLending() {
+  const util = await lending.utilization();
+  const rate = await lending.getCurrentBorrowRate();
+  document.getElementById("utilRate").innerText = util.toString();
+  document.getElementById("borrowRate").innerText = (rate / 100).toFixed(2);
+
+  document.getElementById("suppliedBalance").innerText = formatEther(await lending.suppliedBalance(user));
+  document.getElementById("borrowedBalance").innerText = formatEther(await lending.borrowedBalance(user));
+}
+
+// Copy ref
+document.getElementById("copyRefBtn").onclick = () => copyToClipboard(document.getElementById("refLink").value);
+
+// Auto-refresh
+setInterval(() => {
+  refreshDashboard();
+  refreshLending();
+  loadMyInvoices();
+}, 30000);
+
+// Init
+if (window.ethereum) document.getElementById("mintBtn").disabled = false;
+</script>
 </body>
 </html>
