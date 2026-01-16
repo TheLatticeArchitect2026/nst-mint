@@ -5,27 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NST Lattice – Sovereign Value Rail</title>
   <style>
-    :root { --primary: #0d6efd; --success: #198754; --danger: #dc3545; --warning: #ffc107; --dark: #212529; --light: #f8f9fa; }
-    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; background: linear-gradient(to bottom, #f8f9fa, #e9ecef); color: var(--dark); line-height: 1.6; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    h1, h2, h3 { color: var(--dark); margin-top: 0; }
-    .card { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 24px; margin: 24px 0; }
-    button { padding: 12px 24px; font-size: 16px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; margin: 8px 4px; }
+    :root {
+      --primary: #0d6efd;
+      --success: #198754;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --dark: #212529;
+      --light: #f8f9fa;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 {
+      color: var(--dark);
+      margin-top: 0;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 24px;
+      margin: 24px 0;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 8px 4px;
+    }
     button.primary { background: var(--primary); color: white; }
     button.success { background: var(--success); color: white; }
     button.danger { background: var(--danger); color: white; }
     button.warning { background: var(--warning); color: black; }
     button:disabled { opacity: 0.6; cursor: not-allowed; }
-    input, textarea { padding: 12px; border: 1px solid #ced4da; border-radius: 6px; width: 100%; box-sizing: border-box; margin: 8px 0; font-size: 16px; }
-    .status { min-height: 24px; font-weight: 500; margin: 12px 0; padding: 10px; border-radius: 6px; }
+    input, textarea {
+      padding: 12px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    .status {
+      min-height: 24px;
+      font-weight: 500;
+      margin: 12px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
     .success { background: #d4edda; color: #155724; }
     .error { background: #f8d7da; color: #721c24; }
     .info { background: #d1ecf1; color: #0c5460; }
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
     .hidden { display: none !important; }
     .loader { color: #6c757d; font-style: italic; }
-    .invoice-item { border: 1px solid #dee2e6; padding: 16px; border-radius: 8px; margin: 12px 0; background: #f8f9fa; }
-    @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+    .invoice-item {
+      border: 1px solid #dee2e6;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 12px 0;
+      background: #f8f9fa;
+    }
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
   </style>
   <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
 </head>
@@ -55,13 +112,13 @@
     <div id="mintStatus" class="status"></div>
   </div>
 
-  <!-- Main Rail -->
+  <!-- Main Rail (revealed after mint) -->
   <div id="mainRail" class="hidden">
 
-    <!-- Flux / Invoice -->
+    <!-- Flux / Invoice Creation -->
     <div class="card">
       <h2>Flux Rail – Create Pegged Invoice</h2>
-      <p>Peg invoices/trades to CFT (min ~$10 CAD). Recipient claims instantly.</p>
+      <p>Peg any invoice/trade to CFT (min ~$10 CAD). Recipient claims instantly.</p>
       <div class="grid-2">
         <div>
           <label>Recipient Address</label>
@@ -149,7 +206,7 @@
 </div>
 
 <script>
-// CONFIG – REPLACE WITH YOUR REAL ADDRESSES
+// CONFIG – REPLACE THESE WITH YOUR REAL DEPLOYED ADDRESSES
 const CFG = {
   chainId: 8453,
   rpc: "https://mainnet.base.org",
@@ -201,13 +258,10 @@ const ABIS = {
 let provider, signer, user, nst, cft, escrow, lending;
 let isMinted = false;
 
-// ────────────────────────────────────────────────
 // UTILS
-// ────────────────────────────────────────────────
 function status(el, msg, cls = "") {
-  const e = document.getElementById(el);
-  e.innerHTML = msg;
-  e.className = `status ${cls}`;
+  document.getElementById(el).innerHTML = msg;
+  document.getElementById(el).className = `status ${cls}`;
 }
 
 function formatEther(v) {
@@ -218,9 +272,7 @@ function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => alert("Copied!"));
 }
 
-// ────────────────────────────────────────────────
 // CONNECT WALLET
-// ────────────────────────────────────────────────
 document.getElementById("connectBtn").onclick = async () => {
   if (!window.ethereum) return status("connectStatus", "MetaMask required", "error");
 
@@ -273,9 +325,7 @@ document.getElementById("connectBtn").onclick = async () => {
   }
 };
 
-// ────────────────────────────────────────────────
 // MINT
-// ────────────────────────────────────────────────
 document.getElementById("mintBtn").onclick = async () => {
   if (!nst) return;
   status("mintStatus", "Confirm in wallet…", "info");
@@ -306,9 +356,7 @@ function enterMainRail() {
   document.getElementById("mainRail").classList.remove("hidden");
 }
 
-// ────────────────────────────────────────────────
 // FLUX & INVOICE CREATION
-// ────────────────────────────────────────────────
 document.getElementById("invoiceAmountCAD").oninput = (e) => {
   const v = parseFloat(e.target.value) || 0;
   document.getElementById("fluxBtn").disabled = v < CFG.minCAD;
@@ -335,20 +383,18 @@ document.getElementById("fluxBtn").onclick = async () => {
     const tx2 = await escrow.createInvoice(recipient, cadWei, desc, due ? block.timestamp + due : 0);
     await tx2.wait();
 
-    status("fluxStatus", `Invoice created & funded! ID: ${tx2.logs[0].topics[1] ? 'check Basescan' : 'Tx: ' + tx2.hash}`, "success");
+    status("fluxStatus", `Invoice created & funded! ID: ${tx2.logs[0]?.topics[1] ? 'check Basescan' : 'Tx: ' + tx2.hash.slice(0,10) + '...' }`, "success");
 
     if (document.getElementById("autoStakeChk").checked) {
       await refreshDashboard();
     }
-    loadMyInvoices();
+    await loadMyInvoices();
   } catch (err) {
     status("fluxStatus", err.reason || err.message, "error");
   }
 };
 
-// ────────────────────────────────────────────────
 // INVOICE CLAIM & DISPUTE
-// ────────────────────────────────────────────────
 document.getElementById("claimBtn").onclick = async () => {
   const id = parseInt(document.getElementById("claimInvoiceId").value);
   if (isNaN(id)) return status("claimStatus", "Enter valid Invoice ID", "error");
@@ -358,7 +404,7 @@ document.getElementById("claimBtn").onclick = async () => {
     const tx = await escrow.claimInvoice(id);
     await tx.wait();
     status("claimStatus", `Claimed! Tx: <a href="\( {CFG.explorer}/tx/ \){tx.hash}" target="_blank">${tx.hash.slice(0,10)}...</a>`, "success");
-    loadMyInvoices();
+    await loadMyInvoices();
   } catch (err) {
     status("claimStatus", err.reason || err.message, "error");
   }
@@ -373,7 +419,7 @@ document.getElementById("disputeBtn").onclick = async () => {
     const tx = await escrow.disputeInvoice(id);
     await tx.wait();
     status("claimStatus", `Disputed! Tx: <a href="\( {CFG.explorer}/tx/ \){tx.hash}" target="_blank">${tx.hash.slice(0,10)}...</a>`, "success");
-    loadMyInvoices();
+    await loadMyInvoices();
   } catch (err) {
     status("claimStatus", err.reason || err.message, "error");
   }
@@ -387,7 +433,7 @@ async function loadMyInvoices() {
     const count = await escrow.invoiceCount();
     container.innerHTML = "";
 
-    for (let id = 0; id < count; id++) {
+    for (let id = 0; id < Number(count); id++) {
       const [sender, recipient, amountCAD, desc, createdAt, dueDate, claimed, disputed, arbiter] = await escrow.invoices(id);
       if (recipient.toLowerCase() === user.toLowerCase() && !claimed && !disputed) {
         const div = document.createElement("div");
@@ -396,7 +442,7 @@ async function loadMyInvoices() {
           <strong>ID:</strong> ${id}<br>
           <strong>From:</strong> \( {sender.slice(0,6)}... \){sender.slice(-4)}<br>
           <strong>Amount:</strong> $${ethers.utils.formatUnits(amountCAD, 18)} CAD<br>
-          <strong>Desc:</strong> ${desc || "—"}<br>
+          <strong>Description:</strong> ${desc || "—"}<br>
           <strong>Created:</strong> ${new Date(Number(createdAt) * 1000).toLocaleString()}
         `;
         container.appendChild(div);
@@ -409,9 +455,7 @@ async function loadMyInvoices() {
   }
 }
 
-// ────────────────────────────────────────────────
 // STAKING DASHBOARD
-// ────────────────────────────────────────────────
 async function refreshDashboard() {
   if (!cft || !user) return;
   try {
@@ -469,9 +513,7 @@ document.getElementById("unstakeBtn").onclick = async () => {
   }
 };
 
-// ────────────────────────────────────────────────
 // LENDING POOL
-// ────────────────────────────────────────────────
 async function refreshLending() {
   if (!lending || !user) return;
   try {
@@ -539,16 +581,12 @@ document.getElementById("addCollateralBtn").onclick = async () => {
   }
 };
 
-// ────────────────────────────────────────────────
 // REFERRAL LINK
-// ────────────────────────────────────────────────
 document.getElementById("copyRefBtn").onclick = () => {
   copyToClipboard(document.getElementById("refLink").value);
 };
 
-// ────────────────────────────────────────────────
 // AUTO-REFRESH
-// ────────────────────────────────────────────────
 setInterval(async () => {
   if (user) {
     await Promise.all([
@@ -559,9 +597,7 @@ setInterval(async () => {
   }
 }, 30000);
 
-// ────────────────────────────────────────────────
 // INIT
-// ────────────────────────────────────────────────
 if (window.ethereum) {
   document.getElementById("mintBtn").disabled = false;
   document.getElementById("fluxBtn").disabled = true; // enabled by input
