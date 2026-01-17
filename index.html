@@ -84,7 +84,7 @@
       .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
-  <script src="https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -112,10 +112,10 @@
     <div id="mintStatus" class="status"></div>
   </div>
 
-  <!-- Main Rail -->
+  <!-- Main Rail (revealed after mint) -->
   <div id="mainRail" class="hidden">
 
-    <!-- Flux / Invoice -->
+    <!-- Flux / Invoice Creation -->
     <div class="card">
       <h2>Flux Rail – Create Pegged Invoice</h2>
       <p>Peg any invoice/trade to CFT (min ~$10 CAD). Recipient claims instantly.</p>
@@ -219,7 +219,7 @@ const CFG = {
   minCAD: 10
 };
 
-// ABIS (corrected and complete)
+// ABIS
 const ABIS = {
   nst: [
     "function mint(address referrer) external payable",
@@ -604,6 +604,8 @@ setInterval(async () => {
 if (window.ethereum) {
   document.getElementById("mintBtn").disabled = false;
   document.getElementById("fluxBtn").disabled = true; // enabled by input
+} else {
+  status("connectStatus", "Wallet not detected. Install MetaMask or another Web3 wallet.", "warning");
 }
 </script>
 </body>
