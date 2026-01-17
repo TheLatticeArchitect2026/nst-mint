@@ -84,7 +84,7 @@
       .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -206,7 +206,7 @@
 </div>
 
 <script>
-// CONFIG – REPLACE WITH YOUR REAL ADDRESSES
+// CONFIG – REPLACE WITH YOUR REAL DEPLOYED ADDRESSES
 const CFG = {
   chainId: 8453,
   rpc: "https://mainnet.base.org",
@@ -430,7 +430,7 @@ document.getElementById("disputeBtn").onclick = async () => {
 
 async function loadMyInvoices() {
   const container = document.getElementById("myInvoices");
-  container.innerHTML = "<p class='loader'>Loading claimable invoices...</p>";
+  container.innerHTML = "<p class='loader'>Loading claimable invoices...</p";
 
   try {
     const count = await escrow.invoiceCount();
