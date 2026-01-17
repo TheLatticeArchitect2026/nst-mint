@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-Force rebuild January 17 2026
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -85,7 +84,7 @@ Force rebuild January 17 2026
       .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
-  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -113,10 +112,10 @@ Force rebuild January 17 2026
     <div id="mintStatus" class="status"></div>
   </div>
 
-  <!-- Main Rail (revealed after mint) -->
+  <!-- Main Rail -->
   <div id="mainRail" class="hidden">
 
-    <!-- Flux / Invoice Creation -->
+    <!-- Flux / Invoice -->
     <div class="card">
       <h2>Flux Rail – Create Pegged Invoice</h2>
       <p>Peg any invoice/trade to CFT (min ~$10 CAD). Recipient claims instantly.</p>
@@ -207,7 +206,7 @@ Force rebuild January 17 2026
 </div>
 
 <script>
-// CONFIG – REPLACE THESE WITH YOUR REAL DEPLOYED ADDRESSES
+// CONFIG – REPLACE WITH YOUR REAL ADDRESSES
 const CFG = {
   chainId: 8453,
   rpc: "https://mainnet.base.org",
@@ -220,7 +219,7 @@ const CFG = {
   minCAD: 10
 };
 
-// ABIS
+// ABIS (corrected and complete)
 const ABIS = {
   nst: [
     "function mint(address referrer) external payable",
@@ -275,7 +274,10 @@ function copyToClipboard(text) {
 
 // CONNECT WALLET
 document.getElementById("connectBtn").onclick = async () => {
-  if (!window.ethereum) return status("connectStatus", "MetaMask required", "error");
+  if (!window.ethereum) {
+    status("connectStatus", "MetaMask or wallet required. Please install one.", "error");
+    return;
+  }
 
   status("connectStatus", "Connecting...", "info");
   try {
@@ -322,7 +324,7 @@ document.getElementById("connectBtn").onclick = async () => {
 
     await Promise.all([refreshDashboard(), refreshLending(), loadMyInvoices()]);
   } catch (err) {
-    status("connectStatus", err.reason || err.message, "error");
+    status("connectStatus", err.reason || err.message || "Connection failed", "error");
   }
 };
 
@@ -384,7 +386,7 @@ document.getElementById("fluxBtn").onclick = async () => {
     const tx2 = await escrow.createInvoice(recipient, cadWei, desc, due ? block.timestamp + due : 0);
     await tx2.wait();
 
-    status("fluxStatus", `Invoice created & funded! ID: ${tx2.logs[0]?.topics[1] ? 'check Basescan' : 'Tx: ' + tx2.hash.slice(0,10) + '...' }`, "success");
+    status("fluxStatus", `Invoice created & funded! ID: ${tx2.hash.slice(0,10)}...`, "success");
 
     if (document.getElementById("autoStakeChk").checked) {
       await refreshDashboard();
