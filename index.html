@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +84,7 @@
       .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-5v2xG3Y3Q2tK8c1C0f1k2p6c3j8Yh2xW0eQ2d2p3i8w5i5f5j5i5f5j5i5f5j5i5f5j5i5f5j5i5f5j5i5f5j5" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -212,7 +211,7 @@ const CFG = {
   chainId: 8453,
   rpc: "https://mainnet.base.org",
   explorer: "https://basescan.org",
-  nst: 0xFdb50d47274992159C6aF1FAF6493335Ada45FBc,
+  nst:0xFdb50d47274992159C6aF1FAF6493335Ada45FBc,
   cft: 0xC15E291577b366F11cEc6Fd69010e74f39bcf717,
   escrow: 0xc825C2afDF2eDcB98086E0761a4Bc543A2D89B47,
   lending: 0x1f9216FCb106Ee7d1BAAc710dac3dB6799fc2fb1,
@@ -273,71 +272,72 @@ function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => alert("Copied!"));
 }
 
-// CONNECT WALLET
-document.getElementById("connectBtn").onclick = async () => {
-  console.log("Connect button clicked");
-  if (!window.ethereum) {
-    status("connectStatus", "MetaMask or wallet required. Please install one.", "error");
-    return;
-  }
+// CONNECT WALLET (wrapped in DOMContentLoaded)
+window.addEventListener('DOMContentLoaded', () => {
+  const connectBtn = document.getElementById("connectBtn");
+  if (connectBtn) {
+    connectBtn.onclick = async () => {
+      console.log("Connect button clicked - handler attached");
+      if (!window.ethereum) {
+        status("connectStatus", "MetaMask or wallet required. Please install one.", "error");
+        return;
+      }
 
-  status("connectStatus", "Connecting...", "info");
-  try {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    console.log("Provider created");
-    await provider.send("eth_requestAccounts", []);
-    console.log("Accounts requested");
-    user = (await provider.listAccounts())[0];
-    signer = provider.getSigner();
+      status("connectStatus", "Connecting...", "info");
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        user = (await provider.listAccounts())[0];
+        signer = provider.getSigner();
 
-    const net = await provider.getNetwork();
-    console.log("Network:", net.chainId);
-    if (net.chainId !== CFG.chainId) {
-      console.log("Switching network");
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x" + CFG.chainId.toString(16) }]
-      }).catch(async (e) => {
-        if (e.code === 4902) {
-          console.log("Adding Base chain");
+        const net = await provider.getNetwork();
+        if (net.chainId !== CFG.chainId) {
           await window.ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [{
-              chainId: "0x" + CFG.chainId.toString(16),
-              chainName: "Base",
-              nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
-              rpcUrls: [CFG.rpc],
-              blockExplorerUrls: [CFG.explorer]
-            }]
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x" + CFG.chainId.toString(16) }]
+          }).catch(async (e) => {
+            if (e.code === 4902) {
+              await window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [{
+                  chainId: "0x" + CFG.chainId.toString(16),
+                  chainName: "Base",
+                  nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+                  rpcUrls: [CFG.rpc],
+                  blockExplorerUrls: [CFG.explorer]
+                }]
+              });
+            } else throw e;
           });
-        } else throw e;
-      });
-    }
+        }
 
-    console.log("Instantiating contracts");
-    nst = new ethers.Contract(CFG.nst, ABIS.nst, signer);
-    cft = new ethers.Contract(CFG.cft, ABIS.cft, signer);
-    escrow = new ethers.Contract(CFG.escrow, ABIS.escrow, signer);
-    lending = new ethers.Contract(CFG.lending, ABIS.lending, signer);
+        nst = new ethers.Contract(CFG.nst, ABIS.nst, signer);
+        cft = new ethers.Contract(CFG.cft, ABIS.cft, signer);
+        escrow = new ethers.Contract(CFG.escrow, ABIS.escrow, signer);
+        lending = new ethers.Contract(CFG.lending, ABIS.lending, signer);
 
-    document.getElementById("accountAddr").innerText = `\( {user.slice(0,6)}... \){user.slice(-4)}`;
-    document.getElementById("networkName").innerText = "Base";
-    document.getElementById("accountInfo").classList.remove("hidden");
-    document.getElementById("connectBtn").disabled = true;
-    status("connectStatus", "Connected ✓", "success");
+        document.getElementById("accountAddr").innerText = `\( {user.slice(0,6)}... \){user.slice(-4)}`;
+        document.getElementById("networkName").innerText = "Base";
+        document.getElementById("accountInfo").classList.remove("hidden");
+        document.getElementById("connectBtn").disabled = true;
+        status("connectStatus", "Connected ✓", "success");
 
-    const bal = await nst.balanceOf(user);
-    isMinted = bal.gt(0);
-    if (isMinted) enterMainRail();
+        const bal = await nst.balanceOf(user);
+        isMinted = bal.gt(0);
+        if (isMinted) enterMainRail();
 
-    await Promise.all([refreshDashboard(), refreshLending(), loadMyInvoices()]);
-  } catch (err) {
-    console.error("Connect error:", err);
-    status("connectStatus", err.reason || err.message || "Connection failed", "error");
+        await Promise.all([refreshDashboard(), refreshLending(), loadMyInvoices()]);
+      } catch (err) {
+        console.error("Connect error:", err);
+        status("connectStatus", err.reason || err.message || "Connection failed", "error");
+      }
+    };
+  } else {
+    console.error("Connect button not found in DOM");
   }
-};
 
-// ... (rest of the script remains unchanged from previous full version: mint, flux, claim, dispute, refreshDashboard, refreshLending, etc.)
+  // ... (rest of the script: mint, flux, claim, dispute, refreshDashboard, refreshLending, loadMyInvoices, etc. remain unchanged from previous full version)
+});
 </script>
 </body>
 </html>
