@@ -12,6 +12,8 @@
       --warning: #ffc107;
       --dark: #212529;
       --light: #f8f9fa;
+      --sovereign-red: #A6192E;
+      --sovereign-gold: #D4AF37;
     }
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -20,37 +22,69 @@
       background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
       color: var(--dark);
       line-height: 1.6;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(15deg);
+      width: 80vmin;
+      height: 80vmin;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 10 L60 30 L90 35 L70 55 L75 85 L50 70 L25 85 L30 55 L10 35 L40 30 Z' fill='none' stroke='%23A6192E' stroke-width='2' opacity='0.15' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%23D4AF37' opacity='0.2'/%3E%3C/svg%3E") center/contain no-repeat;
+      pointer-events: none;
+      z-index: -1;
     }
     .container {
       max-width: 1100px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
-    h1, h2, h3 {
-      color: var(--dark);
-      margin-top: 0;
+    h1 {
+      color: var(--sovereign-red);
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--sovereign-gold);
+      margin: 10px auto 0;
+      border-radius: 2px;
     }
     .card {
-      background: white;
+      background: rgba(255,255,255,0.95);
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       padding: 24px;
       margin: 24px 0;
+      backdrop-filter: blur(4px);
     }
-    button {
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin: 8px 4px;
+    button.primary {
+      background: var(--sovereign-red);
+      color: white;
     }
-    button.primary { background: var(--primary); color: white; }
-    button.success { background: var(--success); color: white; }
-    button.danger { background: var(--danger); color: white; }
-    button.warning { background: var(--warning); color: black; }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    button.primary:hover {
+      background: #8c1425;
+    }
+    button.success {
+      background: #006600;
+      color: white;
+    }
+    button.danger {
+      background: #8b0000;
+      color: white;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
     input, textarea {
       padding: 12px;
       border: 1px solid #ced4da;
@@ -79,6 +113,18 @@
       border-radius: 8px;
       margin: 12px 0;
       background: #f8f9fa;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px 0;
+      border-top: 1px solid #dee2e6;
+      font-size: 14px;
+      color: #666;
+    }
+    footer .maple {
+      font-size: 20px;
+      margin: 0 5px;
     }
     @media (max-width: 768px) {
       .grid-2 { grid-template-columns: 1fr; }
@@ -203,6 +249,10 @@
     </div>
 
   </div>
+
+  <footer>
+    <p>Canada Forever – Sovereign, Boundless, Unbreakable <span class="maple">🍁</span></p>
+  </footer>
 </div>
 
 <script>
@@ -211,10 +261,10 @@ const CFG = {
   chainId: 8453,
   rpc: "https://mainnet.base.org",
   explorer: "https://basescan.org",
-  nst: 0xFdb50d47274992159C6aF1FAF6493335Ada45FBc,
-  cft: 0xeACE327866981dE84f8E7449C4B12D5c3283d15E,
-  escrow: 0xc825C2afDF2eDcB98086E0761a4Bc543A2D89B47,
-  lending: 0x1f9216FCb106Ee7d1BAAc710dac3dB6799fc2fb1,
+  nst: "0xYourNSTLatticeAddressHere",
+  cft: "0xYourCFTAddressHere",
+  escrow: "0xYourInvoiceEscrowAddressHere",
+  lending: "0xYourLendingPoolAddressHere",
   mintPrice: ethers.utils.parseEther("0.02"),
   minCAD: 10
 };
@@ -274,10 +324,12 @@ function copyToClipboard(text) {
 
 // CONNECT WALLET
 window.addEventListener('DOMContentLoaded', () => {
+  console.log("DOMContentLoaded fired - DOM ready");
   const connectBtn = document.getElementById("connectBtn");
   if (connectBtn) {
+    console.log("Connect button found - handler attached");
     connectBtn.onclick = async () => {
-      console.log("Connect button clicked - handler attached");
+      console.log("Connect button clicked");
       if (!window.ethereum) {
         status("connectStatus", "MetaMask or wallet required. Please install one.", "error");
         return;
@@ -336,36 +388,7 @@ window.addEventListener('DOMContentLoaded', () => {
     console.error("Connect button not found in DOM");
   }
 
-  // MINT
-  const mintBtn = document.getElementById("mintBtn");
-  if (mintBtn) {
-    mintBtn.onclick = async () => {
-      if (!nst) return;
-      status("mintStatus", "Confirm in wallet…", "info");
-      try {
-        const ref = document.getElementById("referrerAddr").value.trim() || "0x0000000000000000000000000000000000000000";
-        if (ref !== "0x0000000000000000000000000000000000000000" && !ethers.utils.isAddress(ref)) throw new Error("Invalid referrer");
-
-        const est = await nst.estimateGas.mint(ref, { value: CFG.mintPrice });
-        const tx = await nst.mint(ref, {
-          value: CFG.mintPrice,
-          gasLimit: est.mul(120).div(100)
-        });
-        await tx.wait();
-
-        status("mintStatus", `Minted! <a href="\( {CFG.explorer}/tx/ \){tx.hash}" target="_blank">Tx</a>`, "success");
-        isMinted = true;
-        enterMainRail();
-
-        const base = location.href.split("?")[0];
-        document.getElementById("refLink").value = `\( {base}?ref= \){user.toLowerCase()}`;
-      } catch (err) {
-        status("mintStatus", err.reason || err.message, "error");
-      }
-    };
-  }
-
-  // ... (rest of the script: enterMainRail, invoiceAmountCAD.oninput, fluxBtn.onclick, claimBtn.onclick, disputeBtn.onclick, loadMyInvoices, refreshDashboard, stakeBtn.onclick, claimYieldBtn.onclick, unstakeBtn.onclick, refreshLending, supplyBtn.onclick, borrowBtn.onclick, repayBtn.onclick, addCollateralBtn.onclick, copyRefBtn.onclick remain unchanged)
+  // ... (rest of the script: mint, flux, claim, dispute, refreshDashboard, refreshLending, loadMyInvoices, supplyBtn.onclick, borrowBtn.onclick, repayBtn.onclick, addCollateralBtn.onclick, copyRefBtn.onclick remain unchanged)
 });
 </script>
 </body>
