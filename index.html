@@ -211,8 +211,8 @@ const CFG = {
   chainId: 8453,
   rpc: "https://mainnet.base.org",
   explorer: "https://basescan.org",
-  nst:0xFdb50d47274992159C6aF1FAF6493335Ada45FBc,
-  cft: 0xC15E291577b366F11cEc6Fd69010e74f39bcf717,
+  nst: 0xFdb50d47274992159C6aF1FAF6493335Ada45FBc,
+  cft: 0xeACE327866981dE84f8E7449C4B12D5c3283d15E,
   escrow: 0xc825C2afDF2eDcB98086E0761a4Bc543A2D89B47,
   lending: 0x1f9216FCb106Ee7d1BAAc710dac3dB6799fc2fb1,
   mintPrice: ethers.utils.parseEther("0.02"),
@@ -272,7 +272,7 @@ function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => alert("Copied!"));
 }
 
-// CONNECT WALLET (wrapped in DOMContentLoaded)
+// CONNECT WALLET
 window.addEventListener('DOMContentLoaded', () => {
   const connectBtn = document.getElementById("connectBtn");
   if (connectBtn) {
@@ -336,7 +336,36 @@ window.addEventListener('DOMContentLoaded', () => {
     console.error("Connect button not found in DOM");
   }
 
-  // ... (rest of the script: mint, flux, claim, dispute, refreshDashboard, refreshLending, loadMyInvoices, etc. remain unchanged from previous full version)
+  // MINT
+  const mintBtn = document.getElementById("mintBtn");
+  if (mintBtn) {
+    mintBtn.onclick = async () => {
+      if (!nst) return;
+      status("mintStatus", "Confirm in wallet…", "info");
+      try {
+        const ref = document.getElementById("referrerAddr").value.trim() || "0x0000000000000000000000000000000000000000";
+        if (ref !== "0x0000000000000000000000000000000000000000" && !ethers.utils.isAddress(ref)) throw new Error("Invalid referrer");
+
+        const est = await nst.estimateGas.mint(ref, { value: CFG.mintPrice });
+        const tx = await nst.mint(ref, {
+          value: CFG.mintPrice,
+          gasLimit: est.mul(120).div(100)
+        });
+        await tx.wait();
+
+        status("mintStatus", `Minted! <a href="\( {CFG.explorer}/tx/ \){tx.hash}" target="_blank">Tx</a>`, "success");
+        isMinted = true;
+        enterMainRail();
+
+        const base = location.href.split("?")[0];
+        document.getElementById("refLink").value = `\( {base}?ref= \){user.toLowerCase()}`;
+      } catch (err) {
+        status("mintStatus", err.reason || err.message, "error");
+      }
+    };
+  }
+
+  // ... (rest of the script: enterMainRail, invoiceAmountCAD.oninput, fluxBtn.onclick, claimBtn.onclick, disputeBtn.onclick, loadMyInvoices, refreshDashboard, stakeBtn.onclick, claimYieldBtn.onclick, unstakeBtn.onclick, refreshLending, supplyBtn.onclick, borrowBtn.onclick, repayBtn.onclick, addCollateralBtn.onclick, copyRefBtn.onclick remain unchanged)
 });
 </script>
 </body>
