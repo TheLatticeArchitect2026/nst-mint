@@ -1,0 +1,142 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.28;
+interface ICFT {
+  function transfer(address to, uint256 amount) external returns (bool);
+  function transferFrom(address from, address to, uint256 amount) external returns (bool);
+  function balanceOf(address account) external view returns (uint256);
+}
+
+interface IVettingContract {
+  function isApproved(address user) external view returns (bool);
+}
+
+contract InvoiceEscrow {
+  address public owner;
+  ICFT public cft;
+  IVettingContract public vetting;
+
+  enum InvoiceStatus {
+    CREATED,
+    PAID,
+    DISPUTED,
+    RESOLVED,
+    CLAIMED
+  }
+
+  struct Invoice {
+    address sender;
+    address receiver;
+    uint256 amount;
+    uint256 dueDate;
+    InvoiceStatus status;
+    string disputeReason;
+    uint256 paidAt;
+  }
+
+  uint256 public invoiceCount;
+  mapping(uint256 => Invoice) public invoices;
+
+  event InvoiceCreated(
+    uint256 indexed id,
+    address indexed sender,
+    address indexed receiver,
+    uint256 amount,
+    uint256 dueDate
+  );
+
+  event InvoicePaid(uint256 indexed id, address indexed payer);
+  event InvoiceDisputed(uint256 indexed id, string reason);
+  event DisputeResolved(uint256 indexed id, bool receiverWins);
+  event InvoiceClaimed(uint256 indexed id, address indexed receiver);
+
+  modifier onlyOwner() {
+    require(msg.sender == owner, "Not owner");
+    _;
+  }
+
+  constructor(address _cft, address _vetting) {
+    owner = msg.sender;
+    cft = ICFT(_cft);
+    vetting = IVettingContract(_vetting);
+  }
+
+  function createInvoice(address receiver, uint256 amount, uint256 dueDate) external {
+    require(vetting.isApproved(msg.sender), "Sender not vetted");
+    require(vetting.isApproved(receiver), "Receiver not vetted");
+    require(amount > 0, "Zero amount");
+    require(dueDate > block.timestamp, "Bad due date");
+
+    uint256 balanceBefore = cft.balanceOf(address(this));
+    require(cft.transferFrom(msg.sender, address(this), amount), "Transfer failed");
+    uint256 balanceAfter = cft.balanceOf(address(this));
+
+    uint256 receivedAmount = balanceAfter - balanceBefore;
+    require(receivedAmount > 0, "No tokens received");
+
+    invoiceCount += 1;
+
+    invoices[invoiceCount] = Invoice({
+      sender: msg.sender,
+      receiver: receiver,
+      amount: receivedAmount,
+      dueDate: dueDate,
+      status: InvoiceStatus.CREATED,
+      disputeReason: "",
+      paidAt: 0
+    });
+
+    emit InvoiceCreated(invoiceCount, msg.sender, receiver, receivedAmount, dueDate);
+  }
+
+  function payInvoice(uint256 id) external {
+    Invoice storage inv = invoices[id];
+    require(inv.status == InvoiceStatus.CREATED, "Not payable");
+    require(block.timestamp <= inv.dueDate, "Past due");
+
+    inv.status = InvoiceStatus.PAID;
+    inv.paidAt = block.timestamp;
+
+    emit InvoicePaid(id, msg.sender);
+  }
+
+  function disputeInvoice(uint256 id, string calldata reason) external {
+    Invoice storage inv = invoices[id];
+    require(msg.sender == inv.sender || msg.sender == inv.receiver, "Unauthorized");
+    require(
+      inv.status == InvoiceStatus.CREATED || inv.status == InvoiceStatus.PAID,
+      "Not disputable"
+    );
+
+    inv.status = InvoiceStatus.DISPUTED;
+    inv.disputeReason = reason;
+
+    emit InvoiceDisputed(id, reason);
+  }
+
+  function resolveDispute(uint256 id, bool receiverWins) external onlyOwner {
+    Invoice storage inv = invoices[id];
+    require(inv.status == InvoiceStatus.DISPUTED, "Not disputed");
+
+    inv.status = InvoiceStatus.RESOLVED;
+
+    if (receiverWins) {
+      require(cft.transfer(inv.receiver, inv.amount), "Receiver transfer failed");
+    } else {
+      require(cft.transfer(inv.sender, inv.amount), "Sender refund failed");
+    }
+
+    emit DisputeResolved(id, receiverWins);
+  }
+
+  function claimEscrow(uint256 id) external {
+    Invoice storage inv = invoices[id];
+    require(msg.sender == inv.receiver, "Not receiver");
+    require(inv.status == InvoiceStatus.PAID, "Not claimable");
+
+    inv.status = InvoiceStatus.CLAIMED;
+
+    require(cft.transfer(inv.receiver, inv.amount), "Claim transfer failed");
+
+    emit InvoiceClaimed(id, inv.receiver);
+  }
+}

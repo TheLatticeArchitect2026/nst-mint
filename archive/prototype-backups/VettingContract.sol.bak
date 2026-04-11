@@ -1,0 +1,80 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+interface IVerifier {
+    function verifyProof(
+        uint[2] calldata,
+        uint[2][2] calldata,
+        uint[2] calldata,
+        uint[1] calldata
+    ) external view returns (bool);
+}
+
+contract VettingContract {
+    IVerifier public verifier;
+    address public owner;
+
+    enum Status {
+        NONE,
+        APPLIED,
+        APPROVED,
+        REVOKED
+    }
+
+    struct Identity {
+        bytes32 dataHash;
+        Status status;
+        uint256 timestamp;
+    }
+
+    mapping(address => Identity) public identities;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+
+    event Applied(address indexed user, bytes32 dataHash);
+    event Approved(address indexed user);
+    event Revoked(address indexed user);
+
+    constructor(address _verifier) {
+        verifier = IVerifier(_verifier);
+        owner = msg.sender;
+    }
+
+    function submitIdentity(bytes32
+    dataHash) external {
+        require(identities[msg.sender].status == Status.NONE, "Already applied");
+
+        identities[msg.sender] = Identity({
+            dataHash: dataHash,
+            status: Status.APPLIED,
+            timestamp: block.timestamp
+        });
+
+        emit Applied(msg.sender, dataHash);
+    }
+
+    function approve(
+        address user,
+        uint[2] calldata a,
+        uint[2][2] calldata b,
+        uint[2] calldata c,
+        uint[1] calldata input
+    ) external onlyOwner {
+        require(verifier.verifyProof(a, b, c, input), "Invalid zk proof");
+
+        identities[user].status = Status.APPROVED;
+        emit Approved(user);
+    }
+
+    function revoke(address user) external onlyOwner {
+        identities[user].status = Status.REVOKED;
+        emit Revoked(user);
+    }
+
+    function isApproved(address user) external view returns (bool) {
+        return identities[user].status == Status.APPROVED;
+    }
+}
