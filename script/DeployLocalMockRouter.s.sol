@@ -1,0 +1,181 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.28;
+
+import { Script } from "forge-std/Script.sol";
+import { console2 } from "forge-std/console2.sol";
+import { ERC20 } from "openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+
+contract LocalMockWETH is ERC20 {
+    error ZeroDeposit();
+    error ETHTransferFailed();
+
+    event Deposit(address indexed account, uint256 amount);
+    event Withdrawal(address indexed account, uint256 amount);
+
+    constructor() ERC20("Local Mock Wrapped Ether", "WETH") { }
+
+    receive() external payable {
+        deposit();
+    }
+
+    function deposit() public payable {
+        if (msg.value == 0) revert ZeroDeposit();
+
+        _mint(msg.sender, msg.value);
+        emit Deposit(msg.sender, msg.value);
+    }
+
+    function withdraw(
+        uint256 amount
+    ) external {
+        _burn(msg.sender, amount);
+
+        (bool ok,) = payable(msg.sender).call{ value: amount }("");
+        if (!ok) revert ETHTransferFailed();
+
+        emit Withdrawal(msg.sender, amount);
+    }
+}
+
+contract LocalMockUniswapV2Router {
+    error ZeroAddress();
+    error InvalidPath();
+    error Expired(uint256 deadline, uint256 currentTimestamp);
+    error NotOwner(address caller);
+    error ETHTransferFailed();
+
+    address public immutable owner;
+    address public immutable weth;
+
+    event MockSwapExactETHForTokens(
+        address indexed caller,
+        address indexed tokenOut,
+        address indexed to,
+        uint256 amountIn,
+        uint256 amountOutMin,
+        uint256 deadline
+    );
+
+    event ETHSwept(address indexed to, uint256 amount);
+
+    modifier onlyOwner() {
+        if (msg.sender != owner) revert NotOwner(msg.sender);
+        _;
+    }
+
+    constructor(
+        address owner_,
+        address weth_
+    ) {
+        if (owner_ == address(0)) revert ZeroAddress();
+        if (weth_ == address(0)) revert ZeroAddress();
+
+        owner = owner_;
+        weth = weth_;
+    }
+
+    receive() external payable { }
+
+    function WETH() external view returns (address) {
+        return weth;
+    }
+
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external payable {
+        if (path.length != 2) revert InvalidPath();
+        if (path[0] != weth) revert InvalidPath();
+        if (path[1] == address(0)) revert InvalidPath();
+        if (to == address(0)) revert ZeroAddress();
+        if (deadline < block.timestamp) revert Expired(deadline, block.timestamp);
+
+        emit MockSwapExactETHForTokens(msg.sender, path[1], to, msg.value, amountOutMin, deadline);
+    }
+
+    function sweepETH(
+        address payable to,
+        uint256 amount
+    ) external onlyOwner {
+        if (to == address(0)) revert ZeroAddress();
+
+        (bool ok,) = to.call{ value: amount }("");
+        if (!ok) revert ETHTransferFailed();
+
+        emit ETHSwept(to, amount);
+    }
+}
+
+contract DeployLocalMockRouter is Script {
+    error DeploymentFailed(string label);
+
+    struct Deployment {
+        LocalMockWETH weth;
+        LocalMockUniswapV2Router router;
+    }
+
+    function run() external returns (Deployment memory deployed) {
+        uint256 deployerKey = vm.envUint("PRIVATE_KEY");
+        address operator = vm.addr(deployerKey);
+
+        vm.createDir("deployments", true);
+        vm.createDir("frontend/contracts", true);
+
+        vm.startBroadcast(deployerKey);
+
+        deployed.weth = new LocalMockWETH();
+        deployed.router = new LocalMockUniswapV2Router(operator, address(deployed.weth));
+
+        vm.stopBroadcast();
+
+        _assertDeployed("LocalMockWETH", address(deployed.weth));
+        _assertDeployed("LocalMockUniswapV2Router", address(deployed.router));
+
+        _writeArtifacts(deployed, operator);
+
+        console2.log("LOCAL_WETH=", address(deployed.weth));
+        console2.log("ROUTER=", address(deployed.router));
+
+        return deployed;
+    }
+
+    function _assertDeployed(
+        string memory label,
+        address target
+    ) internal view {
+        if (target.code.length == 0) revert DeploymentFailed(label);
+    }
+
+    function _writeArtifacts(
+        Deployment memory deployed,
+        address operator
+    ) internal {
+        string memory objectKey = "localMockRouter";
+
+        vm.serializeUint(objectKey, "chainId", block.chainid);
+        vm.serializeUint(objectKey, "timestamp", block.timestamp);
+        vm.serializeAddress(objectKey, "operator", operator);
+        vm.serializeAddress(objectKey, "localWeth", address(deployed.weth));
+        string memory json = vm.serializeAddress(objectKey, "router", address(deployed.router));
+
+        string memory suffix = string.concat(vm.toString(block.chainid), ".json");
+
+        vm.writeJson(json, string.concat("deployments/local-mock-router-", suffix));
+        vm.writeJson(json, string.concat("frontend/contracts/local-mock-router-", suffix));
+
+        string memory envOut = string.concat(
+            "# Generated by script/DeployLocalMockRouter.s.sol\n",
+            "# LOCAL ANVIL ONLY\n",
+            "LOCAL_WETH=",
+            vm.toString(address(deployed.weth)),
+            "\n",
+            "ROUTER=",
+            vm.toString(address(deployed.router)),
+            "\n"
+        );
+
+        vm.writeFile(".env.local-router.generated", envOut);
+    }
+}

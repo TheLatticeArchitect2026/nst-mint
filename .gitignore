@@ -1,23 +1,25 @@
-.env
-.env.*
-!.env.example
 
-# foundry artifacts
-cache/
-out/
-broadcast/
-
-# generated outputs
-deployments/
-.gas-snapshot
-
+# NST Lattice local secrets and deployment runtime artifacts
 # OS/editor
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-.vscode/
-.idea/
-
+# foundry artifacts
+# generated outputs
 # logs
 *.log
+*.swo
+*.swp
+.DS_Store
+.env
+.env.*
+.gas-snapshot
+.idea/
+.vscode/
+Thumbs.db
+broadcast/
+cache/
+deployments/
+out/
+archive/
+quarantine/
+frontend/contracts/*-31337.json
+*.bak
+!.env.example
