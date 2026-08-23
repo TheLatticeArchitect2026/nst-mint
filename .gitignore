@@ -23,3 +23,4 @@ quarantine/
 frontend/contracts/*-31337.json
 *.bak
 !.env.example
+!.env.base-sepolia.example
