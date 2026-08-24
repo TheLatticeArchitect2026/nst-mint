@@ -39,7 +39,7 @@ The source of truth is:
 | 3 | CFT utility token | Built | CFTv2.sol | CFTv2.t.sol | Complete |
 | 4 | Referral system | Built | ReferralController.sol | ReferralController.t.sol | Complete |
 | 5 | Reward escrow | Built | RewardEscrow.sol | RewardEscrow.t.sol | Complete |
-| 6 | Vault and digital ID locker | Not built | VaultRegistry.sol | VaultRegistry.t.sol | Next |
+| 6 | Vault and digital ID locker | Built | VaultRegistry.sol | VaultRegistry.t.sol + VaultMembershipFlow.t.sol | Complete |
 | 7 | Staking and 7 percent APY | Not built | StakingVault.sol | StakingVault.t.sol | High |
 | 8 | Yield pool and treasury routing | Not built | YieldPool.sol and TreasuryRouter.sol | YieldPool.t.sol | High |
 | 9 | First Nations allocation and resource basket | Spec pending | FN treasury and resource basket modules | Integration tests | High |
@@ -81,22 +81,24 @@ Active tranche name: Vault Registry v1
 
 Files to create:
 
-1. docs/NST_LATTICE_VAULT_SPEC.md
-2. src/VaultRegistry.sol
-3. test/unit/VaultRegistry.t.sol
-4. test/integration/VaultMembershipFlow.t.sol
+1. docs/NST_LATTICE_VAULT_SPEC.md - committed
+2. src/VaultRegistry.sol - committed
+3. test/unit/VaultRegistry.t.sol - committed
+4. test/integration/VaultMembershipFlow.t.sol - committed
 
 ## Next milestone
 
 Milestone target: v0.2.0-vault-registry-local
 
+Current status: implemented locally and verified.
+
 Definition of done:
 
-1. Vault spec complete
-2. VaultRegistry.sol built
-3. Unit tests passing
-4. Integration test with ShieldRegistry and NSTSBT passing
-5. forge fmt passes
-6. forge test --via-ir passes
-7. local smoke path documented
-8. no secrets committed
+1. Vault spec complete - done
+2. VaultRegistry.sol built - done
+3. Unit tests passing - done
+4. Integration test with ShieldRegistry and NSTSBT passing - done
+5. forge fmt passes - done
+6. forge test --via-ir passes - done
+7. no secrets committed - done
+8. ready for PR and merge after final branch gate

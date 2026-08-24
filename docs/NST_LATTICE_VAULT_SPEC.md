@@ -1,6 +1,6 @@
 # NST Lattice Vault Spec
 
-Status: Draft for VaultRegistry v1
+Status: Implemented for VaultRegistry v1 local milestone
 Branch: vault-registry-v1
 Purpose: Define the digital ID locker and credential proof layer.
 
@@ -147,15 +147,15 @@ VaultRegistry must:
 
 ## Definition of done
 
-VaultRegistry v1 is complete when:
+VaultRegistry v1 local implementation status:
 
-1. Contract compiles
-2. Unit tests pass
-3. Integration tests pass
-4. forge fmt passes
-5. forge test --via-ir passes
-6. Secret scan passes
-7. Docs updated
-8. Commit created
-9. Pull request merged
-10. Milestone tag prepared if appropriate
+1. Contract compiles - done
+2. Unit tests pass - done
+3. Integration tests pass - done
+4. forge fmt passes - done
+5. forge test --via-ir passes - done
+6. Secret scan passes - done
+7. Docs updated - done
+8. Commit created - done
+9. Pull request merged - pending
+10. Milestone tag prepared if appropriate - pending after merge
