@@ -51,10 +51,19 @@ contract MockShieldRegistry {
     }
 }
 
+interface IERC20ForMockRouter {
+    function transfer(
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
 contract MockRouter {
     address public immutable weth;
 
     bool public shouldRevert;
+
+    address public outputToken;
     uint256 public lastAmountIn;
     uint256 public lastMinOut;
     address public lastTo;
@@ -75,6 +84,12 @@ contract MockRouter {
         return weth;
     }
 
+    function setOutputToken(
+        address token
+    ) external {
+        outputToken = token;
+    }
+
     function setShouldRevert(
         bool value
     ) external {
@@ -89,31 +104,71 @@ contract MockRouter {
         uint256 amountOutMin,
         address[] calldata path,
         address to,
-        uint256 deadline
+        uint256
     ) external payable {
-        if (shouldRevert) revert("MOCK_ROUTER_REVERT");
+        if (shouldRevert) revert("MOCK_SWAP_REVERT");
 
         delete lastPath;
-
-        for (uint256 i = 0; i < path.length;) {
+        for (uint256 i = 0; i < path.length; ++i) {
             lastPath.push(path[i]);
-            unchecked {
-                ++i;
-            }
         }
 
         lastAmountIn = msg.value;
         lastMinOut = amountOutMin;
         lastTo = to;
-        lastDeadline = deadline;
 
-        emit SwapReceived(msg.value, amountOutMin, to, deadline);
+        if (outputToken != address(0) && amountOutMin != 0) {
+            bool ok = IERC20ForMockRouter(outputToken).transfer(to, amountOutMin);
+            require(ok, "MOCK_OUTPUT_TRANSFER");
+        }
     }
 }
 
 contract RevertingETHReceiver {
     receive() external payable {
         revert("ETH_REJECTED");
+    }
+}
+
+interface IERC20ForMockYieldPool {
+    function balanceOf(
+        address account
+    ) external view returns (uint256);
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+contract MockYieldPoolForNSTSBT {
+    mapping(address asset => uint256 amount) public totalDeposited;
+
+    address public lastAsset;
+    address public lastFrom;
+    uint256 public lastAmount;
+    bytes32 public lastMetadataHash;
+
+    function depositERC20(
+        address asset,
+        uint256 amount,
+        bytes32 metadataHash
+    ) external returns (uint256 received) {
+        require(asset != address(0), "asset");
+        require(amount != 0, "amount");
+
+        uint256 beforeBalance = IERC20ForMockYieldPool(asset).balanceOf(address(this));
+        bool ok = IERC20ForMockYieldPool(asset).transferFrom(msg.sender, address(this), amount);
+        require(ok, "transfer");
+
+        received = IERC20ForMockYieldPool(asset).balanceOf(address(this)) - beforeBalance;
+        require(received != 0, "received");
+
+        totalDeposited[asset] += received;
+        lastAsset = asset;
+        lastFrom = msg.sender;
+        lastAmount = received;
+        lastMetadataHash = metadataHash;
     }
 }
 
@@ -132,6 +187,7 @@ contract NSTSBTTest is Test {
     address internal genesis;
     address internal founder;
     address internal yieldPool;
+    MockYieldPoolForNSTSBT internal yieldPoolMock;
     address internal pauser;
     address internal mintManager;
     address internal metadataManager;
@@ -146,8 +202,8 @@ contract NSTSBTTest is Test {
         admin = makeAddr("admin");
         genesis = makeAddr("genesis");
         founder = makeAddr("founder");
-        yieldPool = makeAddr("yieldPool");
-
+        yieldPoolMock = new MockYieldPoolForNSTSBT();
+        yieldPool = address(yieldPoolMock);
         pauser = makeAddr("pauser");
         mintManager = makeAddr("mintManager");
         metadataManager = makeAddr("metadataManager");
@@ -162,7 +218,8 @@ contract NSTSBTTest is Test {
         weth = new MockERC20("Wrapped Ether", "WETH");
         cft = new MockERC20("Canada Forever Token", "CFT");
         router = new MockRouter(address(weth));
-
+        router.setOutputToken(address(cft));
+        cft.mint(address(router), 100 ether);
         shield.setEligible(genesis, true);
 
         nst = _deployNST(founder);
@@ -382,7 +439,10 @@ contract NSTSBTTest is Test {
 
         assertEq(router.lastAmountIn(), YIELD_SHARE);
         assertEq(router.lastMinOut(), 123);
-        assertEq(router.lastTo(), yieldPool);
+        assertEq(router.lastTo(), address(nst));
+        assertEq(cft.balanceOf(yieldPool), router.lastMinOut());
+        assertEq(yieldPoolMock.totalDeposited(address(cft)), router.lastMinOut());
+        assertEq(yieldPoolMock.lastFrom(), address(nst));
         assertEq(router.lastPathLength(), 2);
         assertEq(router.lastPath(0), address(weth));
         assertEq(router.lastPath(1), address(cft));

@@ -20,6 +20,14 @@ interface IUniswapV2RouterLike {
     ) external payable;
 }
 
+interface IYieldPoolLike {
+    function depositERC20(
+        address asset,
+        uint256 amount,
+        bytes32 metadataHash
+    ) external returns (uint256 received);
+}
+
 interface IERC5192 {
     event Locked(uint256 tokenId);
     event Unlocked(uint256 tokenId);
@@ -86,6 +94,7 @@ contract NSTSBT is ERC721, AccessControl, ReentrancyGuard, Pausable, IERC5192 {
     error SwapAmountZero();
     error SwapRetryFailed();
     error YieldSwapDisabled();
+    error YieldDepositZero();
     error TokenDoesNotExist(uint256 tokenId);
     error BaseURIEmpty();
     error ContractURIEmpty();
@@ -738,10 +747,18 @@ contract NSTSBT is ERC721, AccessControl, ReentrancyGuard, Pausable, IERC5192 {
         if (deadline <= block.timestamp) revert InvalidDeadlineWindow();
 
         address[] memory path = _buildSwapPath();
+        IERC20 cftToken = IERC20(CFT);
+        uint256 beforeBalance = cftToken.balanceOf(address(this));
 
         try ROUTER.swapExactETHForTokensSupportingFeeOnTransferTokens{ value: amountIn }(
-            yieldSwapMinOut, path, YIELD_POOL, deadline
+            yieldSwapMinOut, path, address(this), deadline
         ) {
+            uint256 received = cftToken.balanceOf(address(this)) - beforeBalance;
+            if (received == 0) revert YieldDepositZero();
+
+            cftToken.safeIncreaseAllowance(YIELD_POOL, received);
+            IYieldPoolLike(YIELD_POOL).depositERC20(CFT, received, bytes32(0));
+
             return true;
         } catch {
             return false;
