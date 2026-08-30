@@ -116,7 +116,8 @@ contract DeployLocalMockRouter is Script {
         LocalMockUniswapV2Router router;
     }
 
-    function run() external returns (Deployment memory deployed) {
+    function run() external {
+        Deployment memory deployed;
         uint256 deployerKey = vm.envUint("PRIVATE_KEY");
         address operator = vm.addr(deployerKey);
 
@@ -137,8 +138,6 @@ contract DeployLocalMockRouter is Script {
 
         console2.log("LOCAL_WETH=", address(deployed.weth));
         console2.log("ROUTER=", address(deployed.router));
-
-        return deployed;
     }
 
     function _assertDeployed(
