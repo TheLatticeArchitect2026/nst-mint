@@ -279,3 +279,43 @@ No mainnet deployment is authorized by this reference.
 | Final human approval | Not captured | OPEN |
 
 Mainnet deployment remains blocked until all final acceptance gate requirements are complete, reviewed, committed, and approved.
+
+## V0.5.2 mainnet address intake package reference
+
+Marker: V0_5_2_ADDRESS_INTAKE_PACKAGE_FINAL_ACCEPTANCE_REFERENCE
+Created UTC: 2026-09-27T18:58:50Z
+Address intake package: docs/audits/V0_5_2_MAINNET_ADDRESS_INTAKE_PACKAGE.md
+Address intake package commit: f6f33da700af62b0a6bae4d76d1b233fb583cdf1
+
+The v0.5.2 mainnet address intake package has been created and committed as a docs-only readiness artifact.
+
+This reference is not a deployment authorization.
+
+No mainnet deployment is authorized by this reference.
+
+Production owner addresses remain TBD.
+
+The address intake package remains OPEN until every required production address category is populated from an approved source of truth, checksum reviewed, matched against the role / treasury / operator matrix, approved, and committed.
+
+Required unresolved address categories include:
+
+- Governance multisig or governance object.
+- Emergency multisig.
+- Treasury multisig.
+- Operator multisig.
+- Mint authority.
+- Metadata operator.
+- Vetting operator.
+- Credential operator.
+- Claim operator.
+- Founder receipt wallet or governance object.
+- Rescue destination.
+- Deployment funding wallet.
+- Bootstrap operator wallet, temporary only.
+- TreasuryRouter route destinations.
+
+No private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery phrases, or signing material may be placed in the repository.
+
+Only public production addresses, governance objects, checksums, approval references, and review receipts belong in the address intake package.
+
+Deployment remains blocked until the address intake package is complete and the final acceptance gate is updated with approved production address evidence.
