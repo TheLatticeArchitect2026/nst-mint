@@ -319,3 +319,19 @@ No private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery
 Only public production addresses, governance objects, checksums, approval references, and review receipts belong in the address intake package.
 
 Deployment remains blocked until the address intake package is complete and the final acceptance gate is updated with approved production address evidence.
+
+## V0.5.2 Deployment Config Review Checklist Reference
+
+Reference added UTC: 2026-09-27T19:42:02Z
+
+Referenced artifact: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md
+
+Referenced artifact commit: 490ddc876a2464057e32e734920c993ca46c3298
+
+The deployment config review checklist is now a required readiness gate artifact for any future v0.5.2 mainnet candidate package.
+
+This reference does not authorize deployment.
+
+Final acceptance remains OPEN until the deployment config review checklist is completed, all production owner addresses are resolved, the final deployment configuration is reviewed against approved address evidence, and final human approval is captured.
+
+No mainnet deployment is authorized by this reference.

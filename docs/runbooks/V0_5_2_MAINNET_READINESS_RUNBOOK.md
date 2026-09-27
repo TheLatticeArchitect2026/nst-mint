@@ -186,3 +186,21 @@ No private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery
 Only public production addresses, governance objects, checksums, approval references, and review receipts belong in the address intake package.
 
 Deployment remains blocked until the address intake package is complete and the final acceptance gate is updated with approved production address evidence.
+
+## V0.5.2 Deployment Config Review Checklist Reference
+
+Reference added UTC: 2026-09-27T19:42:02Z
+
+Referenced artifact: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md
+
+Referenced artifact commit: 490ddc876a2464057e32e734920c993ca46c3298
+
+The v0.5.2 readiness runbook now treats the deployment config review checklist as a required pre-deployment readiness artifact.
+
+The deployment config review checklist must be completed before any candidate deployment command, deployment config file, contract address capture command, role verification command, treasury route verification command, release evidence package, or final acceptance gate can be treated as complete.
+
+The current branch uses the committed Via-IR Foundry build profile, but a passing build and passing test suite do not authorize deployment.
+
+Production owner addresses remain TBD.
+
+No mainnet deployment is authorized by this reference.
