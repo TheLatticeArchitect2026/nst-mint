@@ -500,12 +500,23 @@ No other contract begins before these five are frozen, tested, and green.
 
 ## 21. Immediate Next Task
 
-The next file to build after this spec is:
-- src/ShieldRegistry.sol
+Current phase:
+- v0.5.2 mainnet readiness
 
-The ShieldRegistry contract will become the perimeter gate for the entire protocol and the foundation for every later module.
+The ShieldRegistry milestone is no longer the next file to build. ShieldRegistry was completed and included in the v0.5.1 Base Sepolia live release.
 
-End of file.
+The immediate next task is operational hardening and mainnet readiness, not mainnet deployment.
+
+Primary v0.5.2 tasks:
+- Reconcile completed v0.5.1 deployment status across docs.
+- Audit role ownership, treasury ownership, operator permissions, and deployment handoff.
+- Harden release scripts and receipt checks so no manual repair is required.
+- Clean safe Foundry lint warnings without changing protocol behavior.
+- Build mainnet readiness runbook, deployment checklist, rollback checklist, and acceptance gates.
+- Prepare a mainnet candidate plan without deploying mainnet contracts.
+
+Phase gate:
+- No mainnet deployment until tests, scripts, role review, release documentation, and operator checklist are green.
 
 NST_CURRENT_LIVE_STATUS_START
 # NST Core Base Sepolia Release v0.5.1-base-sepolia-live
