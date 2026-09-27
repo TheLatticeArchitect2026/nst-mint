@@ -250,3 +250,32 @@ Do not proceed toward mainnet deployment if any of the following are true:
 - Production owner addresses remain TBD.
 - No source code has been changed.
 - Next task: review this final acceptance gate checklist, then commit it as a docs-only readiness artifact.
+
+## V0.5.2 Via-IR build profile adoption reference
+
+Updated UTC: 2026-09-27T17:35:38Z
+
+Adoption record: docs/audits/V0_5_2_VIA_IR_BUILD_PROFILE_ADOPTION_RECORD.md
+Adoption commit: 3d28f6a70ad89262ee084980f29ab4d07a3e8f76
+Foundry config commit: d0cf09d6c0399a83d870ab1b4b904b174b61bebd
+
+The Via-IR build profile has been adopted in foundry.toml.
+
+This reference does not authorize deployment.
+
+No mainnet deployment is authorized by this reference.
+
+| Gate item | Current result | Status |
+| --- | --- | --- |
+| Build profile decision record exists | docs/audits/V0_5_2_BUILD_PROFILE_DECISION_RECORD.md | COMPLETE |
+| Via-IR hardening checklist exists | docs/checklists/V0_5_2_VIA_IR_BUILD_PROFILE_HARDENING_CHECKLIST.md | COMPLETE |
+| Via-IR adoption record exists | docs/audits/V0_5_2_VIA_IR_BUILD_PROFILE_ADOPTION_RECORD.md | COMPLETE |
+| foundry.toml contains via_ir = true | Confirmed | COMPLETE |
+| forge build under committed Via-IR profile | Passing in adoption record | PASS |
+| forge test under committed Via-IR profile | Passing in adoption record | PASS |
+| Final production addresses | Still TBD | OPEN |
+| Final deployment config matched to approved production addresses | Not complete | OPEN |
+| Final release evidence | Not complete | OPEN |
+| Final human approval | Not captured | OPEN |
+
+Mainnet deployment remains blocked until all final acceptance gate requirements are complete, reviewed, committed, and approved.

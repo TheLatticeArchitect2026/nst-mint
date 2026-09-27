@@ -159,3 +159,30 @@ Do not proceed toward mainnet deployment if any of the following are true:
 - No source code has been changed.
 - Production owner addresses remain TBD.
 - Next task: review this deployment checklist, then commit it as a docs-only readiness artifact.
+
+## V0.5.2 Via-IR build profile adoption reference
+
+Updated UTC: 2026-09-27T17:35:38Z
+
+Adoption record: docs/audits/V0_5_2_VIA_IR_BUILD_PROFILE_ADOPTION_RECORD.md
+Adoption commit: 3d28f6a70ad89262ee084980f29ab4d07a3e8f76
+Foundry config commit: d0cf09d6c0399a83d870ab1b4b904b174b61bebd
+
+The committed candidate build profile now uses Via-IR through foundry.toml.
+
+This reference does not authorize deployment.
+
+No mainnet deployment is authorized by this reference.
+
+| Deployment-readiness item | Required result | Status |
+| --- | --- | --- |
+| Approved build profile selected | Via-IR adopted in foundry.toml | COMPLETE |
+| Build command uses committed build profile | forge build passes under committed Via-IR config | PASS |
+| Test command uses committed build profile | forge test passes under committed Via-IR config | PASS |
+| Deployment dry-run uses approved build profile | Must be confirmed before candidate deployment | OPEN |
+| Contract verification command uses approved build profile | Must be confirmed before candidate deployment | OPEN |
+| Role verification command uses approved build profile | Must be confirmed before candidate deployment | OPEN |
+| Treasury verification command uses approved build profile | Must be confirmed before candidate deployment | OPEN |
+| Release automation checks approved build evidence | Must be confirmed before release creation | OPEN |
+
+Deployment remains blocked until production owner addresses, deployment config, verification commands, rollback readiness, release evidence, and final human approval are complete.

@@ -118,3 +118,31 @@ Before any candidate deployment, release scripts should be hardened so that:
 - No source code has been changed.
 - Mainnet deployment remains blocked.
 - Next task: review this runbook, then commit it as a docs-only readiness artifact.
+
+## V0.5.2 Via-IR build profile adoption reference
+
+Updated UTC: 2026-09-27T17:35:38Z
+
+Adoption record: docs/audits/V0_5_2_VIA_IR_BUILD_PROFILE_ADOPTION_RECORD.md
+Adoption commit: 3d28f6a70ad89262ee084980f29ab4d07a3e8f76
+Foundry config commit: d0cf09d6c0399a83d870ab1b4b904b174b61bebd
+
+The v0.5.2 readiness branch now records Via-IR as the adopted build profile in foundry.toml.
+
+This reference does not authorize deployment.
+
+No mainnet deployment is authorized by this reference.
+
+Current build-profile state:
+
+- Standard non-Via-IR build failure was documented as a build-profile issue.
+- Via-IR build probe passed.
+- Via-IR full test probe passed.
+- foundry.toml was updated to set via_ir = true.
+- The Via-IR config patch was committed and pushed.
+- The Via-IR adoption record confirms forge build and forge test pass under the committed config.
+- Final acceptance remains OPEN.
+- Production owner addresses remain TBD.
+- Mainnet deployment remains blocked.
+
+Next readiness work must continue through final acceptance, deployment configuration, verification command review, release evidence, and final human approval.
