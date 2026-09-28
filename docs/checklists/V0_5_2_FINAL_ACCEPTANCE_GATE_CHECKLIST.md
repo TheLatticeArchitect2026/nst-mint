@@ -335,3 +335,26 @@ This reference does not authorize deployment.
 Final acceptance remains OPEN until the deployment config review checklist is completed, all production owner addresses are resolved, the final deployment configuration is reviewed against approved address evidence, and final human approval is captured.
 
 No mainnet deployment is authorized by this reference.
+
+## v0.5.2 read-only verification commands checklist reference
+
+Source artifact: `docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md`
+Source commit: `b03d4988aa932e9e3556c8d6f950d80bab3111fe`
+Referenced from: `b03d4988aa932e9e3556c8d6f950d80bab3111fe`
+Recorded UTC: `2026-09-28T09:59:19Z`
+
+This reference does not authorize mainnet deployment.
+
+The read-only verification commands checklist defines the required non-broadcast verification command set for any future NST Core v0.5.2 mainnet candidate package.
+
+Required before deployment:
+
+- Verification commands must be read-only.
+- Verification commands must not use `cast send`.
+- Verification commands must not use `forge script --broadcast`.
+- Verification commands must not require private keys, seed phrases, deployer keys, wallet secrets, or recovery phrases.
+- Verification commands must use approved public production contract addresses only after those addresses are finalized.
+- Chain identity, contract address, source verification, bytecode verification, owner verification, role verification, treasury route verification, yield route verification, rescue route verification, and release evidence checks must be reviewed before deployment.
+- Read-only verification receipts must be captured before any release, deployment, or final approval gate can be marked COMPLETE.
+
+Current status: OPEN until final production addresses, deployment config, verification command receipts, and final human approval are complete.
