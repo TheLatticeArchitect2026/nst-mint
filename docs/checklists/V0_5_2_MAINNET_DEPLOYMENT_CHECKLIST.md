@@ -303,3 +303,40 @@ The release evidence bundle must not be treated as complete while any of the fol
 A release evidence bundle checklist pass is required before any future candidate release package can be considered complete.
 
 A release evidence bundle checklist pass does not authorize deployment by itself.
+
+## v0.5.2 final human approval receipt template reference
+
+Reference added UTC: 2026-09-28T11:50:22Z
+
+Source final human approval receipt template: docs/audits/V0_5_2_FINAL_HUMAN_APPROVAL_RECEIPT_TEMPLATE.md
+
+Source template commit: 6ad106ff5eda4ec1d8bf970985ec2c2d58975ea7
+
+This reference does not authorize deployment.
+
+No mainnet deployment is authorized by adding this reference.
+
+Final human approval remains missing until a completed final human approval receipt is reviewed, committed, pushed, remotely confirmed, and supported by all required readiness evidence.
+
+A passing build does not authorize deployment.
+
+A passing test suite does not authorize deployment.
+
+A committed Via-IR build profile does not authorize deployment.
+
+A completed checklist draft does not authorize deployment.
+
+A release evidence bundle checklist does not authorize deployment.
+
+A read-only verification commands checklist does not authorize deployment.
+
+A no-deployment candidate plan does not authorize deployment.
+
+Only a complete final approval package plus explicit human approval can authorize moving toward a candidate deployment command.
+
+Required handling:
+
+- Use docs/audits/V0_5_2_FINAL_HUMAN_APPROVAL_RECEIPT_TEMPLATE.md as the approved structure for any future final human approval receipt.
+- Do not substitute chat text, screenshots, passing builds, passing tests, draft checklists, or implied approval for final approval.
+- Do not include private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery phrases, signing material, private RPC credentials, keystore passwords, or hardware wallet recovery information in any approval receipt.
+- Keep deployment blocked while any production owner address, governance object, treasury destination, operator assignment, deployment config, verification command, release evidence bundle, rollback path, or final human approval item remains OPEN or TBD.
