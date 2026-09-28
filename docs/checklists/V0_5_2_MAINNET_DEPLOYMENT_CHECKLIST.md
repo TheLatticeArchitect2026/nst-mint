@@ -269,3 +269,37 @@ Required before deployment:
 - Read-only verification receipts must be captured before any release, deployment, or final approval gate can be marked COMPLETE.
 
 Current status: OPEN until final production addresses, deployment config, verification command receipts, and final human approval are complete.
+
+## V0.5.2 mainnet release evidence bundle checklist reference
+
+Source checklist: `docs/checklists/V0_5_2_MAINNET_RELEASE_EVIDENCE_BUNDLE_CHECKLIST.md`
+
+Release evidence checklist commit: `59da1a7333700290c330d8af33e44e06e47366f9`
+
+Reference created UTC: `2026-09-28T10:27:42Z`
+
+This reference does not authorize deployment.
+
+No mainnet deployment is authorized by this reference.
+
+The mainnet release evidence bundle remains a required blocker gate until every required evidence file, release note, checksum, receipt, GitHub release view, upload confirmation, verification receipt, and final human approval receipt is complete, reviewed, committed, and remotely confirmed.
+
+The release evidence bundle must not contain private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery phrases, signing material, or private RPC credentials.
+
+The release evidence bundle must not be treated as complete while any of the following remain missing, empty, TBD, unreviewed, uncommitted, or unconfirmed:
+
+- production owner address approval evidence;
+- deployment configuration checksum evidence;
+- deployment configuration manual review receipt;
+- read-only verification command receipts;
+- release notes;
+- release evidence directory;
+- artifact upload confirmation;
+- GitHub release view capture;
+- rollback evidence;
+- final acceptance gate receipt;
+- final human approval receipt.
+
+A release evidence bundle checklist pass is required before any future candidate release package can be considered complete.
+
+A release evidence bundle checklist pass does not authorize deployment by itself.
