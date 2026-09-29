@@ -208,3 +208,27 @@ This blocker register is complete only when:
 - No source code is changed by this register.
 - The register is committed and pushed to the v0.5.2 phase branch.
 - Mainnet deployment remains blocked.
+
+## v0.5.2 final production address collection package reference
+
+Reference added UTC: 2026-09-29T20:50:39Z
+
+Reference artifact: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md
+
+Reference commit: efbf87cf1b199f5fe42026925aa4bdea03663179
+
+Current branch at reference time: phase/v0.5.2-mainnet-readiness
+
+This reference records that the v0.5.2 final production address collection package exists as a committed readiness artifact.
+
+This reference does not approve any production address, route, role, treasury destination, operator, governance object, deployment key, release package, deployment configuration, or mainnet deployment.
+
+This reference does not authorize deployment.
+
+Production owner addresses remain TBD until final public production addresses are collected from an approved source of truth, reviewed, committed, pushed, and remotely confirmed.
+
+No private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery phrases, signing material, private RPC credentials, keystore passwords, or hardware wallet recovery information belong in this repository.
+
+Do not use screenshots, chat text, mock values, local values, Anvil values, Base Sepolia test-only values, or placeholder addresses as final production values.
+
+Mainnet deployment remains blocked.
