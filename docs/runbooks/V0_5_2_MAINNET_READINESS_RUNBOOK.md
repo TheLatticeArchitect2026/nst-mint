@@ -298,3 +298,17 @@ Required handling:
 - Do not substitute chat text, screenshots, passing builds, passing tests, draft checklists, or implied approval for final approval.
 - Do not include private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery phrases, signing material, private RPC credentials, keystore passwords, or hardware wallet recovery information in any approval receipt.
 - Keep deployment blocked while any production owner address, governance object, treasury destination, operator assignment, deployment config, verification command, release evidence bundle, rollback path, or final human approval item remains OPEN or TBD.
+
+## V0.5.2 mainnet readiness blocker register reference
+
+Reference source: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+Reference commit: 54ed452cc3f64cbd6ad69a2b9ed875e9fa5c8f19
+Reference UTC: 2026-09-29T08:52:02Z
+
+This document now recognizes the v0.5.2 mainnet readiness blocker register as a controlling readiness artifact.
+
+This reference does not authorize deployment.
+
+Mainnet deployment remains blocked until every blocker in the register is resolved, reviewed, committed, pushed, remotely confirmed, and paired with explicit final human approval.
+
+The blocker register must be checked before any future candidate deployment command is prepared.

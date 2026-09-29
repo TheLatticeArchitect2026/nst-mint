@@ -258,3 +258,17 @@ This template is complete only when:
 - No release script has been changed.
 - No mainnet deployment has been authorized.
 - Next task: reference this template in final acceptance, deployment, runbook, candidate plan, deployment config review, read-only verification, and release evidence bundle readiness gates.
+
+## V0.5.2 mainnet readiness blocker register reference
+
+Reference source: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+Reference commit: 54ed452cc3f64cbd6ad69a2b9ed875e9fa5c8f19
+Reference UTC: 2026-09-29T08:52:02Z
+
+This document now recognizes the v0.5.2 mainnet readiness blocker register as a controlling readiness artifact.
+
+This reference does not authorize deployment.
+
+Mainnet deployment remains blocked until every blocker in the register is resolved, reviewed, committed, pushed, remotely confirmed, and paired with explicit final human approval.
+
+The blocker register must be checked before any future candidate deployment command is prepared.
