@@ -296,3 +296,36 @@ No private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery
 Do not use screenshots, chat text, mock values, local values, Anvil values, Base Sepolia test-only values, or placeholder addresses as final production values.
 
 Mainnet deployment remains blocked.
+
+## V0.5.2 final production address approval receipt template reference
+
+Reference file: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_APPROVAL_RECEIPT_TEMPLATE.md  
+Reference commit: fcfaf82996a48c711d5f9537051ad5a5b91a4291  
+Reference UTC: 2026-09-30T09:05:59Z  
+
+This reference connects the Final human approval receipt template to the final production address approval receipt template.
+
+This reference is not a deployment authorization.
+
+No mainnet deployment is authorized by this reference.
+
+This reference does not approve any production address, route, role, treasury destination, operator, key, deployer wallet, governance object, release package, or deployment configuration.
+
+Final production addresses remain blocked unless each required production address row is paired with a completed approval receipt created from the committed final production address approval receipt template or a stricter committed successor.
+
+Any TBD, placeholder, mock, local, Anvil, Base Sepolia test-only, screenshot-derived, chat-derived, or unapproved address value remains a NO-GO.
+
+No private key, seed phrase, deployer key, wallet secret, API key, recovery phrase, private RPC credential, keystore password, signing material, or hardware wallet recovery information may be documented in this reference chain.
+
+Required approval evidence before this gate can close:
+
+- Completed final production address approval receipt.
+- Final public production address values from an approved source of truth.
+- Approval evidence for each required owner category.
+- Checksum confirmation for each public address.
+- Confirmation that no local, mock, Anvil, Base Sepolia test-only, placeholder, screenshot-derived, or chat-derived values are being used as production values.
+- Confirmation that no private signing material or secret material is included.
+- Manual review receipt.
+- Commit and remote confirmation receipt.
+
+Until this approval evidence exists, the production-address portion of this readiness gate remains OPEN and mainnet deployment remains BLOCKED.
