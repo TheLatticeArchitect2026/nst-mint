@@ -265,3 +265,21 @@ Required approval evidence before this gate can close:
 - Commit and remote confirmation receipt.
 
 Until this approval evidence exists, the production-address portion of this readiness gate remains OPEN and mainnet deployment remains BLOCKED.
+
+## v0.5.2 production address source-of-truth request packet reference
+
+Reference added UTC: 2026-10-02T08:17:08Z  
+Reference source packet commit: 0b9d98e712085fcbab4618360a316143fd6a7a4b  
+Reference source packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md  
+
+This reference does not authorize deployment.
+
+No mainnet deployment is authorized by this reference.
+
+The production address source-of-truth request packet is now part of the v0.5.2 readiness evidence chain.
+
+Final production addresses remain unresolved until approved public source-of-truth evidence is collected, reviewed, committed, pushed, remotely confirmed, and converted into a completed final production address approval receipt.
+
+Do not use memory, screenshots, chat text, guesses, placeholder addresses, local addresses, Anvil addresses, mock addresses, Base Sepolia test-only addresses, private keys, seed phrases, API keys, deployer keys, wallet secrets, recovery phrases, signing material, private RPC credentials, keystore passwords, or hardware wallet recovery information as production address evidence.
+
+Mainnet deployment remains blocked until every final acceptance gate item is COMPLETE, every production owner address is resolved from approved public source-of-truth evidence, and explicit final human approval is captured.
