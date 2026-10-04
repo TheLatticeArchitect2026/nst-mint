@@ -762,3 +762,71 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 ABI source policy reference
+
+Reference document: docs/audits/V0_5_2_ABI_SOURCE_POLICY.md
+
+Reference commit: 046ed38768988e61c0f3b2537e65e51d5e87bbad
+
+Reference captured UTC: 2026-10-04T19:10:43Z
+
+Reference target: transaction rail package gate checklist
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production governance.
+
+This reference does not authorize writing executable ABI client code.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the ABI source policy exists as a controlled readiness artifact.
+
+ABI-dependent package work remains blocked until approved ABI source hierarchy, Foundry artifact rules, explorer verification rules, Base Sepolia ABI boundaries, Base mainnet ABI boundaries, local Anvil ABI boundaries, ABI record required fields, disallowed ABI source controls, secret exclusion controls, ABI drift controls, and ABI review workflow are complete.
+
+Required follow-on work:
+
+- Create address source policy.
+- Create ABI evidence record template.
+- Create ABI checksum receipt template.
+- Create Base Sepolia ABI inventory receipt.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create config package implementation plan.
+- Create governance gates implementation plan.
+- Reference ABI source policy in package gates before executable ABI client source implementation.
+
+No-go conditions preserved:
+
+- Do not write executable ABI client code until ABI policy gates are complete.
+- Do not create production protocol clients yet.
+- Do not create production transaction rail ABI bindings yet.
+- Do not create production write clients yet.
+- Do not create production mint clients yet.
+- Do not use screenshot-derived ABIs.
+- Do not use chat-derived ABIs.
+- Do not use manually edited ABIs without receipt.
+- Do not use Base Sepolia ABIs as production ABIs.
+- Do not use Anvil ABIs as production ABIs.
+- Do not use uncommitted build artifacts as approved ABIs.
+- Do not use wrong-branch build artifacts as approved ABIs.
+- Do not use wrong-profile build artifacts as approved ABIs.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
