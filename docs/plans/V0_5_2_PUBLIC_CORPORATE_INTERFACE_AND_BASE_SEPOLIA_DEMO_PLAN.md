@@ -1,25 +1,25 @@
 # NST Core v0.5.2 Public / Corporate Interface and Base Sepolia Demo Plan
 
-Status: DRAFT PLAN  
-Phase: v0.5.2 mainnet readiness  
-Branch: phase/v0.5.2-mainnet-readiness  
-Created UTC: 2026-10-04T12:39:13Z  
+Status: DRAFT PLAN
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Created UTC: 2026-10-04T12:39:13Z
 Current commit at creation: 7fd192ac0fa141ebcbd90b51bbe58c6e70d6a01f
 
-Base Sepolia public-interface decision commit: 02fad4ea64dde6fe74f09d06a77719634c14ce71  
-Readiness blocker register commit: 7fd192ac0fa141ebcbd90b51bbe58c6e70d6a01f  
+Base Sepolia public-interface decision commit: 02fad4ea64dde6fe74f09d06a77719634c14ce71
+Readiness blocker register commit: 7fd192ac0fa141ebcbd90b51bbe58c6e70d6a01f
 Readiness runbook commit: 7fd192ac0fa141ebcbd90b51bbe58c6e70d6a01f
 
-Source Base Sepolia decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md  
-Source readiness runbook: docs/runbooks/V0_5_2_MAINNET_READINESS_RUNBOOK.md  
-Source no-deployment candidate plan: docs/plans/V0_5_2_MAINNET_CANDIDATE_PLAN_NO_DEPLOYMENT.md  
-Source readiness blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md  
-Source final production address collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md  
-Source production address source-of-truth request packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md  
-Source production address response review checklist: docs/checklists/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_RESPONSE_REVIEW_CHECKLIST.md  
-Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md  
-Source read-only verification checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md  
-Source release evidence checklist: docs/checklists/V0_5_2_MAINNET_RELEASE_EVIDENCE_BUNDLE_CHECKLIST.md  
+Source Base Sepolia decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md
+Source readiness runbook: docs/runbooks/V0_5_2_MAINNET_READINESS_RUNBOOK.md
+Source no-deployment candidate plan: docs/plans/V0_5_2_MAINNET_CANDIDATE_PLAN_NO_DEPLOYMENT.md
+Source readiness blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+Source final production address collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md
+Source production address source-of-truth request packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md
+Source production address response review checklist: docs/checklists/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_RESPONSE_REVIEW_CHECKLIST.md
+Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md
+Source read-only verification checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md
+Source release evidence checklist: docs/checklists/V0_5_2_MAINNET_RELEASE_EVIDENCE_BUNDLE_CHECKLIST.md
 Source final human approval template: docs/audits/V0_5_2_FINAL_HUMAN_APPROVAL_RECEIPT_TEMPLATE.md
 
 ## Purpose
@@ -566,3 +566,45 @@ The following workstreams remain blocked until separately built, reviewed, teste
 
 No app, frontend, backend, infrastructure, deployment, or protocol source file is approved by this reference alone.
 
+
+## V0.5.2 application source tree scaffold reference
+
+Status: CREATED AND COMMITTED
+
+Application source tree scaffold commit: f1710989494f97154f7d9dcaeb0ece2f00aad089
+
+Application source tree scaffold gate checklist: docs/checklists/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_GATE_CHECKLIST.md
+
+Application source tree scaffold record: docs/plans/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_RECORD.md
+
+Scaffolded application surfaces:
+
+- apps/public-site/
+- apps/corporate-site/
+- apps/base-sepolia-demo/
+- apps/first-nations-portal/
+- apps/admin-console/
+
+Scaffolded package surfaces:
+
+- packages/transaction-rail/
+- packages/protocol-clients/
+- packages/governance-gates/
+- packages/ui/
+- packages/config/
+
+Scaffolded infrastructure surface:
+
+- infra/
+
+Control rule:
+
+- The scaffold is README-only at this stage.
+- The scaffold is non-executable.
+- The scaffold does not introduce production application code.
+- The scaffold does not authorize deployment.
+- The scaffold does not authorize public launch.
+- The scaffold does not authorize public reliance.
+- The scaffold does not authorize Base Sepolia public onboarding.
+- The scaffold does not authorize mainnet deployment.
+- Future implementation inside apps/, packages/, or infra/ must pass source-tree, security, governance, legal, address, verification, release-evidence, and final human approval controls before production use.

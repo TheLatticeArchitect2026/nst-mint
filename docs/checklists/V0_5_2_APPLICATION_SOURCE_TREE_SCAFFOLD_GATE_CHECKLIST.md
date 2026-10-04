@@ -1,24 +1,24 @@
 # NST Core v0.5.2 Application Source Tree Scaffold Gate Checklist
 
-Status: DRAFT CHECKLIST  
-Phase: v0.5.2 mainnet readiness  
-Branch: phase/v0.5.2-mainnet-readiness  
-Created UTC: 2026-10-04T13:35:42Z  
-Current commit at creation: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9  
+Status: DRAFT CHECKLIST
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Created UTC: 2026-10-04T13:35:42Z
+Current commit at creation: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9
 
-Application infrastructure blueprint commit: 3bc2c6b9b463dd78c7c5de6b58f098f28707083b  
-Public/corporate interface plan commit: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9  
-Base Sepolia public interface decision record commit: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9  
-Readiness blocker register commit: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9  
+Application infrastructure blueprint commit: 3bc2c6b9b463dd78c7c5de6b58f098f28707083b
+Public/corporate interface plan commit: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9
+Base Sepolia public interface decision record commit: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9
+Readiness blocker register commit: 3bd7e7e3cbb43a0520d0a8a52d3a14797e4088a9
 
-Source application infrastructure blueprint: docs/plans/V0_5_2_APPLICATION_INFRASTRUCTURE_BLUEPRINT.md  
-Source public/corporate interface and Base Sepolia demo plan: docs/plans/V0_5_2_PUBLIC_CORPORATE_INTERFACE_AND_BASE_SEPOLIA_DEMO_PLAN.md  
-Source Base Sepolia decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md  
-Source blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md  
-Source final acceptance gate: docs/checklists/V0_5_2_FINAL_ACCEPTANCE_GATE_CHECKLIST.md  
-Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md  
-Source read-only verification checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md  
-Source readiness runbook: docs/runbooks/V0_5_2_MAINNET_READINESS_RUNBOOK.md  
+Source application infrastructure blueprint: docs/plans/V0_5_2_APPLICATION_INFRASTRUCTURE_BLUEPRINT.md
+Source public/corporate interface and Base Sepolia demo plan: docs/plans/V0_5_2_PUBLIC_CORPORATE_INTERFACE_AND_BASE_SEPOLIA_DEMO_PLAN.md
+Source Base Sepolia decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md
+Source blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+Source final acceptance gate: docs/checklists/V0_5_2_FINAL_ACCEPTANCE_GATE_CHECKLIST.md
+Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md
+Source read-only verification checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md
+Source readiness runbook: docs/runbooks/V0_5_2_MAINNET_READINESS_RUNBOOK.md
 
 ## Purpose
 
@@ -387,3 +387,45 @@ This checklist is complete only when:
 - No mainnet deployment has been authorized.
 - Next safe task: create the first controlled application source tree scaffold after this checklist is committed.
 
+
+## V0.5.2 application source tree scaffold reference
+
+Status: CREATED AND COMMITTED
+
+Application source tree scaffold commit: f1710989494f97154f7d9dcaeb0ece2f00aad089
+
+Application source tree scaffold gate checklist: docs/checklists/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_GATE_CHECKLIST.md
+
+Application source tree scaffold record: docs/plans/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_RECORD.md
+
+Scaffolded application surfaces:
+
+- apps/public-site/
+- apps/corporate-site/
+- apps/base-sepolia-demo/
+- apps/first-nations-portal/
+- apps/admin-console/
+
+Scaffolded package surfaces:
+
+- packages/transaction-rail/
+- packages/protocol-clients/
+- packages/governance-gates/
+- packages/ui/
+- packages/config/
+
+Scaffolded infrastructure surface:
+
+- infra/
+
+Control rule:
+
+- The scaffold is README-only at this stage.
+- The scaffold is non-executable.
+- The scaffold does not introduce production application code.
+- The scaffold does not authorize deployment.
+- The scaffold does not authorize public launch.
+- The scaffold does not authorize public reliance.
+- The scaffold does not authorize Base Sepolia public onboarding.
+- The scaffold does not authorize mainnet deployment.
+- Future implementation inside apps/, packages/, or infra/ must pass source-tree, security, governance, legal, address, verification, release-evidence, and final human approval controls before production use.

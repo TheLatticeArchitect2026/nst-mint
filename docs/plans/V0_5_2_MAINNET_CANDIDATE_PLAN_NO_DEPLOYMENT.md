@@ -444,9 +444,9 @@ Mainnet deployment remains blocked.
 
 ## V0.5.2 final production address approval receipt template reference
 
-Reference file: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_APPROVAL_RECEIPT_TEMPLATE.md  
-Reference commit: fcfaf82996a48c711d5f9537051ad5a5b91a4291  
-Reference UTC: 2026-09-30T09:05:59Z  
+Reference file: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_APPROVAL_RECEIPT_TEMPLATE.md
+Reference commit: fcfaf82996a48c711d5f9537051ad5a5b91a4291
+Reference UTC: 2026-09-30T09:05:59Z
 
 This reference connects the No-deployment mainnet candidate plan to the final production address approval receipt template.
 
@@ -477,9 +477,9 @@ Until this approval evidence exists, the production-address portion of this read
 
 ## v0.5.2 production address source-of-truth request packet reference
 
-Reference added UTC: 2026-10-02T08:17:08Z  
-Reference source packet commit: 0b9d98e712085fcbab4618360a316143fd6a7a4b  
-Reference source packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md  
+Reference added UTC: 2026-10-02T08:17:08Z
+Reference source packet commit: 0b9d98e712085fcbab4618360a316143fd6a7a4b
+Reference source packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md
 
 This reference does not authorize deployment.
 
@@ -519,7 +519,7 @@ Mainnet deployment remains blocked.
 
 Reference created UTC: 2026-10-04T12:17:04Z
 
-Source decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md  
+Source decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md
 Source decision commit: 02fad4ea64dde6fe74f09d06a77719634c14ce71
 
 This readiness artifact incorporates the Base Sepolia deployment inventory and public-interface decision record.
@@ -572,3 +572,45 @@ The following workstreams remain blocked until separately built, reviewed, teste
 
 No app, frontend, backend, infrastructure, deployment, or protocol source file is approved by this reference alone.
 
+
+## V0.5.2 application source tree scaffold reference
+
+Status: CREATED AND COMMITTED
+
+Application source tree scaffold commit: f1710989494f97154f7d9dcaeb0ece2f00aad089
+
+Application source tree scaffold gate checklist: docs/checklists/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_GATE_CHECKLIST.md
+
+Application source tree scaffold record: docs/plans/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_RECORD.md
+
+Scaffolded application surfaces:
+
+- apps/public-site/
+- apps/corporate-site/
+- apps/base-sepolia-demo/
+- apps/first-nations-portal/
+- apps/admin-console/
+
+Scaffolded package surfaces:
+
+- packages/transaction-rail/
+- packages/protocol-clients/
+- packages/governance-gates/
+- packages/ui/
+- packages/config/
+
+Scaffolded infrastructure surface:
+
+- infra/
+
+Control rule:
+
+- The scaffold is README-only at this stage.
+- The scaffold is non-executable.
+- The scaffold does not introduce production application code.
+- The scaffold does not authorize deployment.
+- The scaffold does not authorize public launch.
+- The scaffold does not authorize public reliance.
+- The scaffold does not authorize Base Sepolia public onboarding.
+- The scaffold does not authorize mainnet deployment.
+- Future implementation inside apps/, packages/, or infra/ must pass source-tree, security, governance, legal, address, verification, release-evidence, and final human approval controls before production use.
