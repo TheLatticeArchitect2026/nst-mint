@@ -566,3 +566,35 @@ Current Base Sepolia public-interface rule:
 - No production owner address may be copied from Base Sepolia, Anvil, screenshots, chat text, placeholders, or memory.
 - Mainnet deployment remains blocked until final production addresses, governance, treasury, operator handoff, verification, release evidence, and explicit final human approval are complete.
 
+
+## V0.5.2 application infrastructure blueprint reference
+
+Source blueprint: `docs/plans/V0_5_2_APPLICATION_INFRASTRUCTURE_BLUEPRINT.md`
+
+Blueprint commit: `3bc2c6b9b463dd78c7c5de6b58f098f28707083b`
+
+This reference does not authorize deployment.
+
+This reference does not authorize public use of any Base Sepolia or mainnet interface.
+
+This reference does not approve an end-to-end transaction rail, public landing page, corporate landing page, First Nations interface, deployment command, production address, treasury route, operator role, or mainnet release.
+
+The application infrastructure blueprint is now a controlled readiness artifact for the future application/interface layer.
+
+The following workstreams remain blocked until separately built, reviewed, tested, approved, committed, pushed, and paired with evidence receipts:
+
+- public landing page;
+- corporate landing page;
+- First Nations legal/review interface;
+- Base Sepolia public demo boundary;
+- wallet connection boundary;
+- read-only protocol status interface;
+- source-of-truth production address flow;
+- end-to-end transaction rail;
+- backend/indexer/API layer;
+- admin/operator dashboard;
+- monitoring and audit log layer;
+- release and rollback controls for application infrastructure.
+
+No app, frontend, backend, infrastructure, deployment, or protocol source file is approved by this reference alone.
+
