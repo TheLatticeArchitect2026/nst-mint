@@ -745,3 +745,74 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Protocol client package gate checklist reference
+
+Reference document: docs/checklists/V0_5_2_PROTOCOL_CLIENT_PACKAGE_GATE_CHECKLIST.md
+
+Reference commit: e410e534eace03eb712f0a8cc90b7fd2cd479314
+
+Reference captured UTC: 2026-10-04T17:54:18Z
+
+Reference target: no-deployment mainnet candidate plan
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize writing executable protocol client package code.
+
+This reference does not authorize production mint transactions.
+
+This reference does not authorize production treasury routing.
+
+This reference does not authorize production role mutation.
+
+This reference does not authorize production registry mutation.
+
+This reference does not authorize production governance actions.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the protocol client package gate checklist exists as a controlled readiness artifact.
+
+The protocol client package remains gate-blocked until ABI source controls, address source controls, network guards, read-only client boundaries, write-client boundaries, transaction rail dependency, config dependency, governance gates dependency, Base Sepolia limitations, Base mainnet blockers, package test strategy, and no-secret package scan rules are complete.
+
+Required follow-on work:
+
+- Create config package gate checklist.
+- Create governance gates package checklist.
+- Create Base Sepolia demo launch gate checklist.
+- Create ABI source policy.
+- Create address source policy.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create protocol client package test strategy.
+- Create no-secret package scan rule.
+- Reference each package gate in readiness documents before source code implementation.
+
+No-go conditions preserved:
+
+- Do not write protocol client package source code until package gates are complete.
+- Do not create production protocol clients yet.
+- Do not create production write clients yet.
+- Do not create production mint clients yet.
+- Do not create production treasury route clients yet.
+- Do not create production governance clients yet.
+- Do not embed production addresses before source-of-truth approval.
+- Do not use Base Sepolia addresses as production addresses.
+- Do not use Anvil addresses as production addresses.
+- Do not use mock addresses as production addresses.
+- Do not use screenshots as address source-of-truth.
+- Do not use chat text as address source-of-truth.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
