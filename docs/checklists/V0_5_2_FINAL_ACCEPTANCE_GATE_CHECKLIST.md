@@ -640,3 +640,70 @@ Control rule:
 - The scaffold does not authorize Base Sepolia public onboarding.
 - The scaffold does not authorize mainnet deployment.
 - Future implementation inside apps/, packages/, or infra/ must pass source-tree, security, governance, legal, address, verification, release-evidence, and final human approval controls before production use.
+
+## v0.5.2 Transaction rail architecture blueprint reference
+
+Reference document: docs/plans/V0_5_2_TRANSACTION_RAIL_ARCHITECTURE_BLUEPRINT.md
+
+Reference commit: 8e779a9c160732f55e133275a316fb4b5b19f437
+
+Reference captured UTC: 2026-10-04T15:24:37Z
+
+Reference target: final acceptance gate
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize a production transaction rail.
+
+This reference does not authorize production treasury routing.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the transaction rail architecture blueprint exists as a controlled planning artifact.
+
+The transaction rail remains not built.
+
+The public site remains not built.
+
+The corporate site remains not built.
+
+The First Nations portal remains not built.
+
+The admin console remains not built.
+
+The Base Sepolia demo interface remains not production.
+
+The production mainnet transaction rail remains blocked until approved production addresses, deployment configuration, verification commands, release evidence, final legal review where required, and final human approval are complete.
+
+Required follow-on work:
+
+- Create transaction rail package gate checklist.
+- Create protocol client package gate checklist.
+- Create governance gate package checklist.
+- Create public non-secret config package gate.
+- Create public site content architecture.
+- Create corporate site content architecture.
+- Create First Nations portal legal-review intake architecture.
+- Create Base Sepolia demo launch gate checklist.
+- Create transaction rail state machine skeleton only after source gates are approved.
+- Create read-only protocol client skeleton only after package gates are approved.
+- Create no-secret config skeleton only after config gates are approved.
+
+No-go conditions preserved:
+
+- Do not use mock addresses as production addresses.
+- Do not use Anvil addresses as production addresses.
+- Do not use Base Sepolia addresses as production mainnet addresses.
+- Do not use screenshots as production address source-of-truth.
+- Do not use chat text as production address source-of-truth.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed deployer keys.
+- Do not present testnet actions as production actions.
+- Do not present this reference as deployment approval.
