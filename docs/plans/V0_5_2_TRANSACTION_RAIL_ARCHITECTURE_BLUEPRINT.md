@@ -1,0 +1,757 @@
+# NST Core v0.5.2 Transaction Rail Architecture Blueprint
+
+Status: DRAFT ARCHITECTURE BLUEPRINT
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Purpose: define the future NST Lattice end-to-end transaction rail before executable app or package code is written.
+
+This document is not a deployment authorization.
+
+This document does not authorize mainnet deployment.
+
+This document does not authorize public reliance on any live system.
+
+This document does not create, approve, or imply a production payment rail.
+
+This document does not create, approve, or imply a production remittance rail.
+
+This document does not create, approve, or imply a production treasury routing system.
+
+This document does not authorize the use of Base Sepolia, local Anvil, mock, placeholder, or screenshot-derived addresses as production addresses.
+
+This document is an architecture blueprint only.
+
+Mainnet deployment remains blocked until all required readiness gates, production addresses, deployment configuration, read-only verification commands, release evidence, final legal review, and final human approval are complete.
+
+## Source documents
+
+Source application infrastructure blueprint: docs/plans/V0_5_2_APPLICATION_INFRASTRUCTURE_BLUEPRINT.md
+
+Source application source tree scaffold record: docs/plans/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_RECORD.md
+
+Source application source tree scaffold gate checklist: docs/checklists/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_GATE_CHECKLIST.md
+
+Source public corporate interface and Base Sepolia demo plan: docs/plans/V0_5_2_PUBLIC_CORPORATE_INTERFACE_AND_BASE_SEPOLIA_DEMO_PLAN.md
+
+Source Base Sepolia deployment inventory and public interface decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md
+
+Source mainnet readiness blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+
+Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md
+
+Source read-only verification commands checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md
+
+Source package scaffold: packages/transaction-rail/README.md
+
+Source protocol clients package scaffold: packages/protocol-clients/README.md
+
+Source governance gates package scaffold: packages/governance-gates/README.md
+
+Source public application scaffold: apps/public-site/README.md
+
+Source corporate application scaffold: apps/corporate-site/README.md
+
+Source First Nations portal scaffold: apps/first-nations-portal/README.md
+
+Source Base Sepolia demo scaffold: apps/base-sepolia-demo/README.md
+
+Source admin console scaffold: apps/admin-console/README.md
+
+## Current state
+
+The protocol contract work and readiness documentation have advanced.
+
+The app and package source tree scaffold now exists.
+
+The transaction rail is not built yet.
+
+The public site is not built yet.
+
+The corporate site is not built yet.
+
+The First Nations portal is not built yet.
+
+The admin console is not built yet.
+
+The Base Sepolia demo interface is not built yet.
+
+The production mainnet deployment configuration is not complete.
+
+Production owner addresses remain blocked until approved source-of-truth evidence is complete.
+
+The final read-only verification command set is not complete.
+
+The final release evidence bundle is not complete.
+
+The final human approval receipt is not complete.
+
+No public production interface is authorized yet.
+
+No public production onboarding is authorized yet.
+
+No public production mint flow is authorized yet.
+
+No production transaction rail is authorized yet.
+
+## Rail objective
+
+The NST Lattice transaction rail is intended to become the controlled system boundary for moving users through the NST ecosystem from discovery, eligibility, wallet connection, membership action, protocol interaction, receipt capture, and post-action status display.
+
+The transaction rail must support a safe user experience without weakening protocol governance.
+
+The transaction rail must not bypass the protocol.
+
+The transaction rail must not bypass role controls.
+
+The transaction rail must not bypass treasury controls.
+
+The transaction rail must not bypass final deployment approvals.
+
+The transaction rail must not custody user private keys.
+
+The transaction rail must not request seed phrases.
+
+The transaction rail must not request wallet recovery phrases.
+
+The transaction rail must not request deployer private keys.
+
+The transaction rail must not embed privileged operator secrets in client code.
+
+The transaction rail must not treat testnet state as production state.
+
+The transaction rail must separate public education from transactional execution.
+
+## Architecture boundary
+
+The transaction rail is not one contract.
+
+The transaction rail is a coordinated application and package layer around the deployed protocol.
+
+The rail boundary includes:
+
+- Public site education and onboarding.
+- Corporate site education and intake.
+- First Nations portal education and legal-consent pathway.
+- Base Sepolia demo interface.
+- Admin console for authorized operational review.
+- Protocol client adapters.
+- Governance gate client utilities.
+- Transaction preparation utilities.
+- Transaction status tracking utilities.
+- Receipt capture utilities.
+- Read-only verification utilities.
+- Configuration loading utilities.
+- Environment separation controls.
+- No-secret enforcement rules.
+- Deployment status banners.
+- No-reliance disclaimers.
+
+## High-level user journey
+
+A user should be able to understand what NST is before connecting a wallet.
+
+A user should be able to read the current network status before taking any action.
+
+A user should be able to distinguish testnet demo mode from production mainnet mode.
+
+A user should be able to connect a wallet only through an approved wallet connection flow.
+
+A user should be able to see whether minting is open.
+
+A user should be able to see whether eligibility or vetting applies.
+
+A user should be able to see whether the wallet has already minted.
+
+A user should be able to preview the expected action before signing.
+
+A user should be able to review the price, chain, contract, and transaction purpose before signing.
+
+A user should be able to reject the transaction without penalty.
+
+A user should be able to view a transaction hash after submission.
+
+A user should be able to view confirmation status.
+
+A user should be able to view membership state after confirmation.
+
+A user should be able to view a receipt after confirmation.
+
+A user should be able to avoid sharing private keys, seed phrases, or wallet secrets at all times.
+
+## Public site role
+
+The public site is the public-facing education and discovery interface.
+
+The public site must communicate:
+
+- Project purpose.
+- Membership concept.
+- Soul-bound NST concept.
+- Network status.
+- Deployment status.
+- Testnet status.
+- Mainnet status.
+- Public disclaimers.
+- No investment solicitation.
+- No guarantee language.
+- No custody language.
+- No secret request language.
+- Public documentation links.
+- Base Sepolia demo boundary, if enabled.
+- Mainnet readiness status, when appropriate.
+
+The public site must not imply that mainnet is live before final authorization.
+
+The public site must not expose privileged administrative actions.
+
+The public site must not collect private keys.
+
+The public site must not collect seed phrases.
+
+The public site must not collect recovery phrases.
+
+The public site must not collect unnecessary personal information.
+
+## Corporate site role
+
+The corporate site is the enterprise and institutional intake interface.
+
+The corporate site must communicate:
+
+- Corporate participation path.
+- Enterprise integration categories.
+- Possible API or protocol-client integration path.
+- Governance status.
+- Current readiness status.
+- Legal review requirement.
+- No deployment authorization.
+- No investment solicitation.
+- No production treasury approval.
+- No operational reliance until mainnet release is complete.
+
+Corporate intake must collect only non-secret business information.
+
+Corporate intake must not collect private keys.
+
+Corporate intake must not collect seed phrases.
+
+Corporate intake must not collect deployer keys.
+
+Corporate intake must not collect wallet recovery phrases.
+
+Corporate intake must route production address or treasury requests into the approved source-of-truth process.
+
+## First Nations portal role
+
+The First Nations portal is a sensitive governance, legal, representation, and participation interface.
+
+The First Nations portal must not be finalized without specialized Treaty-law review.
+
+The First Nations lawyer specializing in Treaty law should be treated as a critical contributor to:
+
+- Treaty-law language.
+- Governance framing.
+- Revenue language.
+- Rights language.
+- Representation language.
+- Consent language.
+- Community onboarding language.
+- Legal disclaimers.
+- Possible multisig or key-holder role design.
+- First Nations evidence package review.
+- Public-facing First Nations participation language.
+
+The First Nations portal must not imply legal consent without documented authority.
+
+The First Nations portal must not imply representation without documented authority.
+
+The First Nations portal must not imply revenue entitlement language is final until legal language is approved.
+
+The First Nations portal must not assign multisig or key-holder duties without formal governance approval.
+
+The First Nations portal must support document-controlled review before public launch.
+
+## Base Sepolia demo role
+
+The Base Sepolia demo is the only appropriate public interaction candidate before production mainnet, and only if the public interface decision record permits it.
+
+The Base Sepolia demo must be clearly labeled testnet.
+
+The Base Sepolia demo must state that testnet tokens have no production value.
+
+The Base Sepolia demo must state that testnet actions do not create production rights.
+
+The Base Sepolia demo must state that contract addresses are Base Sepolia addresses only.
+
+The Base Sepolia demo must not represent testnet state as production state.
+
+The Base Sepolia demo must not collect private keys.
+
+The Base Sepolia demo must not request seed phrases.
+
+The Base Sepolia demo must not request recovery phrases.
+
+The Base Sepolia demo must not ask users to bridge real funds for a testnet demo.
+
+The Base Sepolia demo must show chain ID and network name.
+
+The Base Sepolia demo must block interaction on the wrong chain.
+
+The Base Sepolia demo must use only public testnet contract addresses from documented deployment inventory.
+
+The Base Sepolia demo must preserve the no-deployment and no-reliance warnings.
+
+## Admin console role
+
+The admin console is not a public user interface.
+
+The admin console is for controlled operational review only.
+
+The admin console must not embed private keys.
+
+The admin console must not include seed phrases.
+
+The admin console must not include recovery phrases.
+
+The admin console must not include production secrets in client code.
+
+The admin console must not broadcast privileged transactions without an approved governance process.
+
+The admin console may eventually display read-only status for:
+
+- Contract addresses.
+- Role owners.
+- Treasury destinations.
+- Mint state.
+- Pause state.
+- Metadata freeze state.
+- Yield settings.
+- Pending yield state.
+- Registry dependencies.
+- Release evidence.
+- Deployment receipts.
+- Verification receipts.
+
+Any privileged operational function must be separately designed, reviewed, and approval-gated.
+
+## Package boundary
+
+The transaction rail package should eventually contain reusable rail logic.
+
+The transaction rail package should not contain application secrets.
+
+The transaction rail package should not hardcode production addresses before final source-of-truth approval.
+
+The transaction rail package should not bypass config review.
+
+The transaction rail package should not directly assume one network.
+
+The transaction rail package should depend on approved config packages when they exist.
+
+The transaction rail package should expose transaction state helpers.
+
+The transaction rail package should expose safe user-facing transaction descriptions.
+
+The transaction rail package should expose receipt normalization.
+
+The transaction rail package should expose error classification.
+
+The transaction rail package should expose network guard helpers.
+
+The transaction rail package should not sign transactions itself.
+
+Wallet signing must remain with the user wallet provider.
+
+## Protocol clients package role
+
+The protocol clients package should eventually contain generated or hand-reviewed contract client bindings.
+
+The protocol clients package should distinguish read-only calls from write calls.
+
+The protocol clients package should use approved ABI sources.
+
+The protocol clients package should support network-specific configuration.
+
+The protocol clients package should not include private keys.
+
+The protocol clients package should not include deployer keys.
+
+The protocol clients package should not include seed phrases.
+
+The protocol clients package should not include recovery phrases.
+
+The protocol clients package should not contain mock addresses in production config.
+
+The protocol clients package should support contract address verification against approved config.
+
+## Governance gates package role
+
+The governance gates package should eventually contain shared application-level guards.
+
+The governance gates package should not replace onchain role checks.
+
+The governance gates package should not claim authority over protocol governance.
+
+The governance gates package should help interfaces display status and block unsafe user flows.
+
+Possible gates include:
+
+- Network gate.
+- Chain ID gate.
+- Contract address gate.
+- Deployment mode gate.
+- Testnet disclaimer gate.
+- Mainnet readiness gate.
+- Mint open gate.
+- Pause gate.
+- Eligibility gate.
+- Already minted gate.
+- Address source-of-truth gate.
+- Release evidence gate.
+- Final approval gate.
+
+## Config package role
+
+The config package should eventually contain public non-secret configuration.
+
+The config package may include public contract addresses only after approval.
+
+The config package may include chain IDs.
+
+The config package may include block explorer URLs.
+
+The config package may include public feature flags.
+
+The config package must not include private RPC credentials.
+
+The config package must not include private keys.
+
+The config package must not include wallet secrets.
+
+The config package must not include seed phrases.
+
+The config package must not include deployer keys.
+
+The config package must not contain production addresses before source-of-truth approval.
+
+## Transaction states
+
+The rail should use explicit transaction states.
+
+Recommended future transaction states:
+
+- idle.
+- wrong_network.
+- wallet_disconnected.
+- wallet_connected.
+- preflight_loading.
+- preflight_blocked.
+- ready_to_preview.
+- preview_ready.
+- awaiting_user_signature.
+- user_rejected.
+- submitted.
+- pending_confirmation.
+- confirmed.
+- failed.
+- replaced.
+- timed_out.
+- receipt_available.
+- post_action_syncing.
+- complete.
+
+Every state must have user-facing language.
+
+Every state must avoid false certainty.
+
+Every state must avoid implying a transaction succeeded before confirmation.
+
+Every state must preserve the network boundary.
+
+## Preflight checks
+
+Before any future transaction request is presented to a user, the rail should check:
+
+- Correct app mode.
+- Correct chain.
+- Correct contract address.
+- Contract code exists.
+- Contract address matches approved config.
+- Wallet is connected.
+- Wallet is on supported chain.
+- User action is available.
+- Contract state permits the action.
+- Required price or value is shown.
+- User has not already completed an exclusive action, where applicable.
+- Eligibility gate is satisfied, where applicable.
+- Pause state does not block action.
+- Required disclaimers are visible.
+- Receipt capture path is available.
+
+Preflight failure should block transaction preparation.
+
+Preflight failure should explain the reason.
+
+Preflight failure should not request wallet signing.
+
+## Write transaction boundary
+
+Write transactions are high risk.
+
+Write transactions must be isolated from read-only verification.
+
+Write transactions must not be created from screenshots.
+
+Write transactions must not be created from chat text.
+
+Write transactions must not be created from mock addresses.
+
+Write transactions must not be created from placeholder addresses.
+
+Write transactions must not be created from unapproved production addresses.
+
+Write transactions must not be broadcast by documentation scripts.
+
+Write transactions must not run automatically on page load.
+
+Write transactions must require deliberate user action.
+
+Write transactions must display the chain, contract, action, value, and expected result.
+
+Write transactions must be blocked if network or config does not match.
+
+## Read-only boundary
+
+Read-only calls are still security-sensitive.
+
+Read-only calls must use approved public RPC surfaces.
+
+Read-only calls must not require private keys.
+
+Read-only calls must not require seed phrases.
+
+Read-only calls must not require wallet secrets.
+
+Read-only calls must not mutate chain state.
+
+Read-only calls must not use cast send.
+
+Read-only calls must not use forge script broadcast mode.
+
+Read-only calls must not be treated as final approval.
+
+Read-only calls must not authorize deployment.
+
+Read-only calls can support status displays and verification receipts.
+
+## Receipt model
+
+The future rail should produce clear receipts.
+
+Possible receipt categories include:
+
+- Wallet connection receipt.
+- Network check receipt.
+- Preflight receipt.
+- Transaction preview receipt.
+- User rejection receipt.
+- Submitted transaction receipt.
+- Confirmation receipt.
+- Post-action read-only status receipt.
+- Error receipt.
+- Explorer link receipt.
+- Release evidence receipt.
+- Admin review receipt.
+
+Receipts must not contain secrets.
+
+Receipts must not contain private keys.
+
+Receipts must not contain seed phrases.
+
+Receipts must not contain recovery phrases.
+
+Receipts must not contain private RPC credentials.
+
+Receipts must include enough public context to audit the action.
+
+## Base Sepolia public interaction decision
+
+Base Sepolia interaction can be useful for public confidence, education, and early interface testing.
+
+Base Sepolia interaction should remain explicitly testnet-only.
+
+Base Sepolia public interaction should be allowed only after:
+
+- Inventory is complete.
+- Demo interface warnings are complete.
+- Contract addresses are documented.
+- Contract state is reviewed.
+- Demo actions are safe.
+- No production reliance language exists.
+- No mainnet implication exists.
+- No real-value claim exists.
+- Support and recovery expectations are documented.
+- Public disclaimers are reviewed.
+
+The current blueprint does not approve launching the demo.
+
+The current blueprint defines what must be true before launch.
+
+## Production mainnet boundary
+
+Production mainnet must remain blocked until:
+
+- Production owner addresses are complete.
+- Governance objects are complete.
+- Treasury destinations are complete.
+- Operator authorities are complete.
+- Role owner mappings are complete.
+- Deployment config is complete.
+- Deployment config checksum is captured.
+- Read-only verification commands are complete.
+- Release evidence bundle is complete.
+- Final human approval receipt is complete.
+- Final legal review is complete where required.
+- Public interface launch decision is complete.
+- Corporate interface launch decision is complete.
+- First Nations language is legally reviewed.
+- Emergency rollback path is complete.
+
+## First Nations legal integration
+
+The Treaty-law specialist should be treated as a strategic legal contributor.
+
+The First Nations interface should route the legal contributor into the review path before public publication.
+
+The legal contributor may also be considered for a future key-holder or multisig role only after governance approval.
+
+No key-holder role is assigned by this blueprint.
+
+No multisig role is assigned by this blueprint.
+
+No First Nations governance authority is assigned by this blueprint.
+
+No First Nations revenue language is finalized by this blueprint.
+
+This blueprint preserves the need for specialized legal drafting and review.
+
+## Public launch risk controls
+
+Before any public interface launch, the project should confirm:
+
+- No false mainnet readiness language.
+- No unstated investment solicitation.
+- No unstated legal claim.
+- No unstated First Nations representation claim.
+- No production address placeholder.
+- No private key request.
+- No seed phrase request.
+- No recovery phrase request.
+- No wallet secret request.
+- No private RPC credential in code.
+- No accidental production write path.
+- No unreviewed contract address.
+- No unreviewed ABI.
+- No unreviewed role mapping.
+- No unreviewed treasury route.
+- No missing disclaimer.
+- No missing support boundary.
+- No missing incident response path.
+
+## Implementation sequence
+
+Recommended future implementation sequence:
+
+1. Commit this transaction rail architecture blueprint.
+2. Reference this blueprint in the readiness gates.
+3. Create transaction rail package gate checklist.
+4. Create protocol client package gate checklist.
+5. Create public site content architecture.
+6. Create corporate site content architecture.
+7. Create First Nations portal legal-review intake architecture.
+8. Create Base Sepolia demo launch gate checklist.
+9. Create no-secret config package gate.
+10. Create public non-secret config skeleton.
+11. Create read-only protocol client skeleton.
+12. Create transaction rail state machine skeleton.
+13. Create Base Sepolia demo read-only status page.
+14. Create Base Sepolia demo wallet connect gate.
+15. Create Base Sepolia demo mint preview gate.
+16. Create Base Sepolia demo testnet-only transaction path.
+17. Create receipt capture model.
+18. Create public launch review checklist.
+19. Create corporate intake review checklist.
+20. Create First Nations legal review checklist.
+21. Create final demo acceptance gate.
+22. Only after review, consider public Base Sepolia demo launch.
+
+## No-go conditions
+
+Do not build production transaction execution until production addresses are finalized.
+
+Do not build production deployment config from screenshots.
+
+Do not build production deployment config from chat text.
+
+Do not build production deployment config from memory.
+
+Do not build production deployment config from placeholder addresses.
+
+Do not build production transaction rail code that embeds secrets.
+
+Do not build a public mainnet mint interface until mainnet authorization is complete.
+
+Do not build a public interface that implies Base Sepolia equals production.
+
+Do not build a First Nations legal interface without specialized legal review.
+
+Do not build multisig or key-holder assignments without governance approval.
+
+Do not build treasury routing UI without approved treasury destinations.
+
+Do not build admin write controls without a separate security review.
+
+Do not request user private keys.
+
+Do not request user seed phrases.
+
+Do not request user recovery phrases.
+
+Do not request wallet secrets.
+
+Do not request deployer private keys.
+
+Do not rely on Anvil addresses.
+
+Do not rely on mock addresses.
+
+Do not rely on Base Sepolia addresses as production addresses.
+
+## Acceptance criteria for this blueprint
+
+This blueprint is acceptable only if:
+
+- It is docs-only.
+- It creates no executable app code.
+- It creates no deployment script.
+- It creates no transaction script.
+- It creates no production config.
+- It preserves no-deployment status.
+- It states the transaction rail is not built yet.
+- It defines public site boundary.
+- It defines corporate site boundary.
+- It defines First Nations portal boundary.
+- It defines Base Sepolia demo boundary.
+- It defines admin console boundary.
+- It defines transaction rail package boundary.
+- It defines protocol client package boundary.
+- It defines governance gate package boundary.
+- It defines config package boundary.
+- It includes no private keys.
+- It includes no seed phrases.
+- It includes no wallet secrets.
+- It includes no recovery phrases.
+- It preserves mainnet blockers.
+- It identifies the next safe implementation sequence.
+- It is committed and pushed to the v0.5.2 phase branch.
