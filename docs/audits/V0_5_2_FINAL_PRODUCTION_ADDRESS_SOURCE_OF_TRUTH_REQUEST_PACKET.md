@@ -1,21 +1,21 @@
 # NST Core v0.5.2 Final Production Address Source-of-Truth Request Packet
 
-Status: DRAFT REQUEST PACKET  
-Phase: v0.5.2 mainnet readiness  
-Branch: phase/v0.5.2-mainnet-readiness  
-Created UTC: 2026-09-30T09:24:05Z  
+Status: DRAFT REQUEST PACKET
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Created UTC: 2026-09-30T09:24:05Z
 Current commit at creation: b892d1a5a2eec41033e8f765192edfb1f9ccd115
 
-Source collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md  
-Source production address approval receipt template: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_APPROVAL_RECEIPT_TEMPLATE.md  
-Source blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md  
-Source address intake package: docs/audits/V0_5_2_MAINNET_ADDRESS_INTAKE_PACKAGE.md  
-Source address intake process: docs/audits/V0_5_2_MAINNET_ADDRESS_INTAKE_PROCESS.md  
-Source owner address template: docs/audits/V0_5_2_MAINNET_OWNER_ADDRESS_TEMPLATE.md  
-Source role treasury operator matrix: docs/audits/V0_5_2_ROLE_TREASURY_OPERATOR_MATRIX.md  
-Source operator handoff checklist: docs/audits/V0_5_2_OPERATOR_HANDOFF_CHECKLIST.md  
-Source final acceptance gate: docs/checklists/V0_5_2_FINAL_ACCEPTANCE_GATE_CHECKLIST.md  
-Source deployment checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CHECKLIST.md  
+Source collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md
+Source production address approval receipt template: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_APPROVAL_RECEIPT_TEMPLATE.md
+Source blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+Source address intake package: docs/audits/V0_5_2_MAINNET_ADDRESS_INTAKE_PACKAGE.md
+Source address intake process: docs/audits/V0_5_2_MAINNET_ADDRESS_INTAKE_PROCESS.md
+Source owner address template: docs/audits/V0_5_2_MAINNET_OWNER_ADDRESS_TEMPLATE.md
+Source role treasury operator matrix: docs/audits/V0_5_2_ROLE_TREASURY_OPERATOR_MATRIX.md
+Source operator handoff checklist: docs/audits/V0_5_2_OPERATOR_HANDOFF_CHECKLIST.md
+Source final acceptance gate: docs/checklists/V0_5_2_FINAL_ACCEPTANCE_GATE_CHECKLIST.md
+Source deployment checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CHECKLIST.md
 Source readiness runbook: docs/runbooks/V0_5_2_MAINNET_READINESS_RUNBOOK.md
 
 ## Purpose
@@ -288,3 +288,73 @@ No private key, seed phrase, API key, deployer key, wallet secret, recovery phra
 Readiness remains blocked until final public production addresses, approval evidence, deployment configuration review, read-only verification receipts, release evidence, and final human approval are complete, reviewed, committed, pushed, and remotely confirmed.
 
 Mainnet deployment remains blocked.
+
+## v0.5.2 Config package gate checklist reference
+
+Reference document: docs/checklists/V0_5_2_CONFIG_PACKAGE_GATE_CHECKLIST.md
+
+Reference commit: 9c152de9c889c453168846ac28ef3ad69fb10dd7
+
+Reference captured UTC: 2026-10-04T18:17:03Z
+
+Reference target: final production address source-of-truth request packet
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production contract addresses.
+
+This reference does not authorize production treasury routing.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize writing executable config package code.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the config package gate checklist exists as a controlled readiness artifact.
+
+The config package remains gate-blocked until public config boundaries, secret exclusion controls, network config rules, address config rules, ABI config rules, feature flag rules, interface copy boundaries, Base Sepolia limitations, Base mainnet blockers, transaction rail dependency, protocol client dependency, governance gates dependency, package test strategy, and no-secret package scan rules are complete.
+
+Required follow-on work:
+
+- Create governance gates package checklist.
+- Create Base Sepolia demo launch gate checklist.
+- Create ABI source policy.
+- Create address source policy.
+- Create Base Sepolia config map.
+- Create public warning copy review.
+- Create First Nations legal language review placeholder.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Reference each remaining package gate in readiness documents before source code implementation.
+
+No-go conditions preserved:
+
+- Do not write executable config package source code until package gates are complete.
+- Do not create production mainnet config yet.
+- Do not create production address config yet.
+- Do not create production transaction enablement flags yet.
+- Do not create production mint enablement flags yet.
+- Do not create production treasury route config yet.
+- Do not create production governance object config yet.
+- Do not embed production addresses before source-of-truth approval.
+- Do not use Base Sepolia addresses as production addresses.
+- Do not use Anvil addresses as production addresses.
+- Do not use mock addresses as production addresses.
+- Do not use screenshots as address source-of-truth.
+- Do not use chat text as address source-of-truth.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.

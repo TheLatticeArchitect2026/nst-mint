@@ -1,19 +1,19 @@
 # NST Core v0.5.2 Final Production Address Source-of-Truth Response Review Checklist
 
-Status: DRAFT CHECKLIST  
-Phase: v0.5.2 mainnet readiness  
-Branch: phase/v0.5.2-mainnet-readiness  
-Created UTC: 2026-10-04T11:09:57Z  
-Current commit at creation: 9883b43e3c2d678a050a6eda13dece87a4252ecf  
+Status: DRAFT CHECKLIST
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Created UTC: 2026-10-04T11:09:57Z
+Current commit at creation: 9883b43e3c2d678a050a6eda13dece87a4252ecf
 
-Source request packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md  
-Source request packet commit: 0b9d98e712085fcbab4618360a316143fd6a7a4b  
-Source collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md  
-Source collection package commit: 9883b43e3c2d678a050a6eda13dece87a4252ecf  
-Source approval receipt template: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_APPROVAL_RECEIPT_TEMPLATE.md  
-Source approval receipt template commit: 9883b43e3c2d678a050a6eda13dece87a4252ecf  
-Source blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md  
-Source blocker register commit: 9883b43e3c2d678a050a6eda13dece87a4252ecf  
+Source request packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md
+Source request packet commit: 0b9d98e712085fcbab4618360a316143fd6a7a4b
+Source collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md
+Source collection package commit: 9883b43e3c2d678a050a6eda13dece87a4252ecf
+Source approval receipt template: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_APPROVAL_RECEIPT_TEMPLATE.md
+Source approval receipt template commit: 9883b43e3c2d678a050a6eda13dece87a4252ecf
+Source blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+Source blocker register commit: 9883b43e3c2d678a050a6eda13dece87a4252ecf
 
 ## Purpose
 
@@ -426,3 +426,73 @@ This checklist is complete only when:
 - No production address has been approved by this checklist.
 - No mainnet deployment has been authorized.
 - Next task: commit this checklist, then reference it in the readiness gates.
+
+## v0.5.2 Config package gate checklist reference
+
+Reference document: docs/checklists/V0_5_2_CONFIG_PACKAGE_GATE_CHECKLIST.md
+
+Reference commit: 9c152de9c889c453168846ac28ef3ad69fb10dd7
+
+Reference captured UTC: 2026-10-04T18:17:03Z
+
+Reference target: final production address response review checklist
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production contract addresses.
+
+This reference does not authorize production treasury routing.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize writing executable config package code.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the config package gate checklist exists as a controlled readiness artifact.
+
+The config package remains gate-blocked until public config boundaries, secret exclusion controls, network config rules, address config rules, ABI config rules, feature flag rules, interface copy boundaries, Base Sepolia limitations, Base mainnet blockers, transaction rail dependency, protocol client dependency, governance gates dependency, package test strategy, and no-secret package scan rules are complete.
+
+Required follow-on work:
+
+- Create governance gates package checklist.
+- Create Base Sepolia demo launch gate checklist.
+- Create ABI source policy.
+- Create address source policy.
+- Create Base Sepolia config map.
+- Create public warning copy review.
+- Create First Nations legal language review placeholder.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Reference each remaining package gate in readiness documents before source code implementation.
+
+No-go conditions preserved:
+
+- Do not write executable config package source code until package gates are complete.
+- Do not create production mainnet config yet.
+- Do not create production address config yet.
+- Do not create production transaction enablement flags yet.
+- Do not create production mint enablement flags yet.
+- Do not create production treasury route config yet.
+- Do not create production governance object config yet.
+- Do not embed production addresses before source-of-truth approval.
+- Do not use Base Sepolia addresses as production addresses.
+- Do not use Anvil addresses as production addresses.
+- Do not use mock addresses as production addresses.
+- Do not use screenshots as address source-of-truth.
+- Do not use chat text as address source-of-truth.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
