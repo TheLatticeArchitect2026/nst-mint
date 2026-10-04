@@ -266,3 +266,25 @@ Do not proceed toward mainnet deployment if any of the following are true:
 - No release script has been changed.
 - No mainnet deployment has been authorized.
 - Next safe task: collect final public production address evidence from approved source of truth only.
+
+## V0.5.2 source-of-truth response review checklist reference
+
+Reference added UTC: 2026-10-04T11:24:21Z
+
+Source checklist: docs/checklists/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_RESPONSE_REVIEW_CHECKLIST.md
+
+Source checklist commit: c95b21a5263e10154ca9b0aee6ac1225c6d92075
+
+Source checklist short commit: c95b21a
+
+This reference does not authorize deployment.
+
+The production address source-of-truth response review checklist must be completed before any production address response can be accepted into a final owner address template, deployment configuration, verification command set, release evidence bundle, final human approval receipt, or candidate deployment command.
+
+The response review must confirm that every production address comes only from an approved source of truth, has required approval evidence, is checksum reviewed, is not a local mock address, is not an Anvil address, is not a placeholder address, and is not a Base Sepolia or test-only address unless explicitly limited and approved.
+
+No private key, seed phrase, API key, deployer key, wallet secret, recovery phrase, signing material, private RPC credential, keystore password, or hardware wallet recovery information may be included in any response review artifact.
+
+Readiness remains blocked until final public production addresses, approval evidence, deployment configuration review, read-only verification receipts, release evidence, and final human approval are complete, reviewed, committed, pushed, and remotely confirmed.
+
+Mainnet deployment remains blocked.
