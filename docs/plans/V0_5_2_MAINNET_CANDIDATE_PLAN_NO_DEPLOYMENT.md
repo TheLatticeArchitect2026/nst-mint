@@ -514,3 +514,29 @@ No private key, seed phrase, API key, deployer key, wallet secret, recovery phra
 Readiness remains blocked until final public production addresses, approval evidence, deployment configuration review, read-only verification receipts, release evidence, and final human approval are complete, reviewed, committed, pushed, and remotely confirmed.
 
 Mainnet deployment remains blocked.
+
+## V0.5.2 Base Sepolia public interface decision reference
+
+Reference created UTC: 2026-10-04T12:17:04Z
+
+Source decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md  
+Source decision commit: 02fad4ea64dde6fe74f09d06a77719634c14ce71
+
+This readiness artifact incorporates the Base Sepolia deployment inventory and public-interface decision record.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize broad public write access to the deployed Base Sepolia system.
+
+Current Base Sepolia public-interface rule:
+
+- Controlled read-only viewing may be prepared.
+- Controlled founder-reviewed demo interaction may be prepared.
+- Broad public write access remains blocked.
+- Corporate/public landing pages may be designed as education, intake, documentation, and waitlist surfaces.
+- Landing pages must not imply mainnet readiness.
+- Landing pages must not imply production custody, production addresses, or final governance approval.
+- Any testnet interaction must clearly state that Base Sepolia is a test network.
+- No production owner address may be copied from Base Sepolia, Anvil, screenshots, chat text, placeholders, or memory.
+- Mainnet deployment remains blocked until final production addresses, governance, treasury, operator handoff, verification, release evidence, and explicit final human approval are complete.
+
