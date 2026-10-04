@@ -1,28 +1,28 @@
 # NST Core v0.5.2 Final Production Address Approval Receipt Template
 
-Status: DRAFT TEMPLATE  
-Phase: v0.5.2 mainnet readiness  
-Branch: phase/v0.5.2-mainnet-readiness  
-Created UTC: 2026-09-30T08:49:54Z  
-Current commit at creation: 74cb7cdf7a2630b21a0f2edfb8e05a28d6a76678  
+Status: DRAFT TEMPLATE
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Created UTC: 2026-09-30T08:49:54Z
+Current commit at creation: 74cb7cdf7a2630b21a0f2edfb8e05a28d6a76678
 
-Source final production address collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md  
-Source collection package commit: efbf87cf1b199f5fe42026925aa4bdea03663179  
-Source address intake package: docs/audits/V0_5_2_MAINNET_ADDRESS_INTAKE_PACKAGE.md  
-Source owner address template: docs/audits/V0_5_2_MAINNET_OWNER_ADDRESS_TEMPLATE.md  
-Source role treasury operator matrix: docs/audits/V0_5_2_ROLE_TREASURY_OPERATOR_MATRIX.md  
-Source operator handoff checklist: docs/audits/V0_5_2_OPERATOR_HANDOFF_CHECKLIST.md  
-Source readiness blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md  
-Source readiness blocker register commit: 74cb7cdf7a2630b21a0f2edfb8e05a28d6a76678  
-Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md  
-Source read-only verification commands checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md  
-Source release evidence bundle checklist: docs/checklists/V0_5_2_MAINNET_RELEASE_EVIDENCE_BUNDLE_CHECKLIST.md  
-Source final human approval receipt template: docs/audits/V0_5_2_FINAL_HUMAN_APPROVAL_RECEIPT_TEMPLATE.md  
-Source final human approval template commit: 74cb7cdf7a2630b21a0f2edfb8e05a28d6a76678  
-Source final acceptance gate: docs/checklists/V0_5_2_FINAL_ACCEPTANCE_GATE_CHECKLIST.md  
-Source deployment checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CHECKLIST.md  
-Source runbook: docs/runbooks/V0_5_2_MAINNET_READINESS_RUNBOOK.md  
-Source no-deployment candidate plan: docs/plans/V0_5_2_MAINNET_CANDIDATE_PLAN_NO_DEPLOYMENT.md  
+Source final production address collection package: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_COLLECTION_PACKAGE.md
+Source collection package commit: efbf87cf1b199f5fe42026925aa4bdea03663179
+Source address intake package: docs/audits/V0_5_2_MAINNET_ADDRESS_INTAKE_PACKAGE.md
+Source owner address template: docs/audits/V0_5_2_MAINNET_OWNER_ADDRESS_TEMPLATE.md
+Source role treasury operator matrix: docs/audits/V0_5_2_ROLE_TREASURY_OPERATOR_MATRIX.md
+Source operator handoff checklist: docs/audits/V0_5_2_OPERATOR_HANDOFF_CHECKLIST.md
+Source readiness blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+Source readiness blocker register commit: 74cb7cdf7a2630b21a0f2edfb8e05a28d6a76678
+Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md
+Source read-only verification commands checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md
+Source release evidence bundle checklist: docs/checklists/V0_5_2_MAINNET_RELEASE_EVIDENCE_BUNDLE_CHECKLIST.md
+Source final human approval receipt template: docs/audits/V0_5_2_FINAL_HUMAN_APPROVAL_RECEIPT_TEMPLATE.md
+Source final human approval template commit: 74cb7cdf7a2630b21a0f2edfb8e05a28d6a76678
+Source final acceptance gate: docs/checklists/V0_5_2_FINAL_ACCEPTANCE_GATE_CHECKLIST.md
+Source deployment checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CHECKLIST.md
+Source runbook: docs/runbooks/V0_5_2_MAINNET_READINESS_RUNBOOK.md
+Source no-deployment candidate plan: docs/plans/V0_5_2_MAINNET_CANDIDATE_PLAN_NO_DEPLOYMENT.md
 
 ## Purpose
 
@@ -330,9 +330,9 @@ Do not proceed toward mainnet deployment if any of the following are true:
 
 ## v0.5.2 production address source-of-truth request packet reference
 
-Reference added UTC: 2026-10-02T08:17:08Z  
-Reference source packet commit: 0b9d98e712085fcbab4618360a316143fd6a7a4b  
-Reference source packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md  
+Reference added UTC: 2026-10-02T08:17:08Z
+Reference source packet commit: 0b9d98e712085fcbab4618360a316143fd6a7a4b
+Reference source packet: docs/audits/V0_5_2_FINAL_PRODUCTION_ADDRESS_SOURCE_OF_TRUTH_REQUEST_PACKET.md
 
 This reference does not authorize deployment.
 
@@ -367,3 +367,82 @@ No private key, seed phrase, API key, deployer key, wallet secret, recovery phra
 Readiness remains blocked until final public production addresses, approval evidence, deployment configuration review, read-only verification receipts, release evidence, and final human approval are complete, reviewed, committed, pushed, and remotely confirmed.
 
 Mainnet deployment remains blocked.
+
+## v0.5.2 Governance gates package gate checklist reference
+
+Reference document: docs/checklists/V0_5_2_GOVERNANCE_GATES_PACKAGE_GATE_CHECKLIST.md
+
+Reference commit: c44aa902a9d83b828fdf275f5b58588f5e9f1929
+
+Reference captured UTC: 2026-10-04T18:53:52Z
+
+Reference target: final production address approval receipt template
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize production governance.
+
+This reference does not authorize production governance objects.
+
+This reference does not authorize production role ownership.
+
+This reference does not authorize production multisig assignments.
+
+This reference does not authorize First Nations governance claims.
+
+This reference does not authorize First Nations legal conclusions.
+
+This reference does not authorize production treasury routing.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize writing executable governance gates package code.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the governance gates package gate checklist exists as a controlled readiness artifact.
+
+The governance gates package remains gate-blocked until governance authority rules, multisig/key-holder rules, First Nations legal review boundaries, corporate governance boundaries, treasury governance boundaries, emergency authority boundaries, operator authority boundaries, role owner mapping, transaction rail dependency, protocol client dependency, config dependency, Base Sepolia limitations, Base mainnet blockers, governance package test strategy, and no-secret package scan rules are complete.
+
+Required follow-on work:
+
+- Create ABI source policy.
+- Create address source policy.
+- Create Base Sepolia demo launch gate checklist.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create config package implementation plan.
+- Create governance gates implementation plan.
+- Reference each remaining implementation gate in readiness documents before source code implementation.
+
+No-go conditions preserved:
+
+- Do not write executable governance-gates package source code until package gates are complete.
+- Do not create production governance gates yet.
+- Do not create production role owner execution logic yet.
+- Do not create production treasury approval logic yet.
+- Do not create production First Nations governance logic yet.
+- Do not create production multisig signer logic yet.
+- Do not create production emergency action logic yet.
+- Do not embed production governance objects before source-of-truth approval.
+- Do not embed production role owners before source-of-truth approval.
+- Do not use Base Sepolia governance as production governance.
+- Do not use Anvil governance as production governance.
+- Do not use mock governance as production governance.
+- Do not use screenshots as governance source-of-truth.
+- Do not use chat text as governance source-of-truth.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.

@@ -701,3 +701,82 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Governance gates package gate checklist reference
+
+Reference document: docs/checklists/V0_5_2_GOVERNANCE_GATES_PACKAGE_GATE_CHECKLIST.md
+
+Reference commit: c44aa902a9d83b828fdf275f5b58588f5e9f1929
+
+Reference captured UTC: 2026-10-04T18:53:52Z
+
+Reference target: application source tree scaffold gate checklist
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize production governance.
+
+This reference does not authorize production governance objects.
+
+This reference does not authorize production role ownership.
+
+This reference does not authorize production multisig assignments.
+
+This reference does not authorize First Nations governance claims.
+
+This reference does not authorize First Nations legal conclusions.
+
+This reference does not authorize production treasury routing.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize writing executable governance gates package code.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the governance gates package gate checklist exists as a controlled readiness artifact.
+
+The governance gates package remains gate-blocked until governance authority rules, multisig/key-holder rules, First Nations legal review boundaries, corporate governance boundaries, treasury governance boundaries, emergency authority boundaries, operator authority boundaries, role owner mapping, transaction rail dependency, protocol client dependency, config dependency, Base Sepolia limitations, Base mainnet blockers, governance package test strategy, and no-secret package scan rules are complete.
+
+Required follow-on work:
+
+- Create ABI source policy.
+- Create address source policy.
+- Create Base Sepolia demo launch gate checklist.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create config package implementation plan.
+- Create governance gates implementation plan.
+- Reference each remaining implementation gate in readiness documents before source code implementation.
+
+No-go conditions preserved:
+
+- Do not write executable governance-gates package source code until package gates are complete.
+- Do not create production governance gates yet.
+- Do not create production role owner execution logic yet.
+- Do not create production treasury approval logic yet.
+- Do not create production First Nations governance logic yet.
+- Do not create production multisig signer logic yet.
+- Do not create production emergency action logic yet.
+- Do not embed production governance objects before source-of-truth approval.
+- Do not embed production role owners before source-of-truth approval.
+- Do not use Base Sepolia governance as production governance.
+- Do not use Anvil governance as production governance.
+- Do not use mock governance as production governance.
+- Do not use screenshots as governance source-of-truth.
+- Do not use chat text as governance source-of-truth.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
