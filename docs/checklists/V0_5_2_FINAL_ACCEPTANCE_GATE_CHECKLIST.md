@@ -707,3 +707,67 @@ No-go conditions preserved:
 - Do not embed deployer keys.
 - Do not present testnet actions as production actions.
 - Do not present this reference as deployment approval.
+
+## v0.5.2 Transaction rail package gate checklist reference
+
+Reference document: docs/checklists/V0_5_2_TRANSACTION_RAIL_PACKAGE_GATE_CHECKLIST.md
+
+Reference commit: 611f97a8dbbd662412a6bdeb8713353ef0ec5a0b
+
+Reference captured UTC: 2026-10-04T15:38:04Z
+
+Reference target: final acceptance gate
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize a production transaction rail.
+
+This reference does not authorize writing executable transaction rail package code.
+
+This reference does not authorize production mint transactions.
+
+This reference does not authorize production treasury routing.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the transaction rail package gate checklist exists as a controlled readiness artifact.
+
+The transaction rail package remains gate-blocked until all package boundaries, state models, receipt models, error classifications, no-secret controls, read-only boundaries, write-transaction boundaries, config boundaries, and implementation review steps are complete.
+
+Required follow-on work:
+
+- Create protocol client package gate checklist.
+- Create governance gates package checklist.
+- Create public config package gate checklist.
+- Create Base Sepolia demo launch gate checklist.
+- Create package implementation plan.
+- Create no-secret package scan rule.
+- Create package test strategy.
+- Create read-only protocol client package boundary.
+- Create write-helper package boundary.
+- Reference each package gate in readiness documents before source code implementation.
+
+No-go conditions preserved:
+
+- Do not write transaction rail package source code until package gates are complete.
+- Do not create production write helpers yet.
+- Do not create production mint helpers yet.
+- Do not create production treasury route helpers yet.
+- Do not create production deployment config yet.
+- Do not embed production addresses before source-of-truth approval.
+- Do not use Base Sepolia addresses as production addresses.
+- Do not use Anvil addresses as production addresses.
+- Do not use mock addresses as production addresses.
+- Do not use screenshots as address source-of-truth.
+- Do not use chat text as address source-of-truth.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
