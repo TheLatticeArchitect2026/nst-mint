@@ -505,3 +505,78 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Address source policy reference
+
+Reference document: docs/audits/V0_5_2_ADDRESS_SOURCE_POLICY.md
+
+Reference commit: 8151b22f61901d0a0ce3fe4bd16788f6e925329c
+
+Reference captured UTC: 2026-10-04T20:49:56Z
+
+Reference target: final production address source-of-truth request packet
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize production addresses.
+
+This reference does not authorize production governance objects.
+
+This reference does not authorize production treasury routes.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize writing executable address-dependent client code.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the address source policy exists as a controlled readiness artifact.
+
+Address-dependent package work remains blocked until approved address source hierarchy, production address rules, testnet address rules, local Anvil address rules, Base mainnet address boundaries, contract address source rules, governance object address rules, treasury address source rules, operator address source rules, First Nations address boundaries, corporate address boundaries, checksum rules, ownership proof rules, disallowed address source controls, secret exclusion controls, address drift controls, and address review workflow are complete.
+
+Required follow-on work:
+
+- Create address evidence record template.
+- Create address checksum receipt template.
+- Create Base Sepolia address map.
+- Create Base Sepolia ABI inventory receipt.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create config package implementation plan.
+- Create governance gates implementation plan.
+- Reference address source policy in package gates before executable address-dependent source implementation.
+
+No-go conditions preserved:
+
+- Do not write executable address-dependent client code until address policy gates are complete.
+- Do not create production protocol clients yet.
+- Do not create production transaction rail address bindings yet.
+- Do not create production write clients yet.
+- Do not create production mint clients yet.
+- Do not use screenshot-derived addresses.
+- Do not use chat-derived addresses.
+- Do not use memory-derived addresses.
+- Do not use manually copied addresses without receipt.
+- Do not use Base Sepolia addresses as production addresses.
+- Do not use Anvil addresses as production addresses.
+- Do not use mock addresses as production addresses.
+- Do not use placeholder addresses as production addresses.
+- Do not use unapproved production owner addresses.
+- Do not use unapproved treasury addresses.
+- Do not use unapproved governance objects.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
