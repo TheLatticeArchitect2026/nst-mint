@@ -1,0 +1,544 @@
+# NST Core v0.5.2 Transaction Rail Package Gate Checklist
+
+Status: DRAFT GATE CHECKLIST
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Created UTC: 2026-10-04T15:30:01Z
+Current commit at creation: 94b32cb1d77f330e4223dc4f50e08ab1b9245a18
+
+Transaction rail architecture blueprint commit: 8e779a9c160732f55e133275a316fb4b5b19f437
+
+This document is not a deployment authorization.
+
+This document does not authorize mainnet deployment.
+
+This document does not authorize public production interface launch.
+
+This document does not authorize a production transaction rail.
+
+This document does not authorize production treasury routing.
+
+This document does not authorize any public mainnet mint interface.
+
+This document does not authorize writing executable transaction rail code yet.
+
+This checklist is the required gate before executable source code is added to packages/transaction-rail.
+
+## Source documents
+
+Source transaction rail architecture blueprint: docs/plans/V0_5_2_TRANSACTION_RAIL_ARCHITECTURE_BLUEPRINT.md
+
+Source application infrastructure blueprint: docs/plans/V0_5_2_APPLICATION_INFRASTRUCTURE_BLUEPRINT.md
+
+Source application source tree scaffold record: docs/plans/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_RECORD.md
+
+Source application source tree scaffold gate checklist: docs/checklists/V0_5_2_APPLICATION_SOURCE_TREE_SCAFFOLD_GATE_CHECKLIST.md
+
+Source public corporate interface and Base Sepolia demo plan: docs/plans/V0_5_2_PUBLIC_CORPORATE_INTERFACE_AND_BASE_SEPOLIA_DEMO_PLAN.md
+
+Source Base Sepolia deployment inventory and public interface decision record: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md
+
+Source mainnet readiness blocker register: docs/audits/V0_5_2_MAINNET_READINESS_BLOCKER_REGISTER.md
+
+Source deployment config review checklist: docs/checklists/V0_5_2_MAINNET_DEPLOYMENT_CONFIG_REVIEW_CHECKLIST.md
+
+Source read-only verification commands checklist: docs/checklists/V0_5_2_MAINNET_READ_ONLY_VERIFICATION_COMMANDS_CHECKLIST.md
+
+Source transaction rail package scaffold: packages/transaction-rail/README.md
+
+Source protocol clients package scaffold: packages/protocol-clients/README.md
+
+Source governance gates package scaffold: packages/governance-gates/README.md
+
+Source config package scaffold: packages/config/README.md
+
+## Purpose
+
+This checklist defines the controlled gate for the future packages/transaction-rail source package.
+
+The package is intended to become the reusable state, safety, preflight, transaction-preparation, and receipt-normalization layer for NST Lattice interfaces.
+
+This checklist prevents the project from jumping directly from architecture into executable transaction code without safety boundaries.
+
+The transaction rail package must remain blocked until this gate is complete, reviewed, committed, pushed, and referenced in the readiness gates.
+
+## Current controlled status
+
+| Area | Current result | Status |
+| --- | --- | --- |
+| Transaction rail architecture blueprint | Created and committed | COMPLETE |
+| Application source scaffold | Created and committed | COMPLETE |
+| packages/transaction-rail scaffold | README-only scaffold exists | COMPLETE |
+| Transaction rail executable package code | Not created | BLOCKED |
+| Production addresses | Not finalized | BLOCKED |
+| Production deployment config | Not finalized | BLOCKED |
+| Base Sepolia demo launch | Not authorized by this checklist | BLOCKED |
+| Mainnet deployment | Not authorized | BLOCKED |
+| Public production transaction rail | Not built | BLOCKED |
+
+## Package scope
+
+The future transaction rail package may eventually define:
+
+- transaction state machine types;
+- network guard helpers;
+- chain ID validation helpers;
+- contract address validation helpers;
+- wallet connection status helpers;
+- preflight result types;
+- transaction preview result types;
+- receipt normalization types;
+- explorer link helpers;
+- transaction error classification;
+- user-facing transaction status language;
+- read-only status boundary helpers;
+- no-secret guard helpers;
+- testnet-versus-mainnet mode helpers.
+
+The future transaction rail package must not directly contain:
+
+- private keys;
+- seed phrases;
+- wallet recovery phrases;
+- deployer keys;
+- wallet secrets;
+- private RPC credentials;
+- production secrets;
+- privileged signer material;
+- hardcoded production addresses before source-of-truth approval;
+- unapproved treasury destination addresses;
+- unapproved governance object addresses;
+- unapproved operator addresses.
+
+## Required package boundaries
+
+| Gate | Requirement | Status |
+| --- | --- | --- |
+| Boundary A | Package purpose documented | OPEN |
+| Boundary B | Read-only versus write boundary documented | OPEN |
+| Boundary C | Network mode boundary documented | OPEN |
+| Boundary D | Testnet versus production boundary documented | OPEN |
+| Boundary E | No-secret rule documented | OPEN |
+| Boundary F | Address source-of-truth rule documented | OPEN |
+| Boundary G | Receipt model documented | OPEN |
+| Boundary H | State machine vocabulary documented | OPEN |
+| Boundary I | Error classification model documented | OPEN |
+| Boundary J | Wallet signing boundary documented | OPEN |
+| Boundary K | No automatic transaction broadcast rule documented | OPEN |
+| Boundary L | No production reliance before mainnet approval documented | OPEN |
+
+## Transaction state gate
+
+Before package code is written, the project must approve the future state model.
+
+Required states include:
+
+- idle;
+- wrong_network;
+- wallet_disconnected;
+- wallet_connected;
+- preflight_loading;
+- preflight_blocked;
+- ready_to_preview;
+- preview_ready;
+- awaiting_user_signature;
+- user_rejected;
+- submitted;
+- pending_confirmation;
+- confirmed;
+- failed;
+- replaced;
+- timed_out;
+- receipt_available;
+- post_action_syncing;
+- complete.
+
+Each state must have:
+
+- a machine-readable name;
+- a human-readable label;
+- a user-safe description;
+- allowed previous states;
+- allowed next states;
+- failure handling;
+- no-secret confirmation;
+- no-deployment disclaimer where required.
+
+## Preflight gate
+
+Before package code is written, the project must approve required preflight checks.
+
+Required preflight checks include:
+
+- app mode is known;
+- chain ID is known;
+- network is supported;
+- wallet connection state is known;
+- contract address is present;
+- contract address is approved for the selected network;
+- contract code exists;
+- ABI source is approved;
+- intended action is supported;
+- user has been shown the network;
+- user has been shown the contract;
+- user has been shown the purpose;
+- value requirement is shown;
+- mint price is shown when applicable;
+- eligibility status is checked when applicable;
+- already-minted state is checked when applicable;
+- pause state is checked when applicable;
+- final disclaimer is shown;
+- receipt path exists.
+
+Preflight failure must block transaction preparation.
+
+Preflight failure must not request wallet signature.
+
+Preflight failure must not broadcast a transaction.
+
+## Wallet signing boundary
+
+The transaction rail package must never own the signing key.
+
+The transaction rail package must never request private keys.
+
+The transaction rail package must never request seed phrases.
+
+The transaction rail package must never request recovery phrases.
+
+The transaction rail package must never request deployer keys.
+
+The transaction rail package must never store wallet secrets.
+
+The transaction rail package may prepare a transaction request object only after all gates are satisfied.
+
+The transaction rail package may pass a transaction request to an approved wallet provider only after deliberate user action.
+
+The wallet must remain the signer.
+
+The user must remain the final signer.
+
+## Write transaction boundary
+
+Write transaction helpers must be treated as high-risk.
+
+Before write transaction helpers are implemented, the project must document:
+
+- supported action name;
+- contract module;
+- contract method;
+- chain ID;
+- required contract address source;
+- ABI source;
+- required value;
+- user-facing preview text;
+- failure modes;
+- receipt model;
+- network guard;
+- no-secret guard;
+- no-auto-broadcast guard;
+- testnet boundary;
+- mainnet boundary.
+
+No write helper may exist without a matching review entry.
+
+No write helper may be enabled for production before final mainnet approval.
+
+## Read-only boundary
+
+Read-only helpers must be separate from write helpers.
+
+Read-only helpers may support:
+
+- chain ID reads;
+- contract code checks;
+- contract state reads;
+- role reads;
+- pause state reads;
+- mint state reads;
+- metadata state reads;
+- eligibility reads;
+- ownership reads;
+- treasury route reads;
+- explorer link creation;
+- receipt verification.
+
+Read-only helpers must not:
+
+- sign transactions;
+- broadcast transactions;
+- use cast send;
+- mutate chain state;
+- require private keys;
+- require seed phrases;
+- require wallet secrets;
+- treat read-only status as deployment approval.
+
+## Receipt gate
+
+Before package code is written, the project must approve receipt categories.
+
+Required future receipt types include:
+
+- NetworkCheckReceipt;
+- AddressCheckReceipt;
+- PreflightReceipt;
+- TransactionPreviewReceipt;
+- UserRejectedReceipt;
+- TransactionSubmittedReceipt;
+- TransactionConfirmedReceipt;
+- TransactionFailedReceipt;
+- PostActionReadReceipt;
+- ExplorerReceipt;
+- ReleaseEvidenceReceipt;
+- AdminReviewReceipt.
+
+Each receipt type must exclude:
+
+- private keys;
+- seed phrases;
+- recovery phrases;
+- wallet secrets;
+- deployer keys;
+- private RPC credentials;
+- secret environment values.
+
+Each receipt type must include only public or user-approved operational data.
+
+## Error classification gate
+
+Before package code is written, the project must approve the error model.
+
+Required error categories include:
+
+- WrongNetwork;
+- WalletDisconnected;
+- UnsupportedChain;
+- ContractAddressMissing;
+- ContractAddressUnapproved;
+- ContractCodeMissing;
+- AbiMissing;
+- PreflightBlocked;
+- UserRejected;
+- InsufficientFunds;
+- MintClosed;
+- AlreadyMinted;
+- NotEligible;
+- Paused;
+- TransactionReverted;
+- TransactionDropped;
+- TransactionReplaced;
+- ReceiptTimeout;
+- ExplorerUnavailable;
+- UnknownSafeError.
+
+Errors must be user-safe.
+
+Errors must not leak secrets.
+
+Errors must not expose private infrastructure details.
+
+Errors must not imply success when the transaction has not confirmed.
+
+## Config dependency gate
+
+The transaction rail package must depend on approved public configuration.
+
+Production configuration is not approved yet.
+
+Production addresses are not approved yet.
+
+Mainnet transaction rail production mode must remain blocked.
+
+Base Sepolia configuration may be used only for approved testnet demo flows.
+
+Local Anvil configuration may be used only for local development documentation and tests, never as production.
+
+Mock addresses may be used only in test code after package code is authorized.
+
+No config may include secrets.
+
+## Base Sepolia demo gate
+
+The transaction rail package may eventually support Base Sepolia demo mode.
+
+Base Sepolia demo mode must:
+
+- show testnet-only status;
+- show chain ID;
+- show contract addresses;
+- show no-production-value warning;
+- show no-mainnet-rights warning;
+- block wrong-network actions;
+- use public Base Sepolia addresses only from documented inventory;
+- avoid collecting private information;
+- avoid production claims;
+- avoid treasury reliance claims;
+- avoid legal-rights claims.
+
+Base Sepolia demo support does not authorize public launch by itself.
+
+## First Nations interface gate
+
+The transaction rail package must not finalize First Nations participation flows without legal review.
+
+The First Nations lawyer specializing in Treaty law should be included in review for:
+
+- treaty-law language;
+- governance language;
+- rights language;
+- consent language;
+- representation language;
+- revenue language;
+- community onboarding language;
+- legal disclaimers;
+- possible future multisig/key-holder design.
+
+The package must not encode final First Nations authority assumptions without approved legal language and governance evidence.
+
+## Public interface gate
+
+The package must support public-facing safety boundaries.
+
+The public interface must not imply:
+
+- mainnet is live before approval;
+- production rights are created on testnet;
+- investment return is offered;
+- legal status is finalized without review;
+- First Nations representation is approved without authority;
+- treasury routing is finalized without approval.
+
+## Corporate interface gate
+
+The package must support corporate-facing safety boundaries.
+
+Corporate flows must collect only non-secret business information.
+
+Corporate flows must not collect private keys.
+
+Corporate flows must not collect seed phrases.
+
+Corporate flows must not collect recovery phrases.
+
+Corporate flows must not collect deployer keys.
+
+Corporate flows must route address or treasury requests into approved source-of-truth processes.
+
+## Admin console gate
+
+Admin console integration must remain read-only until privileged controls are separately reviewed.
+
+Admin console future status displays may include:
+
+- contract address status;
+- role owner status;
+- treasury route status;
+- mint state;
+- pause state;
+- metadata freeze state;
+- pending yield state;
+- registry dependency state;
+- release evidence status;
+- deployment receipt status.
+
+Admin console write actions require a separate privileged-operations design review.
+
+## Required evidence before package source code
+
+Before executable transaction rail package code is created, the project must complete:
+
+| Evidence | Required state | Status |
+| --- | --- | --- |
+| Transaction rail architecture blueprint | Committed and referenced | COMPLETE |
+| Transaction rail package gate checklist | Created and committed | OPEN |
+| Protocol client package gate checklist | Created and committed | OPEN |
+| Governance gates package checklist | Created and committed | OPEN |
+| Public config package gate | Created and committed | OPEN |
+| Base Sepolia demo launch gate | Created and committed | OPEN |
+| Package source implementation plan | Created and committed | OPEN |
+| No-secret package scan rule | Created and committed | OPEN |
+| Test strategy for package | Created and committed | OPEN |
+| Read-only package boundary | Created and committed | OPEN |
+| Write-helper package boundary | Created and committed | OPEN |
+
+## Approved first implementation after gates
+
+The first future implementation should not be a production write transaction.
+
+The first future implementation should be one of:
+
+- package type definitions only;
+- transaction state enum only;
+- read-only network guard only;
+- no-secret config shape only;
+- Base Sepolia read-only status helper only.
+
+The first future implementation should not include production transaction execution.
+
+The first future implementation should not include live mainnet minting.
+
+The first future implementation should not include admin write controls.
+
+## No-go conditions
+
+Do not write transaction rail package source code until this checklist is committed and referenced.
+
+Do not create production write helpers yet.
+
+Do not create production mint helpers yet.
+
+Do not create production treasury route helpers yet.
+
+Do not create production deployment config yet.
+
+Do not embed production addresses before source-of-truth approval.
+
+Do not use Base Sepolia addresses as production addresses.
+
+Do not use Anvil addresses as production addresses.
+
+Do not use mock addresses as production addresses.
+
+Do not use screenshots as address source-of-truth.
+
+Do not use chat text as address source-of-truth.
+
+Do not request private keys.
+
+Do not request seed phrases.
+
+Do not request wallet recovery phrases.
+
+Do not request deployer keys.
+
+Do not embed wallet secrets.
+
+Do not embed private RPC credentials.
+
+Do not imply this checklist authorizes deployment.
+
+## Acceptance criteria
+
+This checklist is acceptable only if:
+
+- it is docs-only;
+- it changes no app source code;
+- it changes no package source code;
+- it changes no infra source code;
+- it changes no contract source code;
+- it preserves no-deployment status;
+- it states the transaction rail package is not built yet;
+- it defines package boundaries;
+- it defines read-only boundaries;
+- it defines write transaction boundaries;
+- it defines wallet signing boundaries;
+- it defines config dependency boundaries;
+- it defines receipt boundaries;
+- it defines error classification boundaries;
+- it includes no private keys;
+- it includes no seed phrases;
+- it includes no wallet secrets;
+- it includes no recovery phrases;
+- it includes no production address approvals;
+- it is committed and pushed to the v0.5.2 phase branch.
