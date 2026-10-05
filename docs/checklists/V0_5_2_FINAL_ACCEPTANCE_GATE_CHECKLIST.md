@@ -1134,3 +1134,61 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Address evidence record template reference
+
+Reference document: docs/audits/V0_5_2_ADDRESS_EVIDENCE_RECORD_TEMPLATE.md
+
+Reference commit: 8cf842065fad396728c1230eb0310c08c6b9158b
+
+Reference captured UTC: 2026-10-05T08:56:12Z
+
+Reference target: final acceptance gate
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not approve any production address.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not approve any production operator.
+
+This reference does not approve any production role owner.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize writing executable address-dependent client code.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the address evidence record template exists as a controlled readiness artifact.
+
+Address use remains blocked until completed address evidence records are created from approved source-of-truth inputs, checksum reviewed, no-secret reviewed, committed, pushed, remotely confirmed, and paired with required approval evidence.
+
+No-go conditions preserved:
+
+- Do not use Base Sepolia address evidence as Base mainnet evidence.
+- Do not use Anvil address evidence as production evidence.
+- Do not use mock address evidence as production evidence.
+- Do not use screenshot address evidence as production evidence.
+- Do not use chat text address evidence as production evidence.
+- Do not use memory-derived address evidence as production evidence.
+- Do not approve any record containing secrets.
+- Do not approve any record missing checksum review.
+- Do not approve any record missing approval evidence.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
