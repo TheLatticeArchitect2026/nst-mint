@@ -776,3 +776,88 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Address checksum receipt template reference
+
+Reference document: docs/audits/V0_5_2_ADDRESS_CHECKSUM_RECEIPT_TEMPLATE.md
+
+Reference commit: 1382bb15914ae132061940c80a455980ad9c4e4b
+
+Reference captured UTC: 2026-10-05T09:11:21Z
+
+Reference target: final production address response review checklist
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not approve any production address.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not approve any production operator.
+
+This reference does not approve any production role owner.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the address checksum receipt template exists as a controlled readiness artifact.
+
+A checksum-valid address is not automatically approved.
+
+A checksum-valid address does not prove ownership.
+
+A checksum-valid address does not prove governance authority.
+
+A checksum-valid address does not prove treasury authority.
+
+A checksum-valid address does not prove deployment authorization.
+
+Address use remains blocked until completed checksum receipts are paired with completed address evidence records, source-of-truth evidence, approval evidence, no-secret review, and final readiness approval where required.
+
+Required follow-on work:
+
+- Create ABI evidence record template.
+- Create ABI checksum receipt template.
+- Create Base Sepolia address map.
+- Create Base Sepolia ABI inventory receipt.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create config package implementation plan.
+- Create governance gates implementation plan.
+- Reference checksum receipt template in package gates before executable address-dependent source implementation.
+
+No-go conditions preserved:
+
+- Do not use a checksum receipt as ownership proof.
+- Do not use a checksum receipt as governance approval.
+- Do not use a checksum receipt as treasury approval.
+- Do not use a checksum receipt as legal approval.
+- Do not use a checksum receipt as deployment authorization.
+- Do not use Base Sepolia checksum evidence as Base mainnet evidence.
+- Do not use Anvil checksum evidence as production evidence.
+- Do not use mock checksum evidence as production evidence.
+- Do not use screenshot checksum evidence as production evidence.
+- Do not use chat text checksum evidence as production evidence.
+- Do not use memory-derived checksum evidence as production evidence.
+- Do not approve any receipt containing secrets.
+- Do not approve any receipt missing reviewer identity.
+- Do not approve any receipt missing source evidence.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
