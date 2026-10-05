@@ -834,3 +834,76 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 ABI evidence record template reference
+
+Reference document: docs/audits/V0_5_2_ABI_EVIDENCE_RECORD_TEMPLATE.md
+
+Reference commit: f949e4b64f85cd63e24391fa072a2d2b72aa21f2
+
+Reference captured UTC: 2026-10-05T09:29:17Z
+
+Reference target: final production address collection package
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production contract address.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the ABI evidence record template exists as a controlled readiness artifact.
+
+ABI use remains blocked until completed ABI evidence records are created from approved ABI sources, reviewed, checksum-confirmed where required, paired with address evidence where required, committed, pushed, remotely confirmed, and paired with required build, explorer, deployment, release, or approval evidence.
+
+Required follow-on work:
+
+- Create ABI checksum receipt template.
+- Create Base Sepolia ABI inventory receipt.
+- Create Base Sepolia address map.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create config package implementation plan.
+- Create governance gates implementation plan.
+- Reference ABI evidence record template in package gates before executable ABI-dependent source implementation.
+
+No-go conditions preserved:
+
+- Do not use an ABI evidence record outside its stated network scope.
+- Do not use an ABI evidence record outside its stated chain ID.
+- Do not use an ABI evidence record outside its stated contract or module.
+- Do not use a Base Sepolia ABI evidence record as Base mainnet evidence.
+- Do not use Anvil ABI evidence as production evidence.
+- Do not use screenshot ABI evidence as production evidence.
+- Do not use chat text ABI evidence as production evidence.
+- Do not use memory-derived ABI evidence as production evidence.
+- Do not use manually edited ABI evidence without receipt.
+- Do not approve any ABI record containing secrets.
+- Do not approve any ABI record missing source commit.
+- Do not approve any ABI record with unresolved drift.
+- Do not use write-capable ABI paths until final gates are complete.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
