@@ -603,3 +603,90 @@ No-go conditions preserved:
 - Do not treat Base Sepolia reads as mainnet evidence.
 - Do not treat read-only client implementation as deployment authorization.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 package test strategy reference
+
+Reference document: docs/plans/V0_5_2_PACKAGE_TEST_STRATEGY.md
+
+Reference commit: 650020e7418c707aa93bd471e0ef87857a76563d
+
+Reference captured UTC: 2026-10-06T09:36:23Z
+
+Reference target: Base Sepolia public demo approval receipt template
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the package test strategy exists as a controlled planning artifact.
+
+No executable tests are approved by this reference alone.
+
+No executable app, package, client, config, governance-gate, transaction-rail, or infra implementation is approved by this reference alone.
+
+Passing tests must not be treated as deployment authorization.
+
+Passing tests must not be treated as mainnet approval.
+
+Passing tests must not be treated as public demo approval.
+
+Required follow-on work:
+
+- Create no-secret package scan rule.
+- Create config package implementation plan.
+- Create protocol client package implementation plan.
+- Create Base Sepolia read-only config plan.
+- Complete Base Sepolia address evidence records.
+- Complete Base Sepolia address checksum receipts.
+- Complete Base Sepolia ABI evidence records.
+- Complete Base Sepolia ABI checksum receipts.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Create package test source only after package gates authorize executable test implementation.
+- Keep write paths blocked until explicit package and approval gates authorize them.
+
+No-go conditions preserved:
+
+- Do not implement package tests from this plan alone unless the next implementation gate authorizes test source creation.
+- Do not implement executable app code from this plan alone.
+- Do not implement executable package code from this plan alone.
+- Do not launch a public Base Sepolia demo from this plan.
+- Do not launch a production interface from this plan.
+- Do not launch a mainnet interface from this plan.
+- Do not expose write methods from this plan.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not treat tests as deployment authorization.
+- Do not treat passing tests as mainnet approval.
+- Do not treat passing tests as public demo approval.
+- Do not imply this reference authorizes deployment.
