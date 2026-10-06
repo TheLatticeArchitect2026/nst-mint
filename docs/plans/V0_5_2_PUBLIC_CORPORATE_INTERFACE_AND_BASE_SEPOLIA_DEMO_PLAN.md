@@ -1791,3 +1791,85 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 read-only client implementation plan reference
+
+Reference document: docs/plans/V0_5_2_READ_ONLY_CLIENT_IMPLEMENTATION_PLAN.md
+
+Reference commit: b9c0b7fe0a9fc1e9aa0b72db40134166d757dc68
+
+Reference captured UTC: 2026-10-06T09:26:34Z
+
+Reference target: public corporate interface and Base Sepolia demo plan
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the read-only client implementation plan exists as a controlled planning artifact.
+
+No executable read-only client code is approved by this reference alone.
+
+No public Base Sepolia demo is approved by this reference alone.
+
+No write-capable client behavior is approved by this reference.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Read-only client implementation remains blocked until address evidence, address checksum receipts, ABI evidence, ABI checksum receipts, config plan, protocol-client plan, no-secret scan rule, package test strategy, and applicable demo/interface approvals are complete.
+
+Required follow-on work:
+
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create config package implementation plan.
+- Create protocol client package implementation plan.
+- Create Base Sepolia read-only config plan.
+- Complete Base Sepolia address evidence records.
+- Complete Base Sepolia address checksum receipts.
+- Complete Base Sepolia ABI evidence records.
+- Complete Base Sepolia ABI checksum receipts.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Implement read-only client code only after package gates authorize executable implementation.
+- Complete UI/demo review before public Base Sepolia demo launch.
+
+No-go conditions preserved:
+
+- Do not implement executable read-only client code from this plan alone.
+- Do not launch a public Base Sepolia demo from this plan alone.
+- Do not launch a production interface from this plan.
+- Do not launch a mainnet interface from this plan.
+- Do not expose write methods from this plan.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not treat Base Sepolia as production.
+- Do not treat Base Sepolia reads as mainnet evidence.
+- Do not treat read-only client implementation as deployment authorization.
+- Do not imply this reference authorizes deployment.
