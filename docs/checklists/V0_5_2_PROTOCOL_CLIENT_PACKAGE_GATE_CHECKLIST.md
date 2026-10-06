@@ -1412,3 +1412,97 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia public demo warning language receipt reference
+
+Reference document: docs/audits/V0_5_2_BASE_SEPOLIA_PUBLIC_DEMO_WARNING_LANGUAGE_RECEIPT.md
+
+Reference commit: 6c715e8bbacfe1c992e2c755910646450566f106
+
+Reference captured UTC: 2026-10-06T08:54:09Z
+
+Reference target: protocol client package gate checklist
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not approve a public Base Sepolia demo launch by itself.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia public demo warning language receipt exists as a controlled testnet-only readiness artifact.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Base Sepolia has no investment offer.
+
+Base Sepolia has no operational reliance.
+
+Base Sepolia has no First Nations production approval.
+
+Base Sepolia has no corporate production approval.
+
+Public Base Sepolia demo launch remains blocked until warning language is implemented, address evidence is complete, ABI evidence is complete, checksum receipts are complete, no-secret review is complete, package gates are complete, UI review is complete, and demo-specific human approval is captured.
+
+Required follow-on work:
+
+- Create Base Sepolia address evidence records.
+- Create Base Sepolia address checksum receipts.
+- Create Base Sepolia ABI evidence records.
+- Create Base Sepolia ABI checksum receipts.
+- Create Base Sepolia explorer/source verification receipts.
+- Create read-only client implementation plan.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create config package implementation plan.
+- Create protocol client implementation plan.
+- Create governance gates implementation plan.
+- Create transaction rail implementation plan.
+- Create demo approval receipt template.
+- Implement warning language only after app/source gates authorize implementation.
+
+No-go conditions preserved:
+
+- Do not launch a public Base Sepolia demo from this receipt alone.
+- Do not launch a production interface from this receipt.
+- Do not launch a mainnet interface from this receipt.
+- Do not expose write methods from this receipt.
+- Do not imply Base Sepolia has production value.
+- Do not imply Base Sepolia creates mainnet rights.
+- Do not imply Base Sepolia activates production governance.
+- Do not imply Base Sepolia activates production treasury.
+- Do not imply Base Sepolia activates First Nations production revenue.
+- Do not imply Base Sepolia activates corporate production integration.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
