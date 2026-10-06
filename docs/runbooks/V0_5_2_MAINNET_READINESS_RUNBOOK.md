@@ -1219,3 +1219,91 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 ABI checksum receipt template reference
+
+Reference document: docs/audits/V0_5_2_ABI_CHECKSUM_RECEIPT_TEMPLATE.md
+
+Reference commit: 4722469d10f94d86423632ff6fb46edf37dda16f
+
+Reference captured UTC: 2026-10-06T08:04:02Z
+
+Reference target: mainnet readiness runbook
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production contract address.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the ABI checksum receipt template exists as a controlled readiness artifact.
+
+ABI checksum confirmation is not ABI approval.
+
+ABI checksum confirmation does not prove the ABI is correct for a deployed contract.
+
+ABI checksum confirmation does not prove source verification.
+
+ABI checksum confirmation does not prove address correctness.
+
+ABI checksum confirmation does not prove governance approval.
+
+ABI checksum confirmation does not prove treasury approval.
+
+ABI checksum confirmation does not authorize write execution.
+
+ABI checksum confirmation does not authorize deployment.
+
+ABI use remains blocked until completed ABI checksum receipts are paired with completed ABI evidence records, approved ABI source evidence, address evidence where required, build evidence where required, explorer evidence where required, release evidence where required, no-secret review, and final readiness approval where required.
+
+Required follow-on work:
+
+- Create Base Sepolia ABI inventory receipt.
+- Create Base Sepolia address map.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create read-only client implementation plan.
+- Create write-client implementation plan.
+- Create config package implementation plan.
+- Create governance gates implementation plan.
+- Reference ABI checksum receipt template in package gates before executable ABI-dependent source implementation.
+
+No-go conditions preserved:
+
+- Do not use an ABI checksum receipt outside its stated network scope.
+- Do not use an ABI checksum receipt outside its stated chain ID.
+- Do not use an ABI checksum receipt outside its stated contract or module.
+- Do not use a Base Sepolia ABI checksum receipt as Base mainnet evidence.
+- Do not use Anvil ABI checksum evidence as production evidence.
+- Do not use screenshot ABI checksum evidence as production evidence.
+- Do not use chat text ABI checksum evidence as production evidence.
+- Do not use memory-derived ABI checksum evidence as production evidence.
+- Do not use manually edited ABI checksum evidence without receipt.
+- Do not approve any ABI checksum receipt containing secrets.
+- Do not approve any ABI checksum receipt missing source commit where required.
+- Do not approve any ABI checksum receipt with unresolved drift.
+- Do not use write-capable ABI paths until final gates are complete.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
