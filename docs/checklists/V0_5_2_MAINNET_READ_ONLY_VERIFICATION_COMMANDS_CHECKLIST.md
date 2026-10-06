@@ -1409,3 +1409,98 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia address map reference
+
+Reference document: docs/audits/V0_5_2_BASE_SEPOLIA_ADDRESS_MAP.md
+
+Reference commit: c30dbdba2f141d84b36532c5d661884244dba807
+
+Reference captured UTC: 2026-10-06T08:38:35Z
+
+Reference target: read-only verification commands checklist
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia address map exists as a controlled testnet-only readiness artifact.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Base Sepolia has no investment offer.
+
+Base Sepolia has no operational reliance.
+
+Base Sepolia has no First Nations production approval.
+
+Base Sepolia has no corporate production approval.
+
+Base Sepolia address use remains blocked until completed address evidence records, address checksum receipts, ABI evidence records where applicable, ABI checksum receipts where applicable, explorer/source verification receipts where applicable, no-secret review, package gates, and public-demo approval are complete.
+
+Required follow-on work:
+
+- Create Base Sepolia address evidence records.
+- Create Base Sepolia address checksum receipts.
+- Create Base Sepolia ABI evidence records.
+- Create Base Sepolia ABI checksum receipts.
+- Create Base Sepolia explorer/source verification receipts.
+- Create public demo warning-language receipt.
+- Create read-only client implementation plan.
+- Create package test strategy.
+- Create no-secret package scan rule.
+- Create config package implementation plan.
+- Create protocol client implementation plan.
+- Create governance gates implementation plan.
+- Create transaction rail implementation plan.
+
+No-go conditions preserved:
+
+- Do not use this map as production address approval.
+- Do not use this map as production ABI approval.
+- Do not use this map as public demo approval.
+- Do not use this map as mainnet deployment authorization.
+- Do not use this map as transaction rail authorization.
+- Do not use this map as governance approval.
+- Do not use this map as treasury approval.
+- Do not use Base Sepolia addresses as Base mainnet addresses.
+- Do not use Base Sepolia ABI evidence as Base mainnet evidence.
+- Do not expose write-capable clients from this map.
+- Do not create production config from this map.
+- Do not create production public interface config from this map.
+- Do not create production corporate interface config from this map.
+- Do not create production First Nations interface config from this map.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
