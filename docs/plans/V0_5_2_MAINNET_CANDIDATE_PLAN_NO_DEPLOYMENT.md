@@ -1966,3 +1966,89 @@ No-go conditions preserved:
 - Do not treat passing tests as mainnet approval.
 - Do not treat passing tests as public demo approval.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 no-secret package scan rule reference
+
+Reference document: docs/checklists/V0_5_2_NO_SECRET_PACKAGE_SCAN_RULE.md
+
+Reference commit: 77c5de04cc86e509269024407e2d007b3fd7bd83
+
+Reference captured UTC: 2026-10-07T09:44:39Z
+
+Reference target: no-deployment mainnet candidate plan
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve executable no-secret scan tooling by itself.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the no-secret package scan rule exists as a controlled planning artifact.
+
+No executable no-secret scan tooling is approved by this reference alone.
+
+No executable app, package, client, config, governance-gate, transaction-rail, or infra implementation is approved by this reference alone.
+
+A no-secret scan pass must not be treated as deployment authorization.
+
+A no-secret scan pass must not be treated as mainnet approval.
+
+A no-secret scan pass must not be treated as public demo approval.
+
+Required follow-on work:
+
+- Create config package implementation plan.
+- Create protocol client package implementation plan.
+- Create Base Sepolia read-only config plan.
+- Create executable no-secret scan tooling only after implementation gates authorize source creation.
+- Create no-secret scan receipt template.
+- Create no-secret scan receipt process.
+- Complete no-secret scan receipt before public Base Sepolia demo approval.
+- Complete no-secret scan receipt before any mainnet candidate deployment package.
+- Keep all private keys, seed phrases, recovery phrases, wallet secrets, signer material, deployer keys, private RPC credentials, API keys, and bearer tokens out of the repository.
+
+No-go conditions preserved:
+
+- Do not implement executable no-secret scan tooling from this rule alone unless a future implementation gate authorizes it.
+- Do not implement executable app code from this rule alone.
+- Do not implement executable package code from this rule alone.
+- Do not launch a public Base Sepolia demo from this rule.
+- Do not launch a production interface from this rule.
+- Do not launch a mainnet interface from this rule.
+- Do not treat a no-secret scan pass as deployment authorization.
+- Do not treat a no-secret scan pass as public demo approval.
+- Do not treat a no-secret scan pass as mainnet approval.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
