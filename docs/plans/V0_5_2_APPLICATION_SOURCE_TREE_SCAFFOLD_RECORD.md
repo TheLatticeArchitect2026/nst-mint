@@ -1737,3 +1737,115 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia address evidence request packet reference
+
+Reference document: docs/audits/V0_5_2_BASE_SEPOLIA_ADDRESS_EVIDENCE_REQUEST_PACKET.md
+
+Reference commit: 35fc42e2b0ceee421522f9c1da24d6d692387576
+
+Reference captured UTC: 2026-10-08T21:20:35Z
+
+Reference target: application source tree scaffold record
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia address evidence request packet exists as a controlled public-evidence request artifact.
+
+No Base Sepolia address evidence response is approved by this reference alone.
+
+No Base Sepolia address checksum receipt is approved by this reference alone.
+
+No Base Sepolia ABI evidence is approved by this reference alone.
+
+No generated Base Sepolia read-only config is approved by this reference alone.
+
+Base Sepolia address evidence request packet existence must not be treated as deployment authorization.
+
+Base Sepolia address evidence request packet existence must not be treated as public demo approval.
+
+Base Sepolia address evidence request packet existence must not be treated as mainnet approval.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Complete Base Sepolia address evidence records.
+- Complete Base Sepolia address checksum receipts.
+- Complete Base Sepolia ABI evidence records.
+- Complete Base Sepolia ABI checksum receipts.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Review all responses for public-only, no-secret compliance.
+- Reject screenshot-only, chat-only, memory-only, guessed, placeholder, local Anvil, or Base mainnet address evidence.
+- Create generated Base Sepolia read-only config only after evidence and package gates authorize generation.
+- Create executable config package source only after package gates authorize implementation.
+- Create executable protocol client package source only after package gates authorize implementation.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet deployment blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not complete the evidence request with guessed addresses.
+- Do not complete the evidence request with placeholder addresses.
+- Do not complete the evidence request with screenshot-only evidence.
+- Do not complete the evidence request with chat-only evidence.
+- Do not complete the evidence request with memory-only evidence.
+- Do not use local Anvil addresses.
+- Do not use Base mainnet addresses.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
+- Do not use the request packet as deployment authorization.
+- Do not use the request packet as public demo approval.
+- Do not use the request packet as mainnet approval.
+- Do not use the request packet as production address approval.
+- Do not use the request packet as production ABI approval.
+- Do not imply this reference authorizes deployment.
