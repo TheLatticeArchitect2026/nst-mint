@@ -2460,3 +2460,121 @@ No-go conditions preserved:
 - Do not use the request packet as production address approval.
 - Do not use the request packet as production ABI approval.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia address evidence response review checklist reference
+
+Reference document: docs/checklists/V0_5_2_BASE_SEPOLIA_ADDRESS_EVIDENCE_RESPONSE_REVIEW_CHECKLIST.md
+
+Reference commit: 281809dac7f87cad3d05f27a18aa97f776c2262d
+
+Reference captured UTC: 2026-10-08T21:40:15Z
+
+Reference target: public corporate interface and Base Sepolia demo plan
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any Base Sepolia ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia address evidence response review checklist exists as a controlled response-review gate artifact.
+
+No Base Sepolia address evidence response is approved by this reference alone.
+
+No Base Sepolia address evidence record is approved by this reference alone.
+
+No Base Sepolia address checksum receipt is approved by this reference alone.
+
+No Base Sepolia ABI evidence record is approved by this reference alone.
+
+No Base Sepolia ABI checksum receipt is approved by this reference alone.
+
+No generated Base Sepolia read-only config is approved by this reference alone.
+
+Base Sepolia address evidence response review checklist existence must not be treated as deployment authorization.
+
+Base Sepolia address evidence response review checklist existence must not be treated as public demo approval.
+
+Base Sepolia address evidence response review checklist existence must not be treated as mainnet approval.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Review any Base Sepolia address evidence response against the checklist.
+- Reject screenshot-only, chat-only, memory-only, guessed, placeholder, local Anvil, or Base mainnet address evidence.
+- Complete Base Sepolia address evidence records only after response review allows drafting.
+- Complete Base Sepolia address checksum receipts only after response review allows drafting.
+- Complete Base Sepolia ABI evidence records only after response review allows drafting.
+- Complete Base Sepolia ABI checksum receipts only after response review allows drafting.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Create generated Base Sepolia read-only config only after evidence and package gates authorize generation.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet deployment blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not accept guessed addresses.
+- Do not accept placeholder addresses.
+- Do not accept screenshot-only evidence.
+- Do not accept chat-only evidence.
+- Do not accept memory-only evidence.
+- Do not use local Anvil addresses.
+- Do not use Base mainnet addresses.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
+- Do not use the checklist as deployment authorization.
+- Do not use the checklist as public demo approval.
+- Do not use the checklist as mainnet approval.
+- Do not use the checklist as production address approval.
+- Do not use the checklist as production ABI approval.
+- Do not use the checklist as treasury approval.
+- Do not use the checklist as governance approval.
+- Do not imply this reference authorizes deployment.
