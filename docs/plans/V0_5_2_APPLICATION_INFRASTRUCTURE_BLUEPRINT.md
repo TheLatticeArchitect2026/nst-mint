@@ -2279,3 +2279,112 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia read-only config plan reference
+
+Reference document: docs/plans/V0_5_2_BASE_SEPOLIA_READ_ONLY_CONFIG_PLAN.md
+
+Reference commit: 3d5d608993c1bc7c3971cf9d06c30ae45afec010
+
+Reference captured UTC: 2026-10-08T21:04:27Z
+
+Reference target: application infrastructure blueprint
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia read-only config plan exists as a controlled planning artifact.
+
+No generated Base Sepolia read-only config is approved by this reference alone.
+
+No executable config package source is approved by this reference alone.
+
+No executable protocol client package source is approved by this reference alone.
+
+No executable app, package, client, config, governance-gate, transaction-rail, or infra implementation is approved by this reference alone.
+
+Base Sepolia read-only config existence must not be treated as deployment authorization.
+
+Base Sepolia read-only config existence must not be treated as public demo approval.
+
+Base Sepolia read-only config existence must not be treated as mainnet approval.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Complete Base Sepolia address evidence records.
+- Complete Base Sepolia address checksum receipts.
+- Complete Base Sepolia ABI evidence records.
+- Complete Base Sepolia ABI checksum receipts.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Create generated Base Sepolia read-only config only after evidence and package gates authorize generation.
+- Create executable config package source only after package gates authorize implementation.
+- Create executable protocol client package source only after package gates authorize implementation.
+- Run package tests.
+- Run no-secret scan.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet config blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not create generated config from this plan alone.
+- Do not implement executable config package source from this plan alone.
+- Do not implement executable protocol client package source from this plan alone.
+- Do not launch a public Base Sepolia demo from this plan.
+- Do not launch a production interface from this plan.
+- Do not launch a mainnet interface from this plan.
+- Do not expose write methods from this plan.
+- Do not enable transaction broadcast from this plan.
+- Do not enable governance writes from this plan.
+- Do not enable production treasury routes from this plan.
+- Do not treat Base Sepolia read-only config existence as deployment authorization.
+- Do not treat Base Sepolia read-only config existence as public demo approval.
+- Do not treat Base Sepolia read-only config existence as mainnet approval.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
