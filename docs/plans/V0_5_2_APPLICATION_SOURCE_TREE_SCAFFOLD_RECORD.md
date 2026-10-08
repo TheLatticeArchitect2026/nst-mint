@@ -1531,3 +1531,100 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 protocol client package implementation plan reference
+
+Reference document: docs/plans/V0_5_2_PROTOCOL_CLIENT_PACKAGE_IMPLEMENTATION_PLAN.md
+
+Reference commit: d22b210151c1ca214154735eaedcec58675e6953
+
+Reference captured UTC: 2026-10-08T20:42:59Z
+
+Reference target: application source tree scaffold record
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable config package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve generated protocol clients.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production configuration.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the protocol client package implementation plan exists as a controlled planning artifact.
+
+No executable protocol client package source is approved by this reference alone.
+
+No generated protocol client source is approved by this reference alone.
+
+No executable app, package, client, config, governance-gate, transaction-rail, or infra implementation is approved by this reference alone.
+
+Protocol client package existence must not be treated as deployment authorization.
+
+Protocol client package existence must not be treated as public demo approval.
+
+Protocol client package existence must not be treated as mainnet approval.
+
+Required follow-on work:
+
+- Create Base Sepolia read-only config plan.
+- Complete Base Sepolia address evidence records.
+- Complete Base Sepolia address checksum receipts.
+- Complete Base Sepolia ABI evidence records.
+- Complete Base Sepolia ABI checksum receipts.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Create executable config package source only after package gates authorize implementation.
+- Create executable protocol client package source only after package gates authorize implementation.
+- Keep write methods blocked by default.
+- Keep transaction broadcast disabled by default.
+- Keep governance writes disabled by default.
+- Keep production treasury routes disabled by default.
+- Keep Base mainnet protocol clients blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not implement executable protocol client package source from this plan alone.
+- Do not create generated protocol client source from this plan alone.
+- Do not launch a public Base Sepolia demo from this plan.
+- Do not launch a production interface from this plan.
+- Do not launch a mainnet interface from this plan.
+- Do not expose write methods from this plan.
+- Do not enable transaction broadcast from this plan.
+- Do not enable governance writes from this plan.
+- Do not enable production treasury routes from this plan.
+- Do not treat protocol client existence as deployment authorization.
+- Do not treat protocol client existence as public demo approval.
+- Do not treat protocol client existence as mainnet approval.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
