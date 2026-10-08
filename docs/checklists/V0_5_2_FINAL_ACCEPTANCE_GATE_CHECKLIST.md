@@ -2078,3 +2078,99 @@ No-go conditions preserved:
 - Do not embed wallet secrets.
 - Do not embed private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 config package implementation plan reference
+
+Reference document: docs/plans/V0_5_2_CONFIG_PACKAGE_IMPLEMENTATION_PLAN.md
+
+Reference commit: 4f7fad4b838bab2452da5bd257fe14cf7bcd9ea2
+
+Reference captured UTC: 2026-10-08T08:44:33Z
+
+Reference target: final acceptance gate
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable config package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve generated config.
+
+This reference does not approve any production address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the config package implementation plan exists as a controlled planning artifact.
+
+No executable config package source is approved by this reference alone.
+
+No generated config is approved by this reference alone.
+
+No executable app, package, client, config, governance-gate, transaction-rail, or infra implementation is approved by this reference alone.
+
+Config package existence must not be treated as deployment authorization.
+
+Config package existence must not be treated as public demo approval.
+
+Config package existence must not be treated as mainnet approval.
+
+Required follow-on work:
+
+- Create protocol client package implementation plan.
+- Create Base Sepolia read-only config plan.
+- Complete Base Sepolia address evidence records.
+- Complete Base Sepolia address checksum receipts.
+- Complete Base Sepolia ABI evidence records.
+- Complete Base Sepolia ABI checksum receipts.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Create executable config package source only after package gates authorize implementation.
+- Create generated config only after evidence and package gates authorize generation.
+- Keep write methods disabled by default.
+- Keep transaction broadcast disabled by default.
+- Keep governance writes disabled by default.
+- Keep production treasury routes disabled by default.
+- Keep Base mainnet config blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not implement executable config package source from this plan alone.
+- Do not create generated config from this plan alone.
+- Do not launch a public Base Sepolia demo from this plan.
+- Do not launch a production interface from this plan.
+- Do not launch a mainnet interface from this plan.
+- Do not expose write methods from this plan.
+- Do not enable transaction broadcast from this plan.
+- Do not enable governance writes from this plan.
+- Do not enable production treasury routes from this plan.
+- Do not treat config existence as deployment authorization.
+- Do not treat config existence as public demo approval.
+- Do not treat config existence as mainnet approval.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not embed wallet secrets.
+- Do not embed private RPC credentials.
+- Do not imply this reference authorizes deployment.
