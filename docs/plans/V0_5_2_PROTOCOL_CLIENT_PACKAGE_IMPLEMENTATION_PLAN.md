@@ -1073,3 +1073,123 @@ No-go conditions preserved:
 - Do not use the checklist as treasury approval.
 - Do not use the checklist as governance approval.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia ABI evidence request packet reference
+
+Reference document: docs/audits/V0_5_2_BASE_SEPOLIA_ABI_EVIDENCE_REQUEST_PACKET.md
+
+Reference commit: 40896fc74b347526b6dfb70f60637c36b6ae39d3
+
+Reference captured UTC: 2026-10-10T08:19:46Z
+
+Reference target: protocol client package implementation plan
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch by itself.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any Base Sepolia ABI.
+
+This reference does not approve any production governance object.
+
+This reference does not approve any production treasury route.
+
+This reference does not authorize production protocol clients.
+
+This reference does not authorize production transaction rail execution.
+
+This reference does not authorize production governance gates.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia ABI evidence request packet exists as a controlled public-evidence request artifact.
+
+No Base Sepolia ABI evidence response is approved by this reference alone.
+
+No Base Sepolia ABI evidence record is approved by this reference alone.
+
+No Base Sepolia ABI checksum receipt is approved by this reference alone.
+
+No Base Sepolia method allowlist is approved by this reference alone.
+
+No Base Sepolia write method is approved by this reference alone.
+
+No generated Base Sepolia read-only config is approved by this reference alone.
+
+Base Sepolia ABI evidence request packet existence must not be treated as deployment authorization.
+
+Base Sepolia ABI evidence request packet existence must not be treated as public demo approval.
+
+Base Sepolia ABI evidence request packet existence must not be treated as mainnet approval.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Complete Base Sepolia ABI evidence response review checklist.
+- Review any Base Sepolia ABI evidence response against the review checklist.
+- Reject screenshot-only, chat-only, memory-only, guessed, placeholder, manually edited without receipt, or uncommitted ABI evidence.
+- Complete Base Sepolia ABI evidence records only after response review allows drafting.
+- Complete Base Sepolia ABI checksum receipts only after response review allows drafting.
+- Complete Base Sepolia explorer/source verification receipts where applicable.
+- Complete Base Sepolia address evidence records and checksum receipts.
+- Create generated Base Sepolia read-only config only after evidence and package gates authorize generation.
+- Create executable protocol client package source only after package gates authorize implementation.
+- Keep write methods blocked by default.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet deployment blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not complete the ABI evidence request with guessed ABIs.
+- Do not complete the ABI evidence request with placeholder ABIs.
+- Do not complete the ABI evidence request with screenshot-only evidence.
+- Do not complete the ABI evidence request with chat-only evidence.
+- Do not complete the ABI evidence request with memory-only evidence.
+- Do not use manually edited ABIs without receipt.
+- Do not use local uncommitted ABI artifacts.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
+- Do not use the request packet as deployment authorization.
+- Do not use the request packet as public demo approval.
+- Do not use the request packet as mainnet approval.
+- Do not use the request packet as production ABI approval.
+- Do not use the request packet as production address approval.
+- Do not use the request packet as treasury approval.
+- Do not use the request packet as governance approval.
+- Do not imply this reference authorizes deployment.
