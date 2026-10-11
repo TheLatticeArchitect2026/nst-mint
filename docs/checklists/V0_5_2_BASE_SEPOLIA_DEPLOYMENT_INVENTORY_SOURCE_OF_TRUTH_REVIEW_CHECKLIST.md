@@ -1,0 +1,476 @@
+# NST Core v0.5.2 Base Sepolia Deployment Inventory Source-of-Truth Review Checklist
+
+Status: DRAFT CHECKLIST
+Phase: v0.5.2 mainnet readiness
+Branch: phase/v0.5.2-mainnet-readiness
+Created UTC: 2026-10-11T16:19:11Z
+Current commit at creation: 3e53aad764e5cec6869b6e312dd145e47218747d
+
+Source file under review: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_AND_PUBLIC_INTERFACE_DECISION_RECORD.md
+
+Source file commit: 3e53aad764e5cec6869b6e312dd145e47218747d
+
+Deployment inventory read-only inspection receipt commit: 075ca65054153985aee42b0a8ff0ee1ef6ad9d5e
+
+Base Sepolia source-of-truth locator receipt commit: 3e53aad764e5cec6869b6e312dd145e47218747d
+
+Base Sepolia evidence gap register commit: 3e53aad764e5cec6869b6e312dd145e47218747d
+
+Base Sepolia address evidence response review checklist commit: 3e53aad764e5cec6869b6e312dd145e47218747d
+
+Base Sepolia ABI evidence response review checklist commit: 3e53aad764e5cec6869b6e312dd145e47218747d
+
+Network: Base Sepolia
+Chain ID: 84532
+Environment: testnet only
+Production value: none
+Mainnet value: none
+
+This document is not a deployment authorization.
+
+This document does not authorize deployment.
+
+This document does not authorize mainnet deployment.
+
+This document does not authorize public production interface launch.
+
+This document does not authorize public Base Sepolia demo launch.
+
+This document does not approve executable config package source.
+
+This document does not approve generated config.
+
+This document does not approve executable protocol client package source.
+
+This document does not approve executable app source.
+
+This document does not approve executable package source.
+
+This document does not approve executable infra source.
+
+This document does not approve any production address.
+
+This document does not approve any Base Sepolia address.
+
+This document does not approve any production ABI.
+
+This document does not approve any Base Sepolia ABI.
+
+This document does not approve any Base Sepolia read method.
+
+This document does not approve any Base Sepolia write method.
+
+This document does not approve transaction rail execution.
+
+This document does not approve governance writes.
+
+This document does not approve treasury routes.
+
+This document does not authorize any public mainnet mint interface.
+
+This document is a source-of-truth review checklist only.
+
+## Purpose
+
+This checklist defines how the Base Sepolia deployment inventory and public interface decision record must be reviewed before any candidate address, ABI, explorer source, verification reference, or deployment reference may be used to draft evidence-response artifacts.
+
+This checklist does not collect addresses.
+
+This checklist does not collect ABIs.
+
+This checklist does not approve addresses.
+
+This checklist does not approve ABIs.
+
+This checklist does not approve generated config.
+
+This checklist does not approve protocol clients.
+
+This checklist does not approve public demo launch.
+
+This checklist does not approve mainnet deployment.
+
+## Review outcome statuses
+
+Allowed statuses:
+
+| Status | Meaning |
+| --- | --- |
+| APPROVED_FOR_RESPONSE_DRAFTING | Source may be used to draft address/ABI evidence responses |
+| BLOCKED | Source is incomplete or unsafe |
+| REJECTED | Source cannot be accepted |
+| SUPERSEDED | Source replaced by newer source |
+| NOT_APPLICABLE | Source does not apply |
+| NEEDS_MORE_PUBLIC_EVIDENCE | More public evidence is required |
+
+Unknown statuses are not allowed.
+
+APPROVED_FOR_RESPONSE_DRAFTING is not evidence approval.
+
+APPROVED_FOR_RESPONSE_DRAFTING is not address approval.
+
+APPROVED_FOR_RESPONSE_DRAFTING is not ABI approval.
+
+APPROVED_FOR_RESPONSE_DRAFTING is not config approval.
+
+APPROVED_FOR_RESPONSE_DRAFTING is not public demo approval.
+
+APPROVED_FOR_RESPONSE_DRAFTING is not mainnet approval.
+
+## Global source review requirements
+
+The inspected source may be used for response drafting only if:
+
+- the source file is tracked;
+- the source file is committed;
+- the source file has a current commit hash;
+- the source file is Base Sepolia scoped;
+- the source file states or implies chain ID 84532;
+- the source file is not screenshot-only evidence;
+- the source file is not chat-only evidence;
+- the source file is not memory-only evidence;
+- the source file is not guessed evidence;
+- the source file is not local Anvil evidence;
+- the source file is not Base mainnet evidence;
+- the source file does not require private keys;
+- the source file does not require seed phrases;
+- the source file does not require wallet recovery information;
+- the source file does not require private RPC credentials;
+- the source file does not authorize deployment by itself;
+- the source file does not authorize public demo launch by itself;
+- the source file does not authorize mainnet by itself.
+
+## Required source-review fields
+
+| Field | Required | Status |
+| --- | --- | --- |
+| Reviewer | YES | OPEN |
+| Review date UTC | YES | OPEN |
+| Source file path | YES | OPEN |
+| Source commit | YES | OPEN |
+| Source network | YES | OPEN |
+| Source chain ID | YES | OPEN |
+| Source status | YES | OPEN |
+| Address evidence candidate status | YES | OPEN |
+| ABI evidence candidate status | YES | OPEN |
+| Explorer/source verification candidate status | YES | OPEN |
+| Secret-free confirmation | YES | OPEN |
+| Deployment authorization boundary | YES | OPEN |
+| Public demo boundary | YES | OPEN |
+| Mainnet boundary | YES | OPEN |
+| Final source-review status | YES | OPEN |
+
+## Address candidate source review
+
+Any address candidate derived from the inspected source must satisfy:
+
+| Check | Status |
+| --- | --- |
+| Source line or section is committed | OPEN |
+| Source line or section is Base Sepolia scoped | OPEN |
+| Source line or section is not local Anvil | OPEN |
+| Source line or section is not Base mainnet | OPEN |
+| Source line or section identifies or can be tied to a contract label | OPEN |
+| Source line or section is not placeholder | OPEN |
+| Source line or section is not TBD | OPEN |
+| Source line or section is not screenshot-only | OPEN |
+| Source line or section is not chat-only | OPEN |
+| Source line or section is not memory-only | OPEN |
+| Source line or section is not guessed | OPEN |
+| Source line or section is not a private wallet screen | OPEN |
+| Source line or section does not contain secret material | OPEN |
+| Address can proceed to response drafting only after review | OPEN |
+
+No address candidate is approved by this checklist.
+
+## ABI candidate source review
+
+Any ABI candidate derived from the inspected source must satisfy:
+
+| Check | Status |
+| --- | --- |
+| Source line or section is committed | OPEN |
+| Source line or section is Base Sepolia scoped | OPEN |
+| Source line or section is not local uncommitted output | OPEN |
+| Source line or section is not screenshot-only | OPEN |
+| Source line or section is not chat-only | OPEN |
+| Source line or section is not memory-only | OPEN |
+| Source line or section is not guessed | OPEN |
+| Source line or section identifies ABI source or path | OPEN |
+| Source line or section identifies or can be tied to a contract label | OPEN |
+| Source line or section does not approve write methods | OPEN |
+| Source line or section does not contain secret material | OPEN |
+| ABI can proceed to response drafting only after review | OPEN |
+
+No ABI candidate is approved by this checklist.
+
+## Explorer and verification source review
+
+Explorer or verification candidates must satisfy:
+
+| Check | Status |
+| --- | --- |
+| Explorer/source reference is public where applicable | OPEN |
+| Explorer/source reference is Base Sepolia scoped where applicable | OPEN |
+| Explorer/source reference does not point to Base mainnet unless explicitly marked as non-applicable | OPEN |
+| Verification status is clear or marked OPEN | OPEN |
+| Contract label is clear or marked OPEN | OPEN |
+| Related address evidence is clear or marked OPEN | OPEN |
+| Related ABI evidence is clear or marked OPEN | OPEN |
+| No deployment approval is implied | OPEN |
+| No public demo approval is implied | OPEN |
+| No mainnet approval is implied | OPEN |
+
+## Source-to-response drafting rule
+
+If this checklist is completed as APPROVED_FOR_RESPONSE_DRAFTING, the next allowed artifacts are:
+
+- Base Sepolia address evidence response draft;
+- Base Sepolia ABI evidence response draft;
+- Base Sepolia explorer/source verification response draft.
+
+The next allowed artifacts are not:
+
+- address evidence records;
+- address checksum receipts;
+- ABI evidence records;
+- ABI checksum receipts;
+- generated read-only config;
+- protocol clients;
+- app source;
+- package source;
+- infrastructure source;
+- public demo launch;
+- mainnet deployment.
+
+Evidence records require separate response review.
+
+Checksum receipts require separate evidence review.
+
+Generated config requires separate package and evidence gates.
+
+## Address evidence response dependency
+
+Base Sepolia address evidence response may be drafted only after this source review confirms:
+
+- source file is committed;
+- source file is Base Sepolia scoped;
+- source file has no unresolved secret issue;
+- source file does not imply deployment approval;
+- candidate address extraction is clearly marked as response drafting only.
+
+## ABI evidence response dependency
+
+Base Sepolia ABI evidence response may be drafted only after this source review confirms:
+
+- ABI source is public or committed;
+- ABI candidate is Base Sepolia scoped;
+- ABI candidate is not manually edited without receipt;
+- ABI candidate has no unresolved secret issue;
+- write methods remain blocked;
+- candidate ABI extraction is clearly marked as response drafting only.
+
+## Generated config blocker
+
+Generated Base Sepolia read-only config remains blocked until:
+
+- source review allows response drafting;
+- address evidence response review is complete;
+- ABI evidence response review is complete;
+- address evidence records are complete;
+- address checksum receipts are complete;
+- ABI evidence records are complete;
+- ABI checksum receipts are complete;
+- explorer/source verification receipts are complete where applicable;
+- method classification is complete;
+- read allowlist is complete;
+- write blocklist is complete;
+- config package gate allows generation;
+- protocol client package gate allows use;
+- package tests are satisfied.
+
+This checklist does not authorize generated config.
+
+## Protocol client blocker
+
+Protocol-client implementation remains blocked until:
+
+- Base Sepolia read-only config is approved;
+- ABI evidence records are complete;
+- ABI checksum receipts are complete;
+- method classification is complete;
+- read allowlist is complete;
+- write blocklist is complete;
+- protocol client package gate allows executable implementation;
+- package tests are complete;
+- no-secret scan is complete.
+
+This checklist does not authorize protocol client implementation.
+
+## Public demo blocker
+
+Public Base Sepolia demo launch remains blocked until:
+
+- public warning language is implemented;
+- network badge is visible;
+- address evidence is complete;
+- ABI evidence is complete;
+- checksum receipts are complete;
+- no-secret scan receipt is complete;
+- package tests pass;
+- UI review is complete;
+- demo approval receipt is complete.
+
+This checklist does not authorize public demo launch.
+
+## Mainnet blocker
+
+Mainnet remains blocked.
+
+No Base Sepolia address may be used as a Base mainnet address.
+
+No Base Sepolia ABI may be used as final Base mainnet ABI evidence without separate review.
+
+No Base Sepolia deployment may be treated as mainnet deployment.
+
+No Base Sepolia read-only config may be promoted to mainnet.
+
+Mainnet requires separate production evidence and final human approval.
+
+## No-secret confirmation
+
+This checklist does not request private keys.
+
+This checklist does not request seed phrases.
+
+This checklist does not request wallet recovery phrases.
+
+This checklist does not request deployer keys.
+
+This checklist does not request signer keys.
+
+This checklist does not request wallet secrets.
+
+This checklist does not request private RPC credentials.
+
+This checklist does not request private API keys.
+
+This checklist does not request bearer tokens.
+
+This checklist does not request private custody material.
+
+## No-go conditions
+
+Do not treat inspected source lines as approved evidence.
+
+Do not treat inspected source lines as approved addresses.
+
+Do not treat inspected source lines as approved ABIs.
+
+Do not use raw candidate addresses in generated config.
+
+Do not use raw candidate ABIs in generated config.
+
+Do not use raw inspected source lines in protocol clients.
+
+Do not use this checklist as deployment authorization.
+
+Do not use this checklist as public demo approval.
+
+Do not use this checklist as mainnet approval.
+
+Do not use this checklist as production address approval.
+
+Do not use this checklist as production ABI approval.
+
+Do not use this checklist as treasury approval.
+
+Do not use this checklist as governance approval.
+
+Do not accept guessed addresses.
+
+Do not accept placeholder addresses.
+
+Do not accept screenshot-only evidence.
+
+Do not accept chat-only evidence.
+
+Do not accept memory-only evidence.
+
+Do not use local Anvil addresses.
+
+Do not use Base mainnet addresses.
+
+Do not accept guessed ABIs.
+
+Do not accept placeholder ABIs.
+
+Do not accept screenshot-only ABI evidence.
+
+Do not accept chat-only ABI evidence.
+
+Do not accept manually edited ABIs without receipt.
+
+Do not request private keys.
+
+Do not request seed phrases.
+
+Do not request wallet recovery phrases.
+
+Do not request deployer keys.
+
+Do not request signer keys.
+
+Do not request wallet secrets.
+
+Do not request private RPC credentials.
+
+## Secret exclusion checklist
+
+This checklist must contain none of the following usable secret material:
+
+| Secret type | Present? | Status |
+| --- | --- | --- |
+| Private key value | NO | REQUIRED |
+| Seed phrase value | NO | REQUIRED |
+| Wallet recovery phrase value | NO | REQUIRED |
+| Deployer key value | NO | REQUIRED |
+| Signer key value | NO | REQUIRED |
+| Wallet secret value | NO | REQUIRED |
+| Private RPC credential value | NO | REQUIRED |
+| Keystore password value | NO | REQUIRED |
+| Hardware wallet recovery value | NO | REQUIRED |
+| Private signer material value | NO | REQUIRED |
+| Personal access token value | NO | REQUIRED |
+| Private API key value | NO | REQUIRED |
+| Bearer token value | NO | REQUIRED |
+
+## Acceptance criteria
+
+This source-of-truth review checklist is acceptable only if:
+
+- it is docs-only;
+- it changes no app source code;
+- it changes no package source code;
+- it changes no infra source code;
+- it changes no contract source code;
+- it preserves no-deployment status;
+- it states this is a source-of-truth review checklist only;
+- it states no address is approved;
+- it states no ABI is approved;
+- it states no generated config is approved;
+- it states no protocol client is approved;
+- it states no public demo is approved;
+- it states no mainnet deployment is approved;
+- it defines address candidate source review requirements;
+- it defines ABI candidate source review requirements;
+- it defines explorer/source verification review requirements;
+- it defines source-to-response drafting rules;
+- it defines generated config blockers;
+- it defines protocol client blockers;
+- it defines no-go conditions;
+- it includes no usable private keys;
+- it includes no usable seed phrases;
+- it includes no usable wallet secrets;
+- it includes no usable recovery phrases;
+- it is committed and pushed to the v0.5.2 phase branch.
