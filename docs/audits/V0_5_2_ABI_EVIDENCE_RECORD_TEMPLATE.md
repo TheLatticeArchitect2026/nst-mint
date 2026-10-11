@@ -3037,3 +3037,116 @@ No-go conditions preserved:
 - Do not request wallet secrets.
 - Do not request private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia address checksum receipts reference
+
+Reference document: docs/audits/V0_5_2_BASE_SEPOLIA_ADDRESS_CHECKSUM_RECEIPTS.md
+
+Reference commit: bae5ee0b499d6f3db93cb941da37bbcabc40ffde
+
+Reference captured UTC: 2026-10-11T20:22:16Z
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+Checksum method: EIP-55 via Foundry cast
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config by itself.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address for use outside evidence processing.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any Base Sepolia ABI.
+
+This reference does not approve any Base Sepolia read method.
+
+This reference does not approve any Base Sepolia write method.
+
+This reference does not approve transaction rail execution.
+
+This reference does not approve governance writes.
+
+This reference does not approve treasury routes.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that Base Sepolia address checksum receipts exist and were remotely confirmed.
+
+Address checksum receipt existence must not be treated as generated config approval.
+
+Address checksum receipt existence must not be treated as protocol client approval.
+
+Address checksum receipt existence must not be treated as public demo approval.
+
+Address checksum receipt existence must not be treated as mainnet approval.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Complete ABI evidence response review.
+- Complete ABI evidence records.
+- Complete ABI checksum receipts.
+- Complete explorer/source verification receipts where applicable.
+- Complete method classification.
+- Complete read allowlist.
+- Complete write blocklist.
+- Keep generated Base Sepolia read-only config blocked until evidence and package gates authorize generation.
+- Keep protocol client implementation blocked until generated config and ABI gates are complete.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet deployment blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not use these checksum receipts alone in generated config.
+- Do not use these checksum receipts alone in protocol clients.
+- Do not use these checksum receipts alone in public demo source.
+- Do not use these checksum receipts for mainnet.
+- Do not use this reference as deployment authorization.
+- Do not use this reference as public demo approval.
+- Do not use this reference as mainnet approval.
+- Do not use this reference as production address approval.
+- Do not use this reference as production ABI approval.
+- Do not use this reference as treasury approval.
+- Do not use this reference as governance approval.
+- Do not accept guessed addresses.
+- Do not accept placeholder addresses.
+- Do not accept screenshot-only evidence.
+- Do not accept chat-only evidence.
+- Do not accept memory-only evidence.
+- Do not use local Anvil addresses.
+- Do not use Base mainnet addresses.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
+- Do not imply this reference authorizes deployment.
