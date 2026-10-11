@@ -1868,3 +1868,140 @@ No-go conditions preserved:
 - Do not request wallet secrets.
 - Do not request private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia deployment inventory source-of-truth review receipt reference
+
+Reference document: docs/audits/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_SOURCE_OF_TRUTH_REVIEW_RECEIPT.md
+
+Reference commit: 177590ef7e3a192bf423bfa1f10c95f6f718a253
+
+Reference captured UTC: 2026-10-11T17:07:41Z
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any Base Sepolia ABI.
+
+This reference does not approve any Base Sepolia read method.
+
+This reference does not approve any Base Sepolia write method.
+
+This reference does not approve transaction rail execution.
+
+This reference does not approve governance writes.
+
+This reference does not approve treasury routes.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia deployment inventory source-of-truth review receipt exists.
+
+No source-of-truth review receipt result is evidence approval by itself.
+
+No raw candidate address is approved by this reference alone.
+
+No raw candidate ABI is approved by this reference alone.
+
+No Base Sepolia address evidence response is approved by this reference alone.
+
+No Base Sepolia ABI evidence response is approved by this reference alone.
+
+No Base Sepolia address evidence record is approved by this reference alone.
+
+No Base Sepolia address checksum receipt is approved by this reference alone.
+
+No Base Sepolia ABI evidence record is approved by this reference alone.
+
+No Base Sepolia ABI checksum receipt is approved by this reference alone.
+
+No generated Base Sepolia read-only config is approved by this reference alone.
+
+Base Sepolia deployment inventory source-of-truth review receipt existence must not be treated as deployment authorization.
+
+Base Sepolia deployment inventory source-of-truth review receipt existence must not be treated as public demo approval.
+
+Base Sepolia deployment inventory source-of-truth review receipt existence must not be treated as mainnet approval.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Draft Base Sepolia address evidence response only from approved source-review boundaries.
+- Draft Base Sepolia ABI evidence response only from approved source-review boundaries.
+- Review any Base Sepolia address evidence response against the address evidence response review checklist.
+- Review any Base Sepolia ABI evidence response against the ABI evidence response review checklist.
+- Complete address evidence records only after response review allows drafting.
+- Complete address checksum receipts only after response review allows drafting.
+- Complete ABI evidence records only after response review allows drafting.
+- Complete ABI checksum receipts only after response review allows drafting.
+- Complete explorer/source verification receipts where applicable.
+- Keep generated Base Sepolia read-only config blocked until evidence and package gates authorize generation.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet deployment blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not treat inspected source lines as approved evidence.
+- Do not treat inspected source lines as approved addresses.
+- Do not treat inspected source lines as approved ABIs.
+- Do not use raw candidate addresses in generated config.
+- Do not use raw candidate ABIs in generated config.
+- Do not use raw inspected source lines in protocol clients.
+- Do not use this receipt as deployment authorization.
+- Do not use this receipt as public demo approval.
+- Do not use this receipt as mainnet approval.
+- Do not use this receipt as production address approval.
+- Do not use this receipt as production ABI approval.
+- Do not use this receipt as treasury approval.
+- Do not use this receipt as governance approval.
+- Do not accept guessed addresses.
+- Do not accept placeholder addresses.
+- Do not accept screenshot-only evidence.
+- Do not accept chat-only evidence.
+- Do not accept memory-only evidence.
+- Do not use local Anvil addresses.
+- Do not use Base mainnet addresses.
+- Do not accept guessed ABIs.
+- Do not accept placeholder ABIs.
+- Do not accept screenshot-only ABI evidence.
+- Do not accept chat-only ABI evidence.
+- Do not accept manually edited ABIs without receipt.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
+- Do not imply this reference authorizes deployment.
