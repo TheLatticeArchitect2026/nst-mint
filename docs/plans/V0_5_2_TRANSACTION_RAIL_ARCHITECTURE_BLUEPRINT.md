@@ -3454,3 +3454,146 @@ No-go conditions preserved:
 - Do not request wallet secrets.
 - Do not request private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia deployment inventory source-of-truth review checklist reference
+
+Reference document: docs/checklists/V0_5_2_BASE_SEPOLIA_DEPLOYMENT_INVENTORY_SOURCE_OF_TRUTH_REVIEW_CHECKLIST.md
+
+Reference commit: c312ae18bfaf49e34f9d36662c84b5cdd2cb9514
+
+Reference captured UTC: 2026-10-11T16:25:39Z
+
+Reference target: transaction rail architecture blueprint
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any Base Sepolia ABI.
+
+This reference does not approve any Base Sepolia read method.
+
+This reference does not approve any Base Sepolia write method.
+
+This reference does not approve transaction rail execution.
+
+This reference does not approve governance writes.
+
+This reference does not approve treasury routes.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that the Base Sepolia deployment inventory source-of-truth review checklist exists as a review gate.
+
+No inspected source line is approved by this reference alone.
+
+No source-of-truth candidate is approved by this reference alone.
+
+No raw candidate address is approved by this reference alone.
+
+No raw candidate ABI is approved by this reference alone.
+
+No Base Sepolia address evidence response is approved by this reference alone.
+
+No Base Sepolia ABI evidence response is approved by this reference alone.
+
+No Base Sepolia address evidence record is approved by this reference alone.
+
+No Base Sepolia address checksum receipt is approved by this reference alone.
+
+No Base Sepolia ABI evidence record is approved by this reference alone.
+
+No Base Sepolia ABI checksum receipt is approved by this reference alone.
+
+No generated Base Sepolia read-only config is approved by this reference alone.
+
+Base Sepolia deployment inventory source-of-truth review checklist existence must not be treated as deployment authorization.
+
+Base Sepolia deployment inventory source-of-truth review checklist existence must not be treated as public demo approval.
+
+Base Sepolia deployment inventory source-of-truth review checklist existence must not be treated as mainnet approval.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Complete source-of-truth review before drafting address evidence responses.
+- Complete source-of-truth review before drafting ABI evidence responses.
+- Do not treat inspected source lines as approved evidence.
+- Review any future Base Sepolia address evidence response against the address evidence response review checklist.
+- Review any future Base Sepolia ABI evidence response against the ABI evidence response review checklist.
+- Reject screenshot-only, chat-only, memory-only, guessed, placeholder, local Anvil, Base mainnet, or manually edited evidence without receipt.
+- Complete Base Sepolia address evidence records only after response review allows drafting.
+- Complete Base Sepolia address checksum receipts only after response review allows drafting.
+- Complete Base Sepolia ABI evidence records only after response review allows drafting.
+- Complete Base Sepolia ABI checksum receipts only after response review allows drafting.
+- Complete explorer/source verification receipts where applicable.
+- Keep generated Base Sepolia read-only config blocked until evidence and package gates authorize generation.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet deployment blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not treat inspected source lines as approved evidence.
+- Do not treat inspected source lines as approved addresses.
+- Do not treat inspected source lines as approved ABIs.
+- Do not use raw candidate addresses in generated config.
+- Do not use raw candidate ABIs in generated config.
+- Do not use raw inspected source lines in protocol clients.
+- Do not use this checklist as deployment authorization.
+- Do not use this checklist as public demo approval.
+- Do not use this checklist as mainnet approval.
+- Do not use this checklist as production address approval.
+- Do not use this checklist as production ABI approval.
+- Do not use this checklist as treasury approval.
+- Do not use this checklist as governance approval.
+- Do not accept guessed addresses.
+- Do not accept placeholder addresses.
+- Do not accept screenshot-only evidence.
+- Do not accept chat-only evidence.
+- Do not accept memory-only evidence.
+- Do not use local Anvil addresses.
+- Do not use Base mainnet addresses.
+- Do not accept guessed ABIs.
+- Do not accept placeholder ABIs.
+- Do not accept screenshot-only ABI evidence.
+- Do not accept chat-only ABI evidence.
+- Do not accept manually edited ABIs without receipt.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
+- Do not imply this reference authorizes deployment.
