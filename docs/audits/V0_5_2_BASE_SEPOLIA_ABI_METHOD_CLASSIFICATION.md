@@ -1,18 +1,16 @@
 # NST Core v0.5.2 Base Sepolia ABI Method Classification
 
-Status: ABI_METHOD_CLASSIFICATION_COMPLETE
+Status: ABI_METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 Phase: v0.5.2 mainnet readiness
 Branch: phase/v0.5.2-mainnet-readiness
-Created UTC: 2026-10-12T10:28:31Z
-Current commit at method classification creation: 39c3732b49110bd28e5b29479078c6a2de19618f
+Created UTC: 2026-10-12T13:08:30Z
+Current commit at method classification safety repair: 372fa95f7e680d096801edb165f5218fd051829c
 
-ABI evidence records file: docs/audits/V0_5_2_BASE_SEPOLIA_ABI_EVIDENCE_RECORDS.md
-
-ABI evidence records commit: 39c3732b49110bd28e5b29479078c6a2de19618f
-
-ABI checksum receipts file: docs/audits/V0_5_2_BASE_SEPOLIA_ABI_CHECKSUM_RECEIPTS.md
+Previous ABI method classification commit: c44cbd2fe828419ca7c76a3bd9d7c5a6ab869191
 
 ABI checksum receipts commit: af682e55e3a428bbadf53a277a9a93b8403b9bda
+
+ABI evidence records commit: 39c3732b49110bd28e5b29479078c6a2de19618f
 
 Base Sepolia address checksum receipts commit: 39c3732b49110bd28e5b29479078c6a2de19618f
 
@@ -22,7 +20,9 @@ Environment: testnet only
 Production value: none
 Mainnet value: none
 
-Classification method: temporary Forge build artifact ABI parsing plus Foundry cast selector derivation
+Classification method: repaired committed ABI method classification with write-like safety override
+
+Safety override applied count: 25
 
 Temporary Forge artifact path committed: NO
 
@@ -30,9 +30,9 @@ Raw ABI JSON copied into this file: NO
 
 ABI record count classified: 8
 
-Total read methods classified: 238
+Total read methods classified: 213
 
-Total write methods classified: 110
+Total write or write-like blocked methods classified: 135
 
 Total events classified: 114
 
@@ -86,30 +86,49 @@ This file does not approve treasury routes.
 
 This file does not authorize any public mainnet mint interface.
 
+## Safety override policy
+
+A method must be excluded from the read allowlist if it is write-like or safety-sensitive, even if the ABI reports state mutability as view or pure.
+
+Examples include:
+
+- approve(address,uint256)
+- transfer(address,uint256)
+- transferFrom(address,address,uint256)
+- safeTransferFrom(address,address,uint256)
+- safeTransferFrom(address,address,uint256,bytes)
+- setApprovalForAll(address,bool)
+- grantRole(bytes32,address)
+- revokeRole(bytes32,address)
+- renounceRole(bytes32,address)
+- mint, burn, pause, unpause, sweep, rescue, process, set, propose, apply, cancel, update, register, execute, claim, deposit, withdraw, swap, initialize, and upgrade-style methods.
+
+This safety override protects read-only configuration from ERC approval, transfer, role, treasury, governance, mutation, rescue, sweep, and transaction-rail selectors.
+
 ## Purpose
 
-This document classifies approved Base Sepolia ABI methods into read methods and write methods.
+This document classifies approved Base Sepolia ABI methods into read methods and write or write-like blocked methods.
 
 Read methods may proceed to read allowlist drafting.
 
-Write methods must proceed to write blocklist drafting.
+Write and write-like methods must proceed to write blocklist drafting.
+
+No write or write-like method may be included in a read-only allowlist.
 
 No method may be used in generated config until read allowlist and write blocklist artifacts are complete.
 
-No write method may be included in a read-only allowlist.
-
 ## Classification summary table
 
-| ABI record ID | Supplemental ABI ID | Contract name | Source file | Read methods | Write methods | Events | Errors | Constructors | Status |
+| ABI record ID | Supplemental ABI ID | Contract name | Source file | Read methods | Write or write-like blocked methods | Events | Errors | Constructors | Status |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| base-sepolia-abi-evidence-record-sa1 | SA1 | CFTv2 | src/CFTv2.sol | 31 | 15 | 14 | 16 | 1 | METHOD_CLASSIFICATION_COMPLETE |
-| base-sepolia-abi-evidence-record-sa2 | SA2 | NSTSBT | src/NSTSBT.sol | 60 | 19 | 28 | 46 | 1 | METHOD_CLASSIFICATION_COMPLETE |
-| base-sepolia-abi-evidence-record-sa3 | SA3 | ReferralController | src/ReferralController.sol | 25 | 9 | 11 | 21 | 1 | METHOD_CLASSIFICATION_COMPLETE |
-| base-sepolia-abi-evidence-record-sa4 | SA4 | RewardEscrow | src/RewardEscrow.sol | 17 | 10 | 9 | 20 | 1 | METHOD_CLASSIFICATION_COMPLETE |
-| base-sepolia-abi-evidence-record-sa5 | SA5 | ShieldRegistry | src/ShieldRegistry.sol | 25 | 14 | 11 | 11 | 1 | METHOD_CLASSIFICATION_COMPLETE |
-| base-sepolia-abi-evidence-record-sa6 | SA6 | TreasuryRouter | src/TreasuryRouter.sol | 30 | 19 | 19 | 23 | 1 | METHOD_CLASSIFICATION_COMPLETE |
-| base-sepolia-abi-evidence-record-sa7 | SA7 | VaultRegistry | src/VaultRegistry.sol | 27 | 10 | 10 | 16 | 1 | METHOD_CLASSIFICATION_COMPLETE |
-| base-sepolia-abi-evidence-record-sa8 | SA8 | YieldPool | src/YieldPool.sol | 23 | 14 | 12 | 21 | 1 | METHOD_CLASSIFICATION_COMPLETE |
+| base-sepolia-abi-evidence-record-sa1 | SA1 | CFTv2 | src/CFTv2.sol | 29 | 17 | 14 | 16 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
+| base-sepolia-abi-evidence-record-sa2 | SA2 | NSTSBT | src/NSTSBT.sol | 48 | 31 | 28 | 46 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
+| base-sepolia-abi-evidence-record-sa3 | SA3 | ReferralController | src/ReferralController.sol | 23 | 11 | 11 | 21 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
+| base-sepolia-abi-evidence-record-sa4 | SA4 | RewardEscrow | src/RewardEscrow.sol | 15 | 12 | 9 | 20 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
+| base-sepolia-abi-evidence-record-sa5 | SA5 | ShieldRegistry | src/ShieldRegistry.sol | 23 | 16 | 11 | 11 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
+| base-sepolia-abi-evidence-record-sa6 | SA6 | TreasuryRouter | src/TreasuryRouter.sol | 29 | 20 | 19 | 23 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
+| base-sepolia-abi-evidence-record-sa7 | SA7 | VaultRegistry | src/VaultRegistry.sol | 26 | 11 | 10 | 16 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
+| base-sepolia-abi-evidence-record-sa8 | SA8 | YieldPool | src/YieldPool.sol | 20 | 17 | 12 | 21 | 1 | METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE |
 
 
 ## Method classification for SA1
@@ -123,8 +142,6 @@ Contract name: CFTv2
 Declaration type: contract
 
 Resolved source file: src/CFTv2.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_CFTv2.sol
 
 Contract label context: CFT, CFTv2, NST, ShieldRegistry, YieldPool
 
@@ -144,9 +161,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 31
+Read method count: 29
 
-Write method count: 15
+Write method count: 17
 
 Event count: 14
 
@@ -154,7 +171,7 @@ Error count: 16
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
@@ -163,7 +180,6 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | BPS_DENOMINATOR | `BPS_DENOMINATOR()` | `0xe1a45218` | view | 0 | 1 | READ_METHOD |
 | BUILDING_TREASURY | `BUILDING_TREASURY()` | `0x186a8465` | view | 0 | 1 | READ_METHOD |
 | BUILDING_TREASURY_BPS | `BUILDING_TREASURY_BPS()` | `0x79d8cbe4` | view | 0 | 1 | READ_METHOD |
-| BURNER_ROLE | `BURNER_ROLE()` | `0x282c51f3` | view | 0 | 1 | READ_METHOD |
 | CONFIG_MANAGER_ROLE | `CONFIG_MANAGER_ROLE()` | `0xa0c7f799` | view | 0 | 1 | READ_METHOD |
 | DEFAULT_ADMIN_ROLE | `DEFAULT_ADMIN_ROLE()` | `0xa217fddf` | view | 0 | 1 | READ_METHOD |
 | DIRECT_MINTER_ROLE | `DIRECT_MINTER_ROLE()` | `0x0ab3eb25` | view | 0 | 1 | READ_METHOD |
@@ -172,7 +188,6 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | FOUNDER_BPS | `FOUNDER_BPS()` | `0xb4f20e45` | view | 0 | 1 | READ_METHOD |
 | FOUNDER_TREASURY | `FOUNDER_TREASURY()` | `0x97021e44` | view | 0 | 1 | READ_METHOD |
 | GENESIS_SUPPLY | `GENESIS_SUPPLY()` | `0x99ec6765` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
 | SHIELD_REGISTRY | `SHIELD_REGISTRY()` | `0x28b348e9` | view | 0 | 1 | READ_METHOD |
 | TREASURY_MINT_ROLE | `TREASURY_MINT_ROLE()` | `0xfd8c7e0d` | view | 0 | 1 | READ_METHOD |
 | VIRILITY_BPS | `VIRILITY_BPS()` | `0xfffbc1fa` | view | 0 | 1 | READ_METHOD |
@@ -197,6 +212,8 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| BURNER_ROLE | `BURNER_ROLE()` | `0x282c51f3` | view | 0 | 1 | WRITE_METHOD |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
 | approve | `approve(address,uint256)` | `0x095ea7b3` | nonpayable | 2 | 1 | WRITE_METHOD |
 | burn | `burn(uint256)` | `0x42966c68` | nonpayable | 1 | 0 | WRITE_METHOD |
 | burnFromAccount | `burnFromAccount(address,uint256)` | `0x59dc2dd2` | nonpayable | 2 | 0 | WRITE_METHOD |
@@ -216,11 +233,11 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 ### Events
 
-Approval, Burned, BurnerSet, DirectMint, DirectMinterSet, GenesisSupplyAllocated, Paused, RoleAdminChanged, RoleGranted, RoleRevoked, Transfer, TreasuryMinterSet, TreasurySplitMinted, Unpaused
+Event count retained from previous classification: 14
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, ERC20InsufficientAllowance, ERC20InsufficientBalance, ERC20InvalidApprover, ERC20InvalidReceiver, ERC20InvalidSender, ERC20InvalidSpender, EnforcedPause, ExpectedPause, InvalidAmount, InvalidBpsConfig, InvalidDependency, InvalidRoleHolder, ParticipantNotPermitted, ZeroAddress
+Error count retained from previous classification: 16
 
 ### Constructor entries
 
@@ -236,7 +253,7 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 ## Method classification for SA2
@@ -250,8 +267,6 @@ Contract name: NSTSBT
 Declaration type: contract
 
 Resolved source file: src/NSTSBT.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_NSTSBT.sol
 
 Contract label context: BanRegistry, CFT, NST, NSTSBT, ShieldRegistry, Soul, VettingRegistry, YieldPool
 
@@ -271,9 +286,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 60
+Read method count: 48
 
-Write method count: 19
+Write method count: 31
 
 Event count: 28
 
@@ -281,13 +296,12 @@ Error count: 46
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
-| BAN_REGISTRY | `BAN_REGISTRY()` | `0x252a72b1` | view | 0 | 1 | READ_METHOD |
 | BPS_DENOMINATOR | `BPS_DENOMINATOR()` | `0xe1a45218` | view | 0 | 1 | READ_METHOD |
 | CFT | `CFT()` | `0x877bbadb` | view | 0 | 1 | READ_METHOD |
 | CONFIG_DELAY | `CONFIG_DELAY()` | `0x91311979` | view | 0 | 1 | READ_METHOD |
@@ -298,22 +312,15 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | GENESIS_RECIPIENT | `GENESIS_RECIPIENT()` | `0x4b384b93` | view | 0 | 1 | READ_METHOD |
 | GENESIS_TOKEN_ID | `GENESIS_TOKEN_ID()` | `0xa5ee9f37` | view | 0 | 1 | READ_METHOD |
 | METADATA_MANAGER_ROLE | `METADATA_MANAGER_ROLE()` | `0x529470e8` | view | 0 | 1 | READ_METHOD |
-| MINT_MANAGER_ROLE | `MINT_MANAGER_ROLE()` | `0xc202aaf8` | view | 0 | 1 | READ_METHOD |
-| MINT_PRICE | `MINT_PRICE()` | `0xc002d23d` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
 | ROUTER | `ROUTER()` | `0x32fe7b26` | view | 0 | 1 | READ_METHOD |
 | SHIELD_REGISTRY | `SHIELD_REGISTRY()` | `0x28b348e9` | view | 0 | 1 | READ_METHOD |
-| SWAP_DEADLINE_BUFFER | `SWAP_DEADLINE_BUFFER()` | `0xcbb117a3` | view | 0 | 1 | READ_METHOD |
-| SWAP_OPERATOR_ROLE | `SWAP_OPERATOR_ROLE()` | `0xfef133e4` | view | 0 | 1 | READ_METHOD |
 | TREASURY_MANAGER_ROLE | `TREASURY_MANAGER_ROLE()` | `0xebdf690f` | view | 0 | 1 | READ_METHOD |
 | VETTING_REGISTRY | `VETTING_REGISTRY()` | `0x1d2a37ec` | view | 0 | 1 | READ_METHOD |
 | WETH | `WETH()` | `0xad5c4648` | view | 0 | 1 | READ_METHOD |
 | YIELD_POOL | `YIELD_POOL()` | `0xf46298cb` | view | 0 | 1 | READ_METHOD |
 | YIELD_POOL_BPS | `YIELD_POOL_BPS()` | `0x6fc2a137` | view | 0 | 1 | READ_METHOD |
-| approve | `approve(address,uint256)` | `0x095ea7b3` | pure | 2 | 0 | READ_METHOD |
 | balanceOf | `balanceOf(address)` | `0x70a08231` | view | 1 | 1 | READ_METHOD |
 | baseURIFrozen | `baseURIFrozen()` | `0xfb565bfd` | view | 0 | 1 | READ_METHOD |
-| burn | `burn(uint256)` | `0x42966c68` | pure | 1 | 0 | READ_METHOD |
 | contractURI | `contractURI()` | `0xe8a3d485` | view | 0 | 1 | READ_METHOD |
 | contractURIFrozen | `contractURIFrozen()` | `0x5d6fd54d` | view | 0 | 1 | READ_METHOD |
 | exists | `exists(uint256)` | `0x4f558e79` | view | 1 | 1 | READ_METHOD |
@@ -337,14 +344,10 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | pendingYieldSwapMinOutState | `pendingYieldSwapMinOutState()` | `0x79d01b3a` | view | 0 | 2 | READ_METHOD |
 | previewSplit | `previewSplit(uint256)` | `0x13a6c05f` | pure | 1 | 2 | READ_METHOD |
 | publicMintCount | `publicMintCount()` | `0x0d84d1ce` | view | 0 | 1 | READ_METHOD |
-| safeTransferFrom | `safeTransferFrom(address,address,uint256,bytes)` | `0xb88d4fde` | pure | 4 | 0 | READ_METHOD |
-| setApprovalForAll | `setApprovalForAll(address,bool)` | `0xa22cb465` | pure | 2 | 0 | READ_METHOD |
 | supportsInterface | `supportsInterface(bytes4)` | `0x01ffc9a7` | view | 1 | 1 | READ_METHOD |
-| sweepableETH | `sweepableETH()` | `0xde59d0a5` | view | 0 | 1 | READ_METHOD |
 | symbol | `symbol()` | `0x95d89b41` | view | 0 | 1 | READ_METHOD |
 | tokenURI | `tokenURI(uint256)` | `0xc87b56dd` | view | 1 | 1 | READ_METHOD |
 | totalMinted | `totalMinted()` | `0xa2309ff8` | view | 0 | 1 | READ_METHOD |
-| transferFrom | `transferFrom(address,address,uint256)` | `0x23b872dd` | pure | 3 | 0 | READ_METHOD |
 | yieldSharePerMint | `yieldSharePerMint()` | `0x050c8343` | pure | 0 | 1 | READ_METHOD |
 | yieldSwapMinOut | `yieldSwapMinOut()` | `0x83f1483f` | view | 0 | 1 | READ_METHOD |
 
@@ -353,7 +356,15 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| BAN_REGISTRY | `BAN_REGISTRY()` | `0x252a72b1` | view | 0 | 1 | WRITE_METHOD |
+| MINT_MANAGER_ROLE | `MINT_MANAGER_ROLE()` | `0xc202aaf8` | view | 0 | 1 | WRITE_METHOD |
+| MINT_PRICE | `MINT_PRICE()` | `0xc002d23d` | view | 0 | 1 | WRITE_METHOD |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
+| SWAP_DEADLINE_BUFFER | `SWAP_DEADLINE_BUFFER()` | `0xcbb117a3` | view | 0 | 1 | WRITE_METHOD |
+| SWAP_OPERATOR_ROLE | `SWAP_OPERATOR_ROLE()` | `0xfef133e4` | view | 0 | 1 | WRITE_METHOD |
 | applyYieldSwapMinOut | `applyYieldSwapMinOut()` | `0x0f7b6a7a` | nonpayable | 0 | 0 | WRITE_METHOD |
+| approve | `approve(address,uint256)` | `0x095ea7b3` | pure | 2 | 0 | WRITE_METHOD |
+| burn | `burn(uint256)` | `0x42966c68` | pure | 1 | 0 | WRITE_METHOD |
 | cancelYieldSwapMinOutProposal | `cancelYieldSwapMinOutProposal()` | `0xc9cc1cbd` | nonpayable | 0 | 0 | WRITE_METHOD |
 | closeMintPermanently | `closeMintPermanently()` | `0xaa25b7d4` | nonpayable | 0 | 0 | WRITE_METHOD |
 | freezeBaseURI | `freezeBaseURI()` | `0xe7bc8208` | nonpayable | 0 | 0 | WRITE_METHOD |
@@ -367,20 +378,24 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | rescueERC20 | `rescueERC20(address,address,uint256)` | `0xb2118a8d` | nonpayable | 3 | 0 | WRITE_METHOD |
 | revokeRole | `revokeRole(bytes32,address)` | `0xd547741f` | nonpayable | 2 | 0 | WRITE_METHOD |
 | safeTransferFrom | `safeTransferFrom(address,address,uint256)` | `0x42842e0e` | nonpayable | 3 | 0 | WRITE_METHOD |
+| safeTransferFrom | `safeTransferFrom(address,address,uint256,bytes)` | `0xb88d4fde` | pure | 4 | 0 | WRITE_METHOD |
+| setApprovalForAll | `setApprovalForAll(address,bool)` | `0xa22cb465` | pure | 2 | 0 | WRITE_METHOD |
 | setBaseURI | `setBaseURI(string)` | `0x55f804b3` | nonpayable | 1 | 0 | WRITE_METHOD |
 | setContractURI | `setContractURI(string)` | `0x938e3d7b` | nonpayable | 1 | 0 | WRITE_METHOD |
 | setMintOpen | `setMintOpen(bool)` | `0xf8004d31` | nonpayable | 1 | 0 | WRITE_METHOD |
 | sweepETH | `sweepETH(address,uint256)` | `0x5b116ab8` | nonpayable | 2 | 0 | WRITE_METHOD |
+| sweepableETH | `sweepableETH()` | `0xde59d0a5` | view | 0 | 1 | WRITE_METHOD |
+| transferFrom | `transferFrom(address,address,uint256)` | `0x23b872dd` | pure | 3 | 0 | WRITE_METHOD |
 | unpause | `unpause()` | `0x3f4ba83a` | nonpayable | 0 | 0 | WRITE_METHOD |
 
 
 ### Events
 
-Approval, ApprovalForAll, BaseURIFrozenSet, BaseURISet, ContractURIFrozenSet, ContractURISet, ERC20Rescued, FounderPaid, GenesisMinted, Locked, MintFeeSplit, MintOpenSet, MintPermanentlyClosedSet, Minted, Paused, PendingYieldProcessed, RoleAdminChanged, RoleGranted, RoleRevoked, SweepETH, Transfer, Unlocked, Unpaused, YieldSwapDeferred, YieldSwapMinOutChangeCanceled, YieldSwapMinOutChangeProposed, YieldSwapMinOutSet, YieldSwapSucceeded
+Event count retained from previous classification: 28
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, AlreadyMinted, AmountExceedsPending, BannedAccount, BaseURIEmpty, BaseURIFrozen, ContractURIEmpty, ContractURIFrozen, DelayNotElapsed, DirectETHNotAccepted, ERC721IncorrectOwner, ERC721InsufficientApproval, ERC721InvalidApprover, ERC721InvalidOperator, ERC721InvalidOwner, ERC721InvalidReceiver, ERC721InvalidSender, ERC721NonexistentToken, ETHTransferFailed, EnforcedPause, ExpectedPause, FounderTokenProtected, InvalidBpsConfig, InvalidDeadlineWindow, InvalidDependency, InvalidPayment, InvalidRecipient, InvalidRoleHolder, InvalidRouter, InvalidRouterPath, InvalidSweepAmount, MintClosed, MintPermanentlyClosed, NotMintEligible, PendingConfigNotSet, ReentrancyGuardReentrantCall, SafeERC20FailedOperation, Soulbound, SwapAmountZero, SwapRetryFailed, TokenDoesNotExist, UnsupportedCall, YieldDepositZero, YieldSwapDisabled, ZeroAddress
+Error count retained from previous classification: 46
 
 ### Constructor entries
 
@@ -396,7 +411,7 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 ## Method classification for SA3
@@ -410,8 +425,6 @@ Contract name: ReferralController
 Declaration type: contract
 
 Resolved source file: src/ReferralController.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_ReferralController.sol
 
 Contract label context: CFT, NST, RewardEscrow, ShieldRegistry
 
@@ -431,9 +444,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 25
+Read method count: 23
 
-Write method count: 9
+Write method count: 11
 
 Event count: 11
 
@@ -441,7 +454,7 @@ Error count: 21
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
@@ -452,7 +465,6 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | ESCROW_DURATION | `ESCROW_DURATION()` | `0xa6efccf9` | view | 0 | 1 | READ_METHOD |
 | PAIR_REWARD | `PAIR_REWARD()` | `0x7984939a` | view | 0 | 1 | READ_METHOD |
 | PAIR_SIZE | `PAIR_SIZE()` | `0xa05f437e` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
 | SHIELD_REGISTRY | `SHIELD_REGISTRY()` | `0x28b348e9` | view | 0 | 1 | READ_METHOD |
 | canBindReferral | `canBindReferral(address,address)` | `0xac1e89ef` | view | 2 | 1 | READ_METHOD |
 | canSponsor | `canSponsor(address)` | `0xd884c1c1` | view | 1 | 1 | READ_METHOD |
@@ -463,7 +475,6 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | hasRole | `hasRole(bytes32,address)` | `0x91d14854` | view | 2 | 1 | READ_METHOD |
 | isSuccessfulReferralRecorded | `isSuccessfulReferralRecorded(address)` | `0x45df58a9` | view | 1 | 1 | READ_METHOD |
 | liquidPairsRewarded | `liquidPairsRewarded(address)` | `0xd7b20590` | view | 1 | 1 | READ_METHOD |
-| mintsUntilNextPair | `mintsUntilNextPair(address)` | `0x8ae0d859` | view | 1 | 1 | READ_METHOD |
 | nextPairWillBeEscrowed | `nextPairWillBeEscrowed(address)` | `0xafd0ce11` | view | 1 | 1 | READ_METHOD |
 | paused | `paused()` | `0x5c975abb` | view | 0 | 1 | READ_METHOD |
 | referralBoundAt | `referralBoundAt(address)` | `0x8a239f3c` | view | 1 | 1 | READ_METHOD |
@@ -478,8 +489,10 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
 | bindSponsor | `bindSponsor(address)` | `0x50fb95f5` | nonpayable | 1 | 0 | WRITE_METHOD |
 | grantRole | `grantRole(bytes32,address)` | `0x2f2ff15d` | nonpayable | 2 | 0 | WRITE_METHOD |
+| mintsUntilNextPair | `mintsUntilNextPair(address)` | `0x8ae0d859` | view | 1 | 1 | WRITE_METHOD |
 | pause | `pause()` | `0x8456cb59` | nonpayable | 0 | 0 | WRITE_METHOD |
 | recordSuccessfulMint | `recordSuccessfulMint(address)` | `0xf885e722` | nonpayable | 1 | 0 | WRITE_METHOD |
 | renounceRole | `renounceRole(bytes32,address)` | `0x36568abe` | nonpayable | 2 | 0 | WRITE_METHOD |
@@ -491,11 +504,11 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 ### Events
 
-EscrowRewardCreated, LiquidRewardIssued, Paused, ReferralMintRecorded, RewardEscrowSet, RewardTokenSet, RoleAdminChanged, RoleGranted, RoleRevoked, SponsorBound, Unpaused
+Event count retained from previous classification: 11
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, EnforcedPause, ExpectedPause, InvalidDependency, InvalidRoleHolder, InviteeAlreadyActiveMember, InviteeBanned, InviteeNotActiveMember, InviteeNotEligible, InviteeSystemExempt, NoSponsorBound, ReentrancyGuardReentrantCall, ReferralAlreadyRecorded, RewardEscrowNotConfigured, RewardTokenNotConfigured, SelfReferral, SponsorAlreadyBound, SponsorNotEligible, SponsorSystemExempt, ZeroAddress
+Error count retained from previous classification: 21
 
 ### Constructor entries
 
@@ -511,7 +524,7 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 ## Method classification for SA4
@@ -525,8 +538,6 @@ Contract name: RewardEscrow
 Declaration type: contract
 
 Resolved source file: src/RewardEscrow.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_RewardEscrow.sol
 
 Contract label context: CFT, NST, RewardEscrow, ShieldRegistry
 
@@ -546,9 +557,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 17
+Read method count: 15
 
-Write method count: 10
+Write method count: 12
 
 Event count: 9
 
@@ -556,7 +567,7 @@ Error count: 20
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
@@ -565,7 +576,6 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | CONFIG_MANAGER_ROLE | `CONFIG_MANAGER_ROLE()` | `0xa0c7f799` | view | 0 | 1 | READ_METHOD |
 | DEFAULT_ADMIN_ROLE | `DEFAULT_ADMIN_ROLE()` | `0xa217fddf` | view | 0 | 1 | READ_METHOD |
 | GRANT_CREATOR_ROLE | `GRANT_CREATOR_ROLE()` | `0x523cfc25` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
 | SHIELD_REGISTRY | `SHIELD_REGISTRY()` | `0x28b348e9` | view | 0 | 1 | READ_METHOD |
 | amountOf | `amountOf(uint256)` | `0xe8eb2284` | view | 1 | 1 | READ_METHOD |
 | beneficiaryOf | `beneficiaryOf(uint256)` | `0x124cfc8c` | view | 1 | 1 | READ_METHOD |
@@ -578,13 +588,13 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | paused | `paused()` | `0x5c975abb` | view | 0 | 1 | READ_METHOD |
 | rewardToken | `rewardToken()` | `0xf7c618c1` | view | 0 | 1 | READ_METHOD |
 | supportsInterface | `supportsInterface(bytes4)` | `0x01ffc9a7` | view | 1 | 1 | READ_METHOD |
-| unlockAtOf | `unlockAtOf(uint256)` | `0x59bcb546` | view | 1 | 1 | READ_METHOD |
 
 
 ### Write methods
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
 | batchClaim | `batchClaim(uint256[])` | `0xbc292782` | nonpayable | 1 | 1 | WRITE_METHOD |
 | claim | `claim(uint256)` | `0x379607f5` | nonpayable | 1 | 1 | WRITE_METHOD |
 | createGrant | `createGrant(address,uint256,uint64)` | `0xb6022657` | nonpayable | 3 | 1 | WRITE_METHOD |
@@ -594,16 +604,17 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | rescueERC20 | `rescueERC20(address,address,uint256)` | `0xb2118a8d` | nonpayable | 3 | 0 | WRITE_METHOD |
 | revokeRole | `revokeRole(bytes32,address)` | `0xd547741f` | nonpayable | 2 | 0 | WRITE_METHOD |
 | setRewardToken | `setRewardToken(address)` | `0x8aee8127` | nonpayable | 1 | 0 | WRITE_METHOD |
+| unlockAtOf | `unlockAtOf(uint256)` | `0x59bcb546` | view | 1 | 1 | WRITE_METHOD |
 | unpause | `unpause()` | `0x3f4ba83a` | nonpayable | 0 | 0 | WRITE_METHOD |
 
 
 ### Events
 
-ERC20Rescued, GrantClaimed, GrantCreated, Paused, RewardTokenSet, RoleAdminChanged, RoleGranted, RoleRevoked, Unpaused
+Event count retained from previous classification: 9
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, BannedAccount, BeneficiaryNotActiveMember, EmptyArray, EnforcedPause, ExpectedPause, GrantAlreadyClaimed, GrantNotFound, GrantNotMature, InvalidAmount, InvalidBeneficiary, InvalidDependency, InvalidRoleHolder, InvalidUnlockAt, NotBeneficiary, ReentrancyGuardReentrantCall, RewardTokenNotConfigured, SafeERC20FailedOperation, ZeroAddress
+Error count retained from previous classification: 20
 
 ### Constructor entries
 
@@ -619,7 +630,7 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 ## Method classification for SA5
@@ -633,8 +644,6 @@ Contract name: ShieldRegistry
 Declaration type: contract
 
 Resolved source file: src/ShieldRegistry.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_ShieldRegistry.sol
 
 Contract label context: BanRegistry, NST, ShieldRegistry, VettingRegistry
 
@@ -654,9 +663,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 25
+Read method count: 23
 
-Write method count: 14
+Write method count: 16
 
 Event count: 11
 
@@ -664,16 +673,14 @@ Error count: 11
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
-| BAN_MANAGER_ROLE | `BAN_MANAGER_ROLE()` | `0xb93e0b42` | view | 0 | 1 | READ_METHOD |
 | DEFAULT_ADMIN_ROLE | `DEFAULT_ADMIN_ROLE()` | `0xa217fddf` | view | 0 | 1 | READ_METHOD |
 | EXEMPTION_MANAGER_ROLE | `EXEMPTION_MANAGER_ROLE()` | `0x31af9957` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
 | PROFILE_MANAGER_ROLE | `PROFILE_MANAGER_ROLE()` | `0x091cfe70` | view | 0 | 1 | READ_METHOD |
 | VETTING_MANAGER_ROLE | `VETTING_MANAGER_ROLE()` | `0xb15ce9be` | view | 0 | 1 | READ_METHOD |
 | activeMember | `activeMember(address)` | `0xb0d99a40` | view | 1 | 1 | READ_METHOD |
@@ -701,6 +708,8 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| BAN_MANAGER_ROLE | `BAN_MANAGER_ROLE()` | `0xb93e0b42` | view | 0 | 1 | WRITE_METHOD |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
 | banAccount | `banAccount(address,bytes32)` | `0xa9028a0a` | nonpayable | 2 | 0 | WRITE_METHOD |
 | batchBanAccounts | `batchBanAccounts(address[],bytes32)` | `0x2d825b79` | nonpayable | 2 | 0 | WRITE_METHOD |
 | batchSetSystemExempt | `batchSetSystemExempt(address[],bool)` | `0x2aa17473` | nonpayable | 2 | 0 | WRITE_METHOD |
@@ -719,11 +728,11 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 ### Events
 
-AccountBanned, EntityProfileSet, MembershipTokenSet, OperationalPermissionsSet, Paused, RoleAdminChanged, RoleGranted, RoleRevoked, SystemExemptionSet, Unpaused, VettingStatusSet
+Event count retained from previous classification: 11
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, AlreadyBanned, ArrayLengthMismatch, BannedAccount, EmptyArray, EnforcedPause, ExpectedPause, InvalidMembershipToken, InvalidRoleHolder, ZeroAddress
+Error count retained from previous classification: 11
 
 ### Constructor entries
 
@@ -739,7 +748,7 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 ## Method classification for SA6
@@ -753,8 +762,6 @@ Contract name: TreasuryRouter
 Declaration type: contract
 
 Resolved source file: src/TreasuryRouter.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_TreasuryRouter.sol
 
 Contract label context: NST, TreasuryRouter
 
@@ -774,9 +781,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 30
+Read method count: 29
 
-Write method count: 19
+Write method count: 20
 
 Event count: 19
 
@@ -784,7 +791,7 @@ Error count: 23
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
@@ -803,7 +810,6 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | MAX_SPLIT_ROUTES | `MAX_SPLIT_ROUTES()` | `0x935512c6` | view | 0 | 1 | READ_METHOD |
 | NATIVE_ETH | `NATIVE_ETH()` | `0x011e1167` | view | 0 | 1 | READ_METHOD |
 | OPERATING_RESERVE_ROUTE | `OPERATING_RESERVE_ROUTE()` | `0x24277e36` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
 | PROTOCOL_LIQUIDITY_ROUTE | `PROTOCOL_LIQUIDITY_ROUTE()` | `0x27e37aff` | view | 0 | 1 | READ_METHOD |
 | REDEMPTION_RESERVE_ROUTE | `REDEMPTION_RESERVE_ROUTE()` | `0x2b968f97` | view | 0 | 1 | READ_METHOD |
 | ROUTE_MANAGER_ROLE | `ROUTE_MANAGER_ROLE()` | `0x7a0bba8d` | view | 0 | 1 | READ_METHOD |
@@ -826,6 +832,7 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
 | createRoute | `createRoute(bytes32,address,address,uint16,bool,uint8,bytes32)` | `0x525f159f` | nonpayable | 7 | 1 | WRITE_METHOD |
 | grantRole | `grantRole(bytes32,address)` | `0x2f2ff15d` | nonpayable | 2 | 0 | WRITE_METHOD |
 | lockRoute | `lockRoute(bytes32)` | `0x400b76e8` | nonpayable | 1 | 0 | WRITE_METHOD |
@@ -849,11 +856,11 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 ### Events
 
-AssetRescued, ERC20Routed, ERC20SplitRouted, ETHReceived, ETHRouted, ETHSplitRouted, Paused, RoleAdminChanged, RoleGranted, RoleRevoked, RouteAssetUpdated, RouteBpsUpdated, RouteCreated, RouteDestinationUpdated, RouteEnabledSet, RouteLocked, RouteMetadataUpdated, RouteTypeUpdated, Unpaused
+Event count retained from previous classification: 19
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, ERC20RouteRequired, ETHRouteRequired, ETHTransferFailed, EnforcedPause, ExpectedPause, InsufficientBalance, InvalidAsset, InvalidBps, InvalidRouteAsset, InvalidRouteType, InvalidSplitLength, InvalidSplitTotal, ReentrancyGuardReentrantCall, RouteAlreadyExists, RouteDisabled, RouteLockedError, RouteNotFound, SafeERC20FailedOperation, ZeroAddress, ZeroAmount, ZeroRouteId
+Error count retained from previous classification: 23
 
 ### Constructor entries
 
@@ -869,7 +876,7 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 ## Method classification for SA7
@@ -883,8 +890,6 @@ Contract name: VaultRegistry
 Declaration type: contract
 
 Resolved source file: src/VaultRegistry.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_VaultRegistry.sol
 
 Contract label context: NST, ShieldRegistry, VaultRegistry
 
@@ -904,9 +909,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 27
+Read method count: 26
 
-Write method count: 10
+Write method count: 11
 
 Event count: 10
 
@@ -914,7 +919,7 @@ Error count: 16
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
@@ -923,7 +928,6 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 | CREDENTIAL_ISSUER_ROLE | `CREDENTIAL_ISSUER_ROLE()` | `0x3be044fc` | view | 0 | 1 | READ_METHOD |
 | CREDENTIAL_REVOKER_ROLE | `CREDENTIAL_REVOKER_ROLE()` | `0x81c4b021` | view | 0 | 1 | READ_METHOD |
 | DEFAULT_ADMIN_ROLE | `DEFAULT_ADMIN_ROLE()` | `0xa217fddf` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
 | PROOF_MANAGER_ROLE | `PROOF_MANAGER_ROLE()` | `0x297014ed` | view | 0 | 1 | READ_METHOD |
 | SHIELD_REGISTRY | `SHIELD_REGISTRY()` | `0x28b348e9` | view | 0 | 1 | READ_METHOD |
 | URI_MANAGER_ROLE | `URI_MANAGER_ROLE()` | `0x682d07d9` | view | 0 | 1 | READ_METHOD |
@@ -953,6 +957,7 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
 | grantRole | `grantRole(bytes32,address)` | `0x2f2ff15d` | nonpayable | 2 | 0 | WRITE_METHOD |
 | issueCredential | `issueCredential(address,uint8,bytes32,bytes32,bytes32,uint64)` | `0x065d6e1c` | nonpayable | 6 | 1 | WRITE_METHOD |
 | pause | `pause()` | `0x8456cb59` | nonpayable | 0 | 0 | WRITE_METHOD |
@@ -967,11 +972,11 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 ### Events
 
-CredentialIssued, CredentialReplaced, CredentialRevoked, CredentialURIUpdated, Paused, ProofStatusUpdated, RoleAdminChanged, RoleGranted, RoleRevoked, Unpaused
+Event count retained from previous classification: 10
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, CredentialExpired, CredentialInactive, CredentialNotFound, CredentialRevokedAlready, EnforcedPause, ExpectedPause, InvalidCredentialHash, InvalidCredentialType, InvalidDependency, InvalidExpiry, InvalidProofStatus, InvalidReplacement, SubjectBanned, ZeroAddress
+Error count retained from previous classification: 16
 
 ### Constructor entries
 
@@ -987,7 +992,7 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 ## Method classification for SA8
@@ -1001,8 +1006,6 @@ Contract name: YieldPool
 Declaration type: contract
 
 Resolved source file: src/YieldPool.sol
-
-Source resolution: BASENAME_RESOLVED_FROM_YieldPool.sol
 
 Contract label context: NST, YieldPool
 
@@ -1022,9 +1025,9 @@ Temporary artifact path committed: NO
 
 Raw ABI JSON copied into classification: NO
 
-Read method count: 23
+Read method count: 20
 
-Write method count: 14
+Write method count: 17
 
 Event count: 12
 
@@ -1032,19 +1035,16 @@ Error count: 21
 
 Constructor entry count: 1
 
-Status: METHOD_CLASSIFICATION_COMPLETE
+Status: METHOD_CLASSIFICATION_COMPLETE_WITH_SAFETY_OVERRIDE
 
 ### Read methods
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
 | ASSET_MANAGER_ROLE | `ASSET_MANAGER_ROLE()` | `0xa4b32de8` | view | 0 | 1 | READ_METHOD |
-| CLAIM_MANAGER_ROLE | `CLAIM_MANAGER_ROLE()` | `0xc9581137` | view | 0 | 1 | READ_METHOD |
 | DEFAULT_ADMIN_ROLE | `DEFAULT_ADMIN_ROLE()` | `0xa217fddf` | view | 0 | 1 | READ_METHOD |
 | GRANT_MANAGER_ROLE | `GRANT_MANAGER_ROLE()` | `0x90270417` | view | 0 | 1 | READ_METHOD |
 | NATIVE_ETH | `NATIVE_ETH()` | `0x011e1167` | view | 0 | 1 | READ_METHOD |
-| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | READ_METHOD |
-| RESCUE_MANAGER_ROLE | `RESCUE_MANAGER_ROLE()` | `0x0213bfc7` | view | 0 | 1 | READ_METHOD |
 | accountingSnapshot | `accountingSnapshot(address)` | `0x1e4e3c00` | view | 1 | 1 | READ_METHOD |
 | availableBalance | `availableBalance(address)` | `0xa0821be3` | view | 1 | 1 | READ_METHOD |
 | beneficiaryGrantCount | `beneficiaryGrantCount(address)` | `0xe6463adf` | view | 1 | 1 | READ_METHOD |
@@ -1067,6 +1067,9 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 | Method name | Signature | Selector | State mutability | Input count | Output count | Classification |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| CLAIM_MANAGER_ROLE | `CLAIM_MANAGER_ROLE()` | `0xc9581137` | view | 0 | 1 | WRITE_METHOD |
+| PAUSER_ROLE | `PAUSER_ROLE()` | `0xe63ab1e9` | view | 0 | 1 | WRITE_METHOD |
+| RESCUE_MANAGER_ROLE | `RESCUE_MANAGER_ROLE()` | `0x0213bfc7` | view | 0 | 1 | WRITE_METHOD |
 | cancelGrant | `cancelGrant(uint256,bytes32)` | `0xea7363e0` | nonpayable | 2 | 1 | WRITE_METHOD |
 | claim | `claim(uint256)` | `0x379607f5` | nonpayable | 1 | 1 | WRITE_METHOD |
 | claimFor | `claimFor(uint256)` | `0xbd2fb91d` | nonpayable | 1 | 1 | WRITE_METHOD |
@@ -1085,11 +1088,11 @@ Status: METHOD_CLASSIFICATION_COMPLETE
 
 ### Events
 
-AssetAllowedSet, Deposited, ERC20Rescued, ETHRescued, GrantCanceled, GrantClaimed, GrantCreated, Paused, RoleAdminChanged, RoleGranted, RoleRevoked, Unpaused
+Event count retained from previous classification: 12
 
 ### Errors
 
-AccessControlBadConfirmation, AccessControlUnauthorizedAccount, AssetNotAllowed, DirectCallRejected, ETHTransferFailed, EnforcedPause, ExpectedPause, GrantAlreadyClaimed, GrantCanceledError, GrantExpired, GrantNotUnlocked, InsufficientAvailableBalance, InvalidAsset, InvalidTimeWindow, ReentrancyGuardReentrantCall, ReservedFundsProtected, SafeERC20FailedOperation, UnauthorizedClaimant, UnknownGrant, ZeroAddress, ZeroAmount
+Error count retained from previous classification: 21
 
 ### Constructor entries
 
@@ -1105,17 +1108,16 @@ This method classification does not authorize mainnet deployment.
 
 Read methods may proceed to read allowlist drafting only.
 
-Write methods must proceed to write blocklist drafting only.
+Write and write-like methods must proceed to write blocklist drafting only.
 
 
 
 ## Required next artifacts
 
-The next allowed artifacts are:
+The next required artifacts are:
 
-- Base Sepolia read method allowlist draft;
-- Base Sepolia write method blocklist draft;
-- explorer/source verification receipts where applicable.
+- repaired Base Sepolia read method allowlist;
+- Base Sepolia write method blocklist.
 
 The next allowed artifacts are not:
 
@@ -1129,23 +1131,11 @@ The next allowed artifacts are not:
 
 ## Read allowlist blocker
 
-Read allowlist remains required.
+Read allowlist remains required after this safety repair.
 
 Only methods classified as READ_METHOD may be considered for a read allowlist.
 
-No write method may be included in a read allowlist.
-
-A read allowlist must identify:
-
-- contract name;
-- source file;
-- ABI record ID;
-- method name;
-- method signature;
-- selector;
-- state mutability;
-- reason for inclusion;
-- no-write confirmation.
+No method classified as WRITE_METHOD may be included in a read allowlist.
 
 ## Write blocklist blocker
 
@@ -1153,24 +1143,11 @@ Write blocklist remains required.
 
 Every method classified as WRITE_METHOD must be included in a write blocklist.
 
-A write blocklist must identify:
-
-- contract name;
-- source file;
-- ABI record ID;
-- method name;
-- method signature;
-- selector;
-- state mutability;
-- reason for exclusion;
-- no-public-demo execution confirmation;
-- no-transaction-rail execution confirmation.
-
 ## Generated config blocker
 
 Generated Base Sepolia read-only config remains blocked until:
 
-- read allowlist is complete;
+- read allowlist is repaired;
 - write blocklist is complete;
 - explorer/source verification receipts are complete where applicable;
 - config package gate allows generation;
@@ -1184,7 +1161,7 @@ This method classification does not authorize generated config.
 Protocol-client implementation remains blocked until:
 
 - Base Sepolia read-only config is approved;
-- read allowlist is complete;
+- read allowlist is repaired;
 - write blocklist is complete;
 - protocol client package gate allows executable implementation;
 - package tests are complete;
@@ -1196,14 +1173,10 @@ This method classification does not authorize protocol client implementation.
 
 Public Base Sepolia demo launch remains blocked until:
 
+- generated read-only config is approved;
+- protocol client gate is complete;
 - public warning language is implemented;
 - network badge is visible;
-- address evidence is complete;
-- ABI evidence is complete;
-- checksum receipts are complete;
-- method classification is complete;
-- read allowlist is complete;
-- write blocklist is complete;
 - no-secret scan receipt is complete;
 - package tests pass;
 - UI review is complete;
@@ -1275,7 +1248,7 @@ Do not use this file as treasury approval.
 
 Do not use this file as governance approval.
 
-Do not include write methods in a read allowlist.
+Do not include write or write-like methods in a read allowlist.
 
 Do not execute write methods.
 
@@ -1297,29 +1270,9 @@ Do not request wallet secrets.
 
 Do not request private RPC credentials.
 
-## Secret exclusion checklist
-
-This file must contain none of the following usable secret material:
-
-| Secret type | Present? | Status |
-| --- | --- | --- |
-| Private key value | NO | REQUIRED |
-| Seed phrase value | NO | REQUIRED |
-| Wallet recovery phrase value | NO | REQUIRED |
-| Deployer key value | NO | REQUIRED |
-| Signer key value | NO | REQUIRED |
-| Wallet secret value | NO | REQUIRED |
-| Private RPC credential value | NO | REQUIRED |
-| Keystore password value | NO | REQUIRED |
-| Hardware wallet recovery value | NO | REQUIRED |
-| Private signer material value | NO | REQUIRED |
-| Personal access token value | NO | REQUIRED |
-| Private API key value | NO | REQUIRED |
-| Bearer token value | NO | REQUIRED |
-
 ## Acceptance criteria
 
-This ABI method classification file is acceptable only if:
+This repaired ABI method classification file is acceptable only if:
 
 - it is docs-only;
 - it changes no app source code;
@@ -1327,15 +1280,14 @@ This ABI method classification file is acceptable only if:
 - it changes no infra source code;
 - it changes no contract source code;
 - it preserves no-deployment status;
-- it records the ABI evidence records commit;
+- it records the previous ABI method classification commit;
 - it records the ABI checksum receipts commit;
 - it records Base Sepolia;
 - it records chain ID 84532;
 - it classifies read methods;
-- it classifies write methods;
-- it records selectors using Foundry cast;
-- it does not copy raw ABI JSON values;
-- it states read allowlist remains required;
+- it classifies write or write-like methods;
+- it moves approve(address,uint256) and selector 0x095ea7b3 out of read classification;
+- it states read allowlist must be repaired;
 - it states write blocklist remains required;
 - it states generated config remains blocked;
 - it states protocol clients remain blocked;
