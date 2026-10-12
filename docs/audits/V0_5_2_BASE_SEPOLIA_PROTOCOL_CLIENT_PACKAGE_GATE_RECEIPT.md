@@ -58,6 +58,8 @@ Protocol client package status: CONTROLLED_READ_ONLY_CLIENT_PLANNING_ALLOWED
 
 Protocol client implementation status: BLOCKED_PENDING_IMPLEMENTATION_PLAN_AND_NO_SECRET_SCAN
 
+Protocol client implementation source approved: NO
+
 Read methods available for planning: 213
 
 Write methods excluded from planning: 135
