@@ -1680,3 +1680,131 @@ No-go conditions preserved:
 - Do not request wallet secrets.
 - Do not request private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia method-control reference
+
+Method classification reference: docs/audits/V0_5_2_BASE_SEPOLIA_ABI_METHOD_CLASSIFICATION.md
+
+Method classification commit: 7e79d9697a58ae2c9baaf4b5eba48eea96af4698
+
+Read method allowlist reference: docs/audits/V0_5_2_BASE_SEPOLIA_READ_METHOD_ALLOWLIST.md
+
+Read method allowlist commit: 5e13ab4cba6f5d5631da03fff1704e890e960a2a
+
+Write method blocklist reference: docs/audits/V0_5_2_BASE_SEPOLIA_WRITE_METHOD_BLOCKLIST.md
+
+Write method blocklist commit: 733ce302ec9823d00fcf9c84447b77289174efa8
+
+ABI checksum receipts commit: af682e55e3a428bbadf53a277a9a93b8403b9bda
+
+Address checksum receipts commit: 39c3732b49110bd28e5b29479078c6a2de19618f
+
+Reference captured UTC: 2026-10-12T13:38:24Z
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+Environment: testnet only
+
+Production value: none
+
+Mainnet value: none
+
+Method-control status:
+
+- ABI method classification complete with safety override.
+- Read method allowlist complete.
+- Write method blocklist complete.
+- Approval signature and approval selector are excluded from the read allowlist.
+- Approval signature and approval selector are retained in the write blocklist.
+- Write-like methods are excluded from generated read-only config.
+- Write methods are excluded from public demo execution.
+- Write methods are excluded from transaction rail execution.
+- Write methods are excluded from governance writes.
+- Write methods are excluded from treasury routes.
+- Write methods are excluded from mainnet.
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config by itself.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address.
+
+This reference does not approve transaction rail execution.
+
+This reference does not approve governance writes.
+
+This reference does not approve treasury routes.
+
+This reference does not authorize any public mainnet mint interface.
+
+Generated Base Sepolia read-only config remains blocked until:
+
+- explorer/source verification receipts are complete where applicable;
+- config package gate allows generation;
+- protocol client package gate allows use;
+- package tests are satisfied;
+- generated config candidate is produced and reviewed.
+
+Protocol client implementation remains blocked until:
+
+- generated Base Sepolia read-only config is approved;
+- protocol client package gate allows executable implementation;
+- package tests are complete;
+- no-secret scan is complete.
+
+Public Base Sepolia demo remains blocked until:
+
+- generated read-only config is approved;
+- protocol client gate is complete;
+- public warning language is implemented;
+- network badge is visible;
+- no-secret scan receipt is complete;
+- package tests pass;
+- UI review is complete;
+- demo approval receipt is complete.
+
+Mainnet remains blocked.
+
+No Base Sepolia address, ABI, read method, write method, read-only config, or public demo may be promoted to mainnet.
+
+No-go conditions preserved:
+
+- Do not use method classification alone as generated config.
+- Do not use read allowlist alone as generated config.
+- Do not use write blocklist alone as generated config.
+- Do not include write methods in generated read-only config.
+- Do not execute write methods.
+- Do not allow write methods in public demo.
+- Do not allow write methods in transaction rail.
+- Do not allow write methods in governance routes.
+- Do not allow write methods in treasury routes.
+- Do not use this reference as deployment authorization.
+- Do not use this reference as public demo approval.
+- Do not use this reference as mainnet approval.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
