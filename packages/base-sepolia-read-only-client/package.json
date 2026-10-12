@@ -1,0 +1,18 @@
+{
+  "name": "@nst-lattice/base-sepolia-read-only-client",
+  "version": "0.5.2",
+  "private": true,
+  "type": "module",
+  "description": "NST Base Sepolia read-only client boundary package. No signer, no writes, no transactions, no mainnet.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "test",
+    "README.md",
+    "BOUNDARIES.md",
+    "SCAFFOLD_MANIFEST.json"
+  ],
+  "license": "UNLICENSED"
+}
