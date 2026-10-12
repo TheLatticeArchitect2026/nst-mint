@@ -36,7 +36,7 @@ Environment: testnet only
 Production value: none
 Mainnet value: none
 
-Review result: PASS
+Review result: PASS_FOR_CONFIG_PACKAGE_GATE_REVIEW_ONLY
 
 Config status reviewed: CANDIDATE_ONLY_PENDING_CONFIG_REVIEW
 
