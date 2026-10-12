@@ -3900,3 +3900,125 @@ No-go conditions preserved:
 - Do not request wallet secrets.
 - Do not request private RPC credentials.
 - Do not imply this reference authorizes deployment.
+
+## v0.5.2 Base Sepolia ABI checksum receipts reference
+
+Reference document: docs/audits/V0_5_2_BASE_SEPOLIA_ABI_CHECKSUM_RECEIPTS.md
+
+Reference commit: af682e55e3a428bbadf53a277a9a93b8403b9bda
+
+Reference captured UTC: 2026-10-12T10:22:01Z
+
+Network: Base Sepolia
+
+Chain ID: 84532
+
+Checksum method: normalized ABI JSON SHA-256 from temporary Forge build artifact
+
+This reference does not authorize deployment.
+
+This reference does not authorize mainnet deployment.
+
+This reference does not authorize public production interface launch.
+
+This reference does not authorize public Base Sepolia demo launch.
+
+This reference does not approve executable config package source.
+
+This reference does not approve generated config by itself.
+
+This reference does not approve executable protocol client package source.
+
+This reference does not approve executable app source.
+
+This reference does not approve executable package source.
+
+This reference does not approve executable infra source.
+
+This reference does not approve any production address.
+
+This reference does not approve any Base Sepolia address.
+
+This reference does not approve any production ABI.
+
+This reference does not approve any Base Sepolia ABI for use outside evidence processing.
+
+This reference does not approve any Base Sepolia read method.
+
+This reference does not approve any Base Sepolia write method.
+
+This reference does not approve transaction rail execution.
+
+This reference does not approve governance writes.
+
+This reference does not approve treasury routes.
+
+This reference does not authorize any public mainnet mint interface.
+
+This reference records that Base Sepolia ABI checksum receipts exist and were remotely confirmed.
+
+ABI checksum receipt existence must not be treated as generated config approval.
+
+ABI checksum receipt existence must not be treated as protocol client approval.
+
+ABI checksum receipt existence must not be treated as method classification approval.
+
+ABI checksum receipt existence must not be treated as read allowlist approval.
+
+ABI checksum receipt existence must not be treated as write blocklist approval.
+
+ABI checksum receipt existence must not be treated as public demo approval.
+
+ABI checksum receipt existence must not be treated as mainnet approval.
+
+Raw ABI JSON was not copied into the checksum receipt file.
+
+Temporary Forge artifacts were not committed.
+
+Base Sepolia has no production value.
+
+Base Sepolia has no mainnet rights.
+
+Base Sepolia has no production treasury authority.
+
+Required follow-on work:
+
+- Complete method classification.
+- Complete read allowlist.
+- Complete write blocklist.
+- Complete explorer/source verification receipts where applicable.
+- Complete config package gate review.
+- Keep generated Base Sepolia read-only config blocked until method classification, read allowlist, write blocklist, and package gates authorize generation.
+- Keep protocol client implementation blocked until generated config and protocol client gates are complete.
+- Keep public demo blocked until approval receipt is complete.
+- Keep Base mainnet deployment blocked until final production gates are complete.
+
+No-go conditions preserved:
+
+- Do not use ABI checksum receipts as method classification.
+- Do not use ABI checksum receipts as a read allowlist.
+- Do not use ABI checksum receipts as a write blocklist.
+- Do not use ABI checksum receipts alone in generated config.
+- Do not use ABI checksum receipts alone in protocol clients.
+- Do not use ABI checksum receipts alone in public demo source.
+- Do not use ABI checksum receipts for mainnet.
+- Do not use this reference as deployment authorization.
+- Do not use this reference as public demo approval.
+- Do not use this reference as mainnet approval.
+- Do not use this reference as production ABI approval.
+- Do not use this reference as treasury approval.
+- Do not use this reference as governance approval.
+- Do not accept guessed ABIs.
+- Do not accept placeholder ABIs.
+- Do not accept screenshot-only ABI evidence.
+- Do not accept chat-only ABI evidence.
+- Do not accept memory-only ABI evidence.
+- Do not accept manually edited ABIs without receipt.
+- Do not request private keys.
+- Do not request seed phrases.
+- Do not request wallet recovery phrases.
+- Do not request deployer keys.
+- Do not request signer keys.
+- Do not request wallet secrets.
+- Do not request private RPC credentials.
+- Do not imply this reference authorizes deployment.
