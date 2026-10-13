@@ -1,0 +1,14 @@
+# No-Secret Scan Placeholder
+
+Future no-secret scan must inspect the public interface scaffold and future implementation before demo approval.
+
+The scan must reject:
+
+- private keys;
+- seed phrases;
+- wallet secrets;
+- private RPC credentials;
+- bearer tokens;
+- API keys;
+- deployer keys;
+- signer keys.

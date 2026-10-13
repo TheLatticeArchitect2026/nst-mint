@@ -1,0 +1,55 @@
+{
+  "boundaries": {
+    "ethCallOnly": true,
+    "noExecutableAppRuntime": true,
+    "noPrivateKeys": true,
+    "noPrivateRpcCredentials": true,
+    "noSeedPhrases": true,
+    "noSigning": true,
+    "noTransactions": true,
+    "noWalletSecrets": true,
+    "noWrites": true,
+    "notMainnet": true,
+    "notProduction": true,
+    "notPublicDemoApproved": true,
+    "readOnly": true,
+    "scaffoldOnly": true
+  },
+  "branch": "phase/v0.5.2-mainnet-readiness",
+  "configCandidate": {
+    "commit": "79e5126f6752c9178980d07f4bd8bd511fdb47f5",
+    "file": "docs/generated/V0_5_2_BASE_SEPOLIA_READ_ONLY_CONFIG_CANDIDATE.json",
+    "sha256": "deae06b5dc18077c7c3dcb442869c463e86c68fd4e21366356cf7482f32e39b5"
+  },
+  "counts": {
+    "readMethods": 213,
+    "readSelectors": 158,
+    "writeMethodsBlocked": 135,
+    "writeSelectorsBlocked": 84
+  },
+  "createdFromCommit": "559017b8d2977ad2f7d6ce753a69aa13d246aa74",
+  "createdUtc": "2026-10-13T08:20:22Z",
+  "network": {
+    "chainId": 84532,
+    "environment": "testnet",
+    "mainnetAuthority": false,
+    "name": "Base Sepolia",
+    "productionValue": false
+  },
+  "phase": "v0.5.2-mainnet-readiness",
+  "safety": {
+    "approvalSelectorInReadMethods": false,
+    "approvalSelectorInWriteBlocklist": true,
+    "readWriteSelectorOverlap": []
+  },
+  "schema": "nst.v0.5.2.base-sepolia.read-only-public-interface-scaffold",
+  "status": "SCAFFOLD_ONLY_NO_PUBLIC_DEMO_APPROVAL",
+  "warningsRequired": [
+    "Base Sepolia testnet only",
+    "No mainnet approval",
+    "No production value",
+    "Read-only interface",
+    "No wallet writes",
+    "No transactions"
+  ]
+}
