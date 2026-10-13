@@ -1,0 +1,18 @@
+{
+  "name": "@nst-lattice/base-sepolia-read-only-public-interface",
+  "version": "0.5.2",
+  "private": true,
+  "type": "module",
+  "description": "NST Base Sepolia read-only public interface boundary. No public demo approval, no signer, no writes, no transactions, no mainnet.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "test",
+    "README.md",
+    "BOUNDARIES.md",
+    "INTERFACE_SCAFFOLD_MANIFEST.json"
+  ],
+  "license": "UNLICENSED"
+}
