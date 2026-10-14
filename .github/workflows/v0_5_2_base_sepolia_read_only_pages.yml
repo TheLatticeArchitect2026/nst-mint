@@ -1,0 +1,125 @@
+name: v0.5.2 Base Sepolia Read-Only Pages
+
+on:
+ workflow_dispatch:
+
+permissions:
+ contents: read
+ pages: write
+ id-token: write
+
+concurrency:
+ group: v0-5-2-base-sepolia-read-only-pages
+ cancel-in-progress: false
+
+jobs:
+ build:
+  name: Build Base Sepolia read-only static site from phase branch
+  runs-on: ubuntu-latest
+  steps:
+   - name: Checkout v0.5.2 phase branch
+    uses: actions/checkout@v6
+    with:
+     ref: phase/v0.5.2-mainnet-readiness
+
+   - name: Configure GitHub Pages
+    uses: actions/configure-pages@v5
+
+   - name: Validate read-only boundaries
+    shell: bash
+    run: |
+     set -euo pipefail
+
+     grep -q "BASE_SEPOLIA_CHAIN_ID = 84532" apps/base-sepolia-read-only-public-interface/src/constants.ts
+     grep -q "MAINNET_APPROVED = false" apps/base-sepolia-read-only-public-interface/src/constants.ts
+     grep -q "TRANSACTION_EXECUTION_APPROVED = false" apps/base-sepolia-read-only-public-interface/src/constants.ts
+     grep -q "WALLET_WRITE_APPROVED = false" apps/base-sepolia-read-only-public-interface/src/constants.ts
+     grep -q "BLOCKED_APPROVAL_SELECTOR = \"0x095ea7b3\"" apps/base-sepolia-read-only-public-interface/src/constants.ts
+
+     if grep -R -E 'eth_send|sendTransaction|sendRawTransaction|personal_sign|eth_sign|signMessage|signTypedData|new Wallet|Wallet\.createRandom|fromMnemonic|wallet_switchEthereumChain|wallet_addEthereumChain' apps/base-sepolia-read-only-public-interface/src; then
+      echo "Forbidden send or sign path detected"
+      exit 1
+     fi
+
+     if grep -R -E '(PRIVATE_KEY|MNEMONIC|SEED_PHRASE|RECOVERY_PHRASE|WALLET_SECRET|SIGNER_KEY|DEPLOYER_KEY|API_KEY|BEARER_TOKEN|RPC_URL)[[:space:]]*=[^[:space:]#]+' apps/base-sepolia-read-only-public-interface/src docs/generated/V0_5_2_BASE_SEPOLIA_READ_ONLY_CONFIG_CANDIDATE.json; then
+      echo "Secret-assignment-shaped value detected"
+      exit 1
+     fi
+
+   - name: Build static pilot artifact
+    shell: bash
+    run: |
+     set -euo pipefail
+
+     SITE_DIR="_site"
+     rm -rf "$SITE_DIR"
+     mkdir -p "$SITE_DIR/docs" "$SITE_DIR/source"
+
+     cp docs/pilots/V0_5_2_BASE_SEPOLIA_READ_ONLY_PILOT_README.md "$SITE_DIR/docs/pilot-readme.md"
+     cp docs/pilots/V0_5_2_BASE_SEPOLIA_READ_ONLY_PILOT_BOUNDARIES.md "$SITE_DIR/docs/pilot-boundaries.md"
+     cp docs/pilots/V0_5_2_BASE_SEPOLIA_READ_ONLY_PILOT_MANIFEST.md "$SITE_DIR/docs/pilot-manifest.md"
+     cp docs/generated/V0_5_2_BASE_SEPOLIA_READ_ONLY_CONFIG_CANDIDATE.json "$SITE_DIR/docs/read-only-config-candidate.json"
+
+     cp apps/base-sepolia-read-only-public-interface/src/constants.ts "$SITE_DIR/source/constants.ts"
+     cp apps/base-sepolia-read-only-public-interface/src/publicInterfaceWarnings.ts "$SITE_DIR/source/publicInterfaceWarnings.ts"
+     cp apps/base-sepolia-read-only-public-interface/src/noWalletWriteBoundary.ts "$SITE_DIR/source/noWalletWriteBoundary.ts"
+     cp apps/base-sepolia-read-only-public-interface/src/readOnlyInterfaceModel.ts "$SITE_DIR/source/readOnlyInterfaceModel.ts"
+     cp apps/base-sepolia-read-only-public-interface/src/index.ts "$SITE_DIR/source/index.ts"
+
+     cat > "$SITE_DIR/index.html" <<'HTML'
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>NST Core v0.5.2 Base Sepolia Read-Only Pilot</title>
+</head>
+<body>
+ <main>
+  <h1>NST Core v0.5.2 Base Sepolia Read-Only Pilot</h1>
+  <p>Status: Base Sepolia testnet read-only pilot.</p>
+  <p>Network: Base Sepolia.</p>
+  <p>Chain ID: 84532.</p>
+  <p>Mainnet: not approved.</p>
+  <p>Wallet writes: blocked.</p>
+  <p>Transactions: blocked.</p>
+  <p>Governance writes: blocked.</p>
+  <p>Treasury routes: blocked.</p>
+  <h2>Evidence</h2>
+  <ul>
+   <li><a href="./docs/pilot-readme.md">Pilot README</a></li>
+   <li><a href="./docs/pilot-boundaries.md">Pilot boundaries</a></li>
+   <li><a href="./docs/pilot-manifest.md">Pilot manifest</a></li>
+   <li><a href="./docs/read-only-config-candidate.json">Read-only config candidate</a></li>
+  </ul>
+  <h2>Source boundary references</h2>
+  <ul>
+   <li><a href="./source/constants.ts">constants.ts</a></li>
+   <li><a href="./source/publicInterfaceWarnings.ts">publicInterfaceWarnings.ts</a></li>
+   <li><a href="./source/noWalletWriteBoundary.ts">noWalletWriteBoundary.ts</a></li>
+   <li><a href="./source/readOnlyInterfaceModel.ts">readOnlyInterfaceModel.ts</a></li>
+   <li><a href="./source/index.ts">index.ts</a></li>
+  </ul>
+ </main>
+</body>
+</html>
+HTML
+
+     find "$SITE_DIR" -type f -maxdepth 3 -print | sort
+
+   - name: Upload GitHub Pages artifact
+    uses: actions/upload-pages-artifact@v4
+    with:
+     path: _site
+
+ deploy:
+  name: Deploy Base Sepolia read-only static site
+  runs-on: ubuntu-latest
+  needs: build
+  environment:
+   name: github-pages
+   url: ${{ steps.deployment.outputs.page_url }}
+  steps:
+   - name: Deploy to GitHub Pages
+    id: deployment
+    uses: actions/deploy-pages@v4
