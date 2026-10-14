@@ -1,7 +1,13 @@
-name: v0.5.2 Base Sepolia Read-Only Pages
+name: NST v0.5.2 Base Sepolia Read-Only Pages Manual
 
-on:
+"on":
  workflow_dispatch:
+  inputs:
+   manual_run_reason:
+    description: Controlled Base Sepolia read-only Pages deployment confirmation
+    required: true
+    default: base-sepolia-read-only-pages
+    type: string
 
 permissions:
  contents: read
@@ -18,7 +24,7 @@ jobs:
   runs-on: ubuntu-latest
   steps:
    - name: Checkout v0.5.2 phase branch
-    uses: actions/checkout@v6
+    uses: actions/checkout@v4
     with:
      ref: phase/v0.5.2-mainnet-readiness
 
